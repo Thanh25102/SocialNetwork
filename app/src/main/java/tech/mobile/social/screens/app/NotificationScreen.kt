@@ -1,4 +1,4 @@
-package tech.mobile.social.screens.home
+package tech.mobile.social.screens.app
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import tech.mobile.social.ui.theme.NavigationBarTheme
 
 @Composable
-fun FlowingScreen(navController: NavController) {
+fun NotificationScreen(navController: NavController) {
     NavigationBarTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -36,7 +36,7 @@ fun FlowingScreen(navController: NavController) {
 
                 }
                 Text(
-                    "Flowing Screen",
+                    "Notification Screen",
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(vertical = 20.dp)
                 )

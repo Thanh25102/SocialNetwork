@@ -11,10 +11,10 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
 import tech.mobile.social.Screens
 import tech.mobile.social.navigation.app.home.HomeNavBar
-import tech.mobile.social.screens.*
-import tech.mobile.social.screens.home.FlowingScreen
-import tech.mobile.social.screens.home.ForYouScreen
-import tech.mobile.social.screens.home.GroupScreen
+import tech.mobile.social.screens.app.FriendsScreen
+import tech.mobile.social.screens.app.NotificationScreen
+import tech.mobile.social.screens.app.PostScreen
+import tech.mobile.social.screens.app.ProfileScreen
 
 @Composable
 fun BottomNavigationBar(rootNavController:NavController) {

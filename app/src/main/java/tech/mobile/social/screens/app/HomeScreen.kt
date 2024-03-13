@@ -1,5 +1,6 @@
-package tech.mobile.social.screens.home
+package tech.mobile.social.screens.app
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -13,30 +14,24 @@ import androidx.navigation.NavController
 import tech.mobile.social.ui.theme.NavigationBarTheme
 
 @Composable
-fun GroupScreen(navController: NavController) {
+fun HomeScreen(navController:NavController ){
     NavigationBarTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(15.dp),
+                modifier = Modifier.fillMaxSize().padding(15.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(250.dp)
+                    modifier = Modifier.fillMaxWidth()
+                        .height(200.dp)
                         .padding(horizontal = 15.dp, vertical = 10.dp)
                         .clip(MaterialTheme.shapes.large)
                 ) {
 
                 }
                 Text(
-                    "Group Screen",
+                    "Home Screen",
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(vertical = 20.dp)
                 )

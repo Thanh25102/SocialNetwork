@@ -7,12 +7,14 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import tech.mobile.social.navigation.app.BottomNavigationBar
 import tech.mobile.social.Screens
-import tech.mobile.social.screens.LoginScreen
+import tech.mobile.social.screens.auth.ForgotPasswordScreen
+import tech.mobile.social.screens.auth.LoginScreen
+import tech.mobile.social.screens.auth.RegisterScreen
 
 @Composable
 fun RootNavigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screens.AppRoot.route) {
+    NavHost(navController = navController, startDestination = Screens.Auth.route) {
         //auth navigation
         navigation(
             startDestination = Screens.Login.route, route = Screens.Auth.route
@@ -21,10 +23,10 @@ fun RootNavigation() {
                 LoginScreen(navController)
             }
             composable(route = Screens.Register.route) {
-                LoginScreen(navController)
+                RegisterScreen(navController)
             }
             composable(route = Screens.ForgotPassword.route) {
-                LoginScreen(navController)
+                ForgotPasswordScreen(navController)
             }
         }
 
