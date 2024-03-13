@@ -1,4 +1,4 @@
-package tech.mobile.social
+package tech.mobile.social.navigation.app
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -6,17 +6,18 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import tech.mobile.social.screens.HomeScreen
-import tech.mobile.social.screens.ProfileScreen
-import tech.mobile.social.screens.SearchScreen
+import androidx.navigation.compose.*
+import tech.mobile.social.Screens
+import tech.mobile.social.navigation.app.home.HomeNavBar
+import tech.mobile.social.screens.*
+import tech.mobile.social.screens.home.FlowingScreen
+import tech.mobile.social.screens.home.ForYouScreen
+import tech.mobile.social.screens.home.GroupScreen
 
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(rootNavController:NavController) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -27,9 +28,9 @@ fun BottomNavigationBar() {
                 BottomNavigationItem().bottomNavigationItems().forEachIndexed { _, navigationItem ->
                     NavigationBarItem(
                         selected = navigationItem.route == currentDestination?.route,
-                        label = {
-                            Text(navigationItem.title)
-                        },
+//                        label = {
+//                            Text(navigationItem.title)
+//                        },
                         icon = {
                             Icon(
                                 navigationItem.icon,
@@ -56,10 +57,17 @@ fun BottomNavigationBar() {
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable(Screens.Home.route) {
-                HomeScreen(navController)
+                HomeNavBar(navController)
             }
-            composable(Screens.Search.route) {
-                SearchScreen(navController)
+
+            composable(Screens.Friends.route) {
+                FriendsScreen(navController)
+            }
+            composable(Screens.Post.route) {
+                PostScreen(navController)
+            }
+            composable(Screens.Notification.route) {
+                NotificationScreen(navController)
             }
             composable(Screens.Profile.route) {
                 ProfileScreen(navController)

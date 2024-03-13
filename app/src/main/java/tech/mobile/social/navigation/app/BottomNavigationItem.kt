@@ -1,10 +1,9 @@
-package tech.mobile.social
+package tech.mobile.social.navigation.app
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import tech.mobile.social.Screens
 
 data class BottomNavigationItem(
     val route: String = "",
@@ -13,7 +12,9 @@ data class BottomNavigationItem(
 ) {
     fun bottomNavigationItems() = listOf(
         BottomNavigationItem(Screens.Home.route, "Home", Icons.Filled.Home),
-        BottomNavigationItem(Screens.Search.route, "Search", Icons.Filled.Search),
+        BottomNavigationItem(Screens.Friends.route, "Friends", Icons.Filled.Group),
+        BottomNavigationItem(Screens.Post.route, "Post", Icons.Filled.PostAdd),
+        BottomNavigationItem(Screens.Notification.route, "Notification", Icons.Filled.Notifications),
         BottomNavigationItem(Screens.Profile.route, "Profile", Icons.Filled.AccountCircle)
     )
 
