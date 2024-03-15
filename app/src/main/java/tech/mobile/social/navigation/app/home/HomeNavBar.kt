@@ -16,10 +16,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import tech.mobile.social.Screens
-import tech.mobile.social.screens.*
-import tech.mobile.social.screens.app.home.FlowingScreen
-import tech.mobile.social.screens.app.home.ForYouScreen
-import tech.mobile.social.screens.app.home.GroupScreen
+import tech.mobile.social.presentation.app.home.FlowingScreen
+import tech.mobile.social.presentation.app.home.ForYouScreen
+import tech.mobile.social.presentation.app.home.GroupScreen
 
 @Composable
 fun HomeNavBar(appNavController: NavController) {

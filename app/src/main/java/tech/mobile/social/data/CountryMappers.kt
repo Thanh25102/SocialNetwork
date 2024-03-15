@@ -2,8 +2,8 @@ package tech.mobile.social.data
 
 import tech.mobile.social.CountriesQuery
 import tech.mobile.social.CountryQuery
-import tech.mobile.social.domain.DetailedCountry
-import tech.mobile.social.domain.SimpleCountry
+import tech.mobile.social.domain.model.country.DetailedCountry
+import tech.mobile.social.domain.model.country.SimpleCountry
 
 fun CountryQuery.Country.toDetailedCountry(): DetailedCountry {
     return DetailedCountry(

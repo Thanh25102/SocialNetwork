@@ -5,10 +5,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import tech.mobile.social.data.ApolloCountryClient
-import tech.mobile.social.domain.CountryClient
-import tech.mobile.social.domain.GetCountriesUseCase
-import tech.mobile.social.domain.GetCountryUseCase
+import tech.mobile.social.data.repository.ApolloCountryClientRepoImpl
+import tech.mobile.social.domain.repository.CountryClientRepo
 import javax.inject.Singleton
 
 @Module
@@ -25,20 +23,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesCountryClient(apolloClient: ApolloClient): CountryClient {
-        return ApolloCountryClient(apolloClient)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetCountriesUseCase(countryClient: CountryClient): GetCountriesUseCase {
-        return GetCountriesUseCase(countryClient)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetCountryUseCase(countryClient: CountryClient): GetCountryUseCase {
-        return GetCountryUseCase(countryClient)
+    fun providesCountryClient(apolloClient: ApolloClient): CountryClientRepo {
+        return ApolloCountryClientRepoImpl(apolloClient)
     }
 
 }

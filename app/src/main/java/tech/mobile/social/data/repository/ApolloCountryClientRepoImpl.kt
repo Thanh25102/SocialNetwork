@@ -1,15 +1,17 @@
-package tech.mobile.social.data
+package tech.mobile.social.data.repository
 
 import com.apollographql.apollo3.ApolloClient
 import tech.mobile.social.CountriesQuery
 import tech.mobile.social.CountryQuery
-import tech.mobile.social.domain.CountryClient
-import tech.mobile.social.domain.DetailedCountry
-import tech.mobile.social.domain.SimpleCountry
+import tech.mobile.social.data.toDetailedCountry
+import tech.mobile.social.data.toSimpleCountry
+import tech.mobile.social.domain.repository.CountryClientRepo
+import tech.mobile.social.domain.model.country.DetailedCountry
+import tech.mobile.social.domain.model.country.SimpleCountry
 
-class ApolloCountryClient(
+class ApolloCountryClientRepoImpl(
     private val apolloClient: ApolloClient
-) : CountryClient {
+) : CountryClientRepo {
 
     override suspend fun getCountries(): List<SimpleCountry> {
         return apolloClient

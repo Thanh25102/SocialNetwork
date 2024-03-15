@@ -1,4 +1,4 @@
-package tech.mobile.social.screens.app
+package tech.mobile.social.presentation.app.post
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import tech.mobile.social.ui.theme.NavigationBarTheme
 
 @Composable
-fun FriendsScreen(navController: NavController) {
+fun PostScreen(navController: NavController) {
     NavigationBarTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -36,7 +36,7 @@ fun FriendsScreen(navController: NavController) {
 
                 }
                 Text(
-                    "Friends Screen",
+                    "Post Screen",
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(vertical = 20.dp)
                 )

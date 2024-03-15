@@ -1,6 +1,7 @@
-package tech.mobile.social.screens.app.home
+package tech.mobile.social.presentation.auth
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -10,11 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import tech.mobile.social.Screens
 import tech.mobile.social.ui.theme.NavigationBarTheme
 
 @Composable
-fun FlowingScreen(navController: NavController) {
-    NavigationBarTheme {
+fun ForgotPasswordScreen(navController: NavController) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -29,18 +30,17 @@ fun FlowingScreen(navController: NavController) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(250.dp)
+                        .height(200.dp)
                         .padding(horizontal = 15.dp, vertical = 10.dp)
                         .clip(MaterialTheme.shapes.large)
                 ) {
-
                 }
-                Text(
-                    "Flowing Screen",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(vertical = 20.dp)
-                )
+                Button(onClick = { navController.navigate(Screens.Login.route) }) {
+                    Text("Login")
+                }
+                Button(onClick = { navController.navigate(Screens.Register.route) }) {
+                    Text("Register")
+                }
             }
         }
-    }
 }

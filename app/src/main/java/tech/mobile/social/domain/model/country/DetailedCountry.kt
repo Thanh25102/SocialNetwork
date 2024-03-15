@@ -1,4 +1,4 @@
-package tech.mobile.social.domain
+package tech.mobile.social.domain.model.country
 
 data class DetailedCountry(
     val code: String,

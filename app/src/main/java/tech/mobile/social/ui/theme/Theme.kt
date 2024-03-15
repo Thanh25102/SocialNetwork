@@ -9,7 +9,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
-import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 
 
 private val DarkColorScheme = darkColorScheme(
@@ -54,7 +54,9 @@ fun NavigationBarTheme(
     if (!view.isInEditMode) {
         SideEffect {
             (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
-            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController((view.context as Activity).window, view)
+                .isAppearanceLightStatusBars = darkTheme
+
         }
     }
 
