@@ -16,9 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import tech.mobile.social.Screens
-import tech.mobile.social.presentation.app.home.FlowingScreen
-import tech.mobile.social.presentation.app.home.ForYouScreen
-import tech.mobile.social.presentation.app.home.GroupScreen
+import tech.mobile.social.presentation.app.home2.foryou.ForYouRoute
 
 @Composable
 fun HomeNavBar(appNavController: NavController) {
@@ -52,13 +50,14 @@ fun HomeNavBar(appNavController: NavController) {
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable(Screens.ForYou.route) {
-                ForYouScreen(navController)
+//                ForYouScreen(navController)
+                ForYouRoute()
             }
             composable(Screens.Group.route) {
-                GroupScreen(navController)
+//                GroupScreen(navController)
             }
             composable(Screens.Following.route) {
-                FlowingScreen(navController)
+//                FlowingScreen(navController)
             }
         }
     }

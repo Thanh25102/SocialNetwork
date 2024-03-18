@@ -295,7 +295,7 @@ fun BtnApp(
     onClick: () -> Unit = {}
 ) {
     Button(
-        onClick = { },
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor),
         modifier = Modifier.widthIn(min = 48.dp)
     ) {

@@ -11,10 +11,10 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
 import tech.mobile.social.Screens
 import tech.mobile.social.navigation.app.home.HomeNavBar
-import tech.mobile.social.presentation.app.friends.FriendsScreen
-import tech.mobile.social.presentation.app.notification.NotificationScreen
+import tech.mobile.social.presentation.app.friend.FriendRoute
+import tech.mobile.social.presentation.app.notifications.NotificationsRoute
 import tech.mobile.social.presentation.app.post.PostScreen
-import tech.mobile.social.presentation.app.profile.ProfileScreen
+import tech.mobile.social.presentation.app.profiles.ProfilesRoute
 
 @Composable
 fun BottomNavigationBar(rootNavController:NavController) {
@@ -59,18 +59,20 @@ fun BottomNavigationBar(rootNavController:NavController) {
             composable(Screens.Home.route) {
                 HomeNavBar(navController)
             }
-
             composable(Screens.Friends.route) {
-                FriendsScreen(navController)
+//                FriendsScreen(navController)
+                FriendRoute()
             }
             composable(Screens.Post.route) {
                 PostScreen(navController)
             }
             composable(Screens.Notification.route) {
-                NotificationScreen(navController)
+//                NotificationScreen(navController)
+                NotificationsRoute()
             }
             composable(Screens.Profile.route) {
-                ProfileScreen(navController)
+//                ProfileScreen(navController)
+                ProfilesRoute()
             }
         }
     }

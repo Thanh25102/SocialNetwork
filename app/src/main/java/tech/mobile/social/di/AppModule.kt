@@ -5,8 +5,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import tech.mobile.social.data.repository.ApolloCountryClientRepoImpl
-import tech.mobile.social.domain.repository.CountryClientRepo
+import tech.mobile.social.data.repository.AuthorizeRepoImpl
+import tech.mobile.social.domain.repository.AuthorizeRepo
 import javax.inject.Singleton
 
 @Module
@@ -17,14 +17,15 @@ object AppModule {
     @Singleton
     fun provideApolloClient(): ApolloClient {
         return ApolloClient.Builder()
-            .serverUrl("https://countries.trevorblades.com/graphql")
+            .serverUrl("http://192.168.28.139:8334/graphql")
             .build()
     }
 
+
     @Provides
     @Singleton
-    fun providesCountryClient(apolloClient: ApolloClient): CountryClientRepo {
-        return ApolloCountryClientRepoImpl(apolloClient)
+    fun providesAuthorizeRepo(apolloClient: ApolloClient): AuthorizeRepo {
+        return AuthorizeRepoImpl(apolloClient)
     }
 
 }

@@ -10,6 +10,8 @@ import tech.mobile.social.navigation.app.BottomNavigationBar
 import tech.mobile.social.presentation.auth.ForgotPasswordScreen
 import tech.mobile.social.presentation.auth.LoginScreen
 import tech.mobile.social.presentation.auth.RegisterScreen
+import tech.mobile.social.presentation.auth.login2.Login2Route
+import tech.mobile.social.presentation.auth.register.RegisterRoute
 import tech.mobile.social.ui.theme.NavigationBarTheme
 
 @Composable
@@ -22,12 +24,13 @@ fun RootNavigation() {
         ) {
             composable(route = Screens.Login.route) {
                 NavigationBarTheme {
-                    LoginScreen(navController)
+                    Login2Route(navController)
                 }
             }
             composable(route = Screens.Register.route) {
                 NavigationBarTheme {
-                    RegisterScreen(navController)
+//                    RegisterScreen(navController)
+                    RegisterRoute(navController = navController)
                 }
             }
             composable(route = Screens.ForgotPassword.route) {
