@@ -64,6 +64,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("com.apollographql.apollo3:apollo-runtime")
+    implementation("com.apollographql.apollo3:apollo-adapters")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -81,6 +82,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
 }
 
 // Allow references to generated code
@@ -92,5 +95,5 @@ apollo {
     service("service") {
         packageName.set("tech.mobile.social")
     }
-
 }
+

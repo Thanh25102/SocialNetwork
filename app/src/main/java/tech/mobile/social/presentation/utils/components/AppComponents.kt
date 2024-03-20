@@ -221,13 +221,13 @@ fun PasswordApp(
         value = password,
         onValueChange = {
             password = it
+            onValueChange(it)
             error = if (repeated) {
                 it != repeatedPassword
             } else {
                 !validateInput(it, regex)
             }
             errorMessage = if (error) errMsg else ""
-            onValueChange(it)
         },
         label = { Text(text = label) },
         singleLine = true,

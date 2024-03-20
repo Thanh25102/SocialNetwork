@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tech.mobile.social.R
-import tech.mobile.social.Screens
 import tech.mobile.social.presentation.utils.components.*
 
 @Composable
@@ -42,21 +41,21 @@ fun RegisterScreen(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = stringResource(id = R.string.logo)
             )
-            InputApp(onValueChange = {}, label = "Họ và tên", regex = "^[a-zA-Z]\\w{5,}$")
-            EmailApp(onValueChange = {})
+            InputApp(onValueChange = { actions.onNameChange(it) }, label = "Họ và tên", regex = "^[a-zA-Z]\\w{5,}$")
+            EmailApp(onValueChange = { actions.onEmailChange(it) })
             PasswordApp(
-                onValueChange = {},
-                regex = stringResource(R.string.regexPassword),
+                onValueChange = { actions.onPasswordChange(it) },
+//                regex = stringResource(R.string.regexPassword),
                 errMsg = stringResource(R.string.errPasswordMsg)
             )
             PasswordApp(
-                onValueChange = {},
+                onValueChange = { actions.onPasswordConfirmChange(it) },
                 label = "Nhập lại mật khẩu",
                 repeated = true,
-                repeatedPassword = "",
+                repeatedPassword = state.password,
                 errMsg = stringResource(R.string.errPasswordRepeated)
             )
-            BtnApp("Đăng ký")
+            BtnApp("Đăng ký", onClick = { actions.onRegister() })
             AuthTxtApp(
                 "Đã có tài khoản? ",
 //                onClick = { navController.navigate(Screens.Login.route) },

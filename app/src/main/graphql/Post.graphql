@@ -1,0 +1,20 @@
+query post($take: Float!,$after: String) {
+    posts(take: $take, after: $after) {
+        edges {
+            node {
+                id
+                content
+                createdAt
+                user {
+                    id
+                    username
+                }
+            }
+            cursor
+        }
+        pageInfo {
+            endCursor
+            hasNextPage
+        }
+    }
+}

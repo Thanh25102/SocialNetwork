@@ -6,5 +6,7 @@ data class Auth(
 )
 
 data class User(
-    val id: String
+    val id: String,
+    val username: String?,
+    val email: String?,
 )

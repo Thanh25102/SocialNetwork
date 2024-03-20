@@ -17,4 +17,8 @@ data class RegisterState(
  **/
 data class RegisterActions(
     val onRegister: () -> Unit = {},
+    val onNameChange: (name: String) -> Unit = {},
+    val onEmailChange: (email: String) -> Unit = {},
+    val onPasswordChange: (password: String) -> Unit = {},
+    val onPasswordConfirmChange: (passwordConfirm: String) -> Unit = {},
 )

@@ -26,7 +26,11 @@ fun RegisterRoute(
 fun rememberRegisterActions(coordinator: RegisterCoordinator): RegisterActions {
     return remember(coordinator) {
         RegisterActions(
-            onRegister = coordinator::onRegister
+            onRegister = coordinator::onRegister,
+            onNameChange = coordinator.viewModel::doNameChange,
+            onEmailChange = coordinator.viewModel::doEmailChange,
+            onPasswordChange = coordinator.viewModel::doPasswordChange,
+            onPasswordConfirmChange = coordinator.viewModel::doPasswordConfirmChange
         )
     }
 }

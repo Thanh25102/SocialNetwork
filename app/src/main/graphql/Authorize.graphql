@@ -3,6 +3,8 @@ mutation authorize($input: AuthorizeInput!) {
         accessToken
         user {
             id
+            email
+            username
         }
     }
 }
