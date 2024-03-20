@@ -13,5 +13,6 @@ data class Login2State(val email: String = "", val password: String = "")
 data class Login2Actions(
     val onLogin: () -> Unit = {},
     val onEmailChange: (String) -> Unit = {},
-    val onPasswordChange: (String) -> Unit = {}
+    val onPasswordChange: (String) -> Unit = {},
+    val navRegister: () -> Unit = {}
 )

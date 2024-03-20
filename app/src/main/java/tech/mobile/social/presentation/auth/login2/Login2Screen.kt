@@ -46,7 +46,7 @@ fun Login2Screen(
             EmailApp(onValueChange = { actions.onEmailChange(it) })
             PasswordApp(onValueChange = { actions.onPasswordChange(it) })
             BtnApp("Đăng nhập", onClick = { actions.onLogin() })
-            AuthTxtApp("Chưa có tài khoản? ", onClick = { }, activeValue = "Đăng ký")
+            AuthTxtApp("Chưa có tài khoản? ", onClick = { actions.navRegister() }, activeValue = "Đăng ký")
         }
     }
 }

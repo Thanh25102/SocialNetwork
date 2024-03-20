@@ -10,11 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import tech.mobile.social.R
 import tech.mobile.social.presentation.utils.components.BtnApp
 import tech.mobile.social.presentation.utils.formatTimeAgo
+import tech.mobile.social.ui.theme.HiddenTextColor
 import java.time.LocalDateTime
 
 @Composable
@@ -22,7 +25,9 @@ fun FriendItemComponent(
     avatarResource: Int, name: String, time: LocalDateTime
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
@@ -30,16 +35,20 @@ fun FriendItemComponent(
             painter = painterResource(id = avatarResource),
             contentDescription = "Avatar",
             modifier = Modifier
-                .size(40.dp)
+                .size(80.dp)
                 .clip(CircleShape),
             contentScale = ContentScale.Crop
         )
+        Spacer(modifier = Modifier.width(8.dp))
         Column {
-            Text(text = name)
-            Text(text = formatTimeAgo(LocalDateTime.now()))
+            // make text bold
+
+            Text(text = name, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            Text(text = formatTimeAgo(LocalDateTime.now()), color = HiddenTextColor, fontSize = 12.sp)
             Row {
-                BtnApp(onClick = {}, label = "Chấp nhận")
-                BtnApp(onClick = {}, label = "Xóa")
+                BtnApp(onClick = {}, label = "Chấp nhận", modifier = Modifier.width(120.dp))
+                Spacer(modifier = Modifier.width(4.dp))
+                BtnApp(onClick = {}, label = "Xóa", outline = true, modifier = Modifier.width(120.dp))
             }
         }
     }

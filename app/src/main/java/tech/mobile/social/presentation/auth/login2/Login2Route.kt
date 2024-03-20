@@ -28,7 +28,8 @@ fun rememberLogin2Actions(coordinator: Login2Coordinator): Login2Actions {
         Login2Actions(
             onLogin = coordinator::doLogin,
             onPasswordChange = coordinator.viewModel::updatePassword,
-            onEmailChange = coordinator.viewModel::updateEmail
+            onEmailChange = coordinator.viewModel::updateEmail,
+            navRegister = coordinator::navRegister
         )
     }
 }

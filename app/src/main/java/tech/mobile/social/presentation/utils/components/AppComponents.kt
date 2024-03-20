@@ -1,8 +1,10 @@
 package tech.mobile.social.presentation.utils.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -291,15 +293,29 @@ fun EmailApp(
 @Composable
 fun BtnApp(
     label: String = "Click me",
+    modifier: Modifier = Modifier,
     backgroundColor: Color = BtnColor,
-    onClick: () -> Unit = {}
+    outline: Boolean = false,
+    onClick: () -> Unit = {},
 ) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor),
-        modifier = Modifier.widthIn(min = 48.dp)
-    ) {
-        Text(label)
+    if (outline) {
+        OutlinedButton(
+            onClick = onClick,
+            modifier = modifier.widthIn(min = 48.dp),
+            shape = RoundedCornerShape(10.dp),
+            border = BorderStroke(1.dp, backgroundColor)
+        ) {
+            Text(label)
+        }
+    } else {
+        Button(
+            onClick = onClick,
+            colors = ButtonDefaults.buttonColors(backgroundColor),
+            modifier = modifier.widthIn(min = 48.dp),
+            shape = RoundedCornerShape(10.dp)
+        ) {
+            Text(label)
+        }
     }
 }
 
@@ -310,6 +326,8 @@ fun PreviewInputApp() {
         InputApp(onValueChange = {}, label = "Username")
         PasswordApp(onValueChange = {})
         DividerWithText("OR")
+        BtnApp()
+        BtnApp(outline = true)
         Spacer(modifier = Modifier.height(16.dp))
         Row(
             modifier = Modifier

@@ -19,9 +19,13 @@ class Login2Coordinator(
 
     fun doLogin() {
         // call api login
-        Log.d("Login","doooooooooo")
+        Log.d("Login", "doooooooooo")
         viewModel.doLogin()
         navController.navigate(Screens.Home.route)
+    }
+
+    fun navRegister() {
+        navController.navigate(Screens.Register.route)
     }
 }
 
