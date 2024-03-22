@@ -1,14 +1,19 @@
 package tech.mobile.social.navigation.app.home
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -24,21 +29,53 @@ fun HomeNavBar(appNavController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
+
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize(),
         topBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = Color.Transparent,
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
                 HomeNavItem().homeNavItems().forEachIndexed { _, navigationItem ->
-                    Button(onClick = {
-                        navController.navigate(navigationItem.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
+                    Column(
+                        modifier = Modifier
+
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .clickable {
+                                navController.navigate(navigationItem.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = navigationItem.title,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 8.dp),
+                            fontWeight = if (currentDestination?.route == navigationItem.route) {
+                                FontWeight.Bold
+                            } else {
+                                FontWeight.Normal
                             }
-                            launchSingleTop = true
-                            restoreState = true
+                        )
+                        if (currentDestination?.route == navigationItem.route) {
+                            HorizontalDivider(
+                                thickness = 3.dp, modifier = Modifier
+                                    .width(44.dp)
+                            )
                         }
-                    }) {
-                        Text(text = navigationItem.title)
+                        Spacer(modifier = Modifier.height(8.dp))
                     }
                 }
             }

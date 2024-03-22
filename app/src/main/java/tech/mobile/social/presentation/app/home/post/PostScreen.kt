@@ -22,7 +22,6 @@ import tech.mobile.social.presentation.app.home.post.components.CommentsComponen
 import tech.mobile.social.presentation.utils.formatTimeAgo
 import java.time.LocalDateTime
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PostScreen(
     state: State,

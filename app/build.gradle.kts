@@ -39,16 +39,13 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
+    kotlinCompilerExtensionVersion = "1.5.10"
     }
 }
 
 dependencies {
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("com.google.dagger:hilt-android:2.49")
+    kapt("com.google.dagger:hilt-android-compiler:2.49")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -84,6 +81,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
+
+    implementation("com.airbnb.android:lottie-compose:6.4.0")
+
 }
 
 // Allow references to generated code
@@ -94,6 +94,13 @@ kapt {
 apollo {
     service("service") {
         packageName.set("tech.mobile.social")
+//        mapScalar("DateTime", "java.util.Date", "com.apollographql.apollo3.adapter.DateAdapter")
+        mapScalar("DateTime", "java.time.LocalDateTime", "com.apollographql.apollo3.adapter.JavaLocalDateTimeAdapter")
+//        introspection {
+//            endpointUrl.set("https://example.com/graphql")
+//            headers.put("api-key", "1234567890abcdef")
+//            schemaFile.set(file("src/main/graphql/schema.graphqls"))
+//        }
     }
 }
 

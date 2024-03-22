@@ -8,9 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import tech.mobile.social.Screens
 import tech.mobile.social.navigation.app.BottomNavigationBar
 import tech.mobile.social.presentation.auth.ForgotPasswordScreen
-import tech.mobile.social.presentation.auth.LoginScreen
-import tech.mobile.social.presentation.auth.RegisterScreen
-import tech.mobile.social.presentation.auth.login2.Login2Route
+import tech.mobile.social.presentation.auth.login.LoginRoute
 import tech.mobile.social.presentation.auth.register.RegisterRoute
 import tech.mobile.social.ui.theme.NavigationBarTheme
 
@@ -24,7 +22,7 @@ fun RootNavigation() {
         ) {
             composable(route = Screens.Login.route) {
                 NavigationBarTheme {
-                    Login2Route(navController)
+                    LoginRoute(navController)
                 }
             }
             composable(route = Screens.Register.route) {

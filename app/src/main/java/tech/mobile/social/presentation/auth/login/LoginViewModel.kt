@@ -1,37 +1,24 @@
-package tech.mobile.social.presentation.auth.login2
+package tech.mobile.social.presentation.auth.login
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import tech.mobile.social.domain.repository.AuthorizeRepo
 import javax.inject.Inject
 
 @HiltViewModel
-class Login2ViewModel @Inject constructor(
+class LoginViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val authorizeRepo: AuthorizeRepo
 ) : ViewModel() {
 
-    private val _stateFlow: MutableStateFlow<Login2State> = MutableStateFlow(Login2State())
+    private val _stateFlow: MutableStateFlow<LoginState> = MutableStateFlow(LoginState())
 
     private val state = _stateFlow.asStateFlow();
 
-    val stateFlow: StateFlow<Login2State> = _stateFlow.asStateFlow()
-
-    fun doLogin() {
-        // call api login
-        Log.d("Login", "doLogin: " + state.value.email + " " + state.value.password)
-        viewModelScope.launch {
-//            val access = authorizeRepo.getAuthorize(state.value.email, state.value.password)
-//            Log.d("AccessToken", access.toString())
-        }
-    }
+    val stateFlow: StateFlow<LoginState> = _stateFlow.asStateFlow()
 
     fun updateEmail(email: String) {
         Log.d("Login", "updateEmail: $email")

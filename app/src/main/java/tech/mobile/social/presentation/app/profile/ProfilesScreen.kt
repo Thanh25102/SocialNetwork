@@ -86,7 +86,6 @@ fun ProfilesScreen(
 
         HorizontalDivider()
 
-        Text(text = "Bài viết")
 
         LazyColumn {
             items(state.posts.size) {

@@ -1,16 +1,16 @@
-package tech.mobile.social.presentation.auth.login2
+package tech.mobile.social.presentation.auth.login
 
 
 /**
  * UI State that represents Login2Screen
  **/
-data class Login2State(val email: String = "", val password: String = "")
+data class LoginState(val email: String = "", val password: String = "")
 
 /**
  * Login2 Actions emitted from the UI Layer
  * passed to the coordinator to handle
  **/
-data class Login2Actions(
+data class LoginActions(
     val onLogin: () -> Unit = {},
     val onEmailChange: (String) -> Unit = {},
     val onPasswordChange: (String) -> Unit = {},

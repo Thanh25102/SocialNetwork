@@ -31,6 +31,7 @@ data class PostState(
     var imageResource: Int? = null,
     var sheetState: Boolean = false,
 )
+
 /**
  * Post Actions emitted from the UI Layer
  * passed to the coordinator to handle

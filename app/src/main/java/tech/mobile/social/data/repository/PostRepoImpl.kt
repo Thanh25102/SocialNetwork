@@ -9,6 +9,7 @@ import tech.mobile.social.domain.model.post.Post
 import tech.mobile.social.domain.model.post.Posts
 import tech.mobile.social.domain.model.post.User
 import tech.mobile.social.domain.repository.PostRepo
+import java.time.LocalDateTime
 
 class PostRepoImpl(
     private val apolloClient: ApolloClient
@@ -21,10 +22,11 @@ class PostRepoImpl(
             Post(
                 it.node.id,
                 it.node.content,
-                it.node.createdAt,
+                it.node.createdAt ?: LocalDateTime.now(),
                 User(it.node.user.id, it.node.user.username)
             )
         } ?: emptyList()
+
         val pageInfo = PageInfo(
             endCursor = results?.pageInfo?.endCursor ?: "",
             hasNextPage = results?.pageInfo?.hasNextPage ?: false

@@ -3,15 +3,20 @@ package tech.mobile.social.presentation.app.home.foryou
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import tech.mobile.social.shared.UserViewModel
 
 /**
  * Screen's coordinator which is responsible for handling actions from the UI layer
  * and one-shot actions based on the new UI state
  */
 class ForYouCoordinator(
-    val viewModel: ForYouViewModel
+    val forYouViewModel: ForYouViewModel,
+    val userViewModel: UserViewModel
 ) {
-    val screenStateFlow = viewModel.stateFlow
+    val forYouStateFlow = forYouViewModel.stateFlow
+    val userStateFlow = userViewModel.stateFlow
+    val paginationStateFlow = forYouViewModel.paginationState
+    val isRefreshFlow = forYouViewModel.isRefresh
 
     fun doStuff() {
         // TODO Handle UI Action
@@ -20,11 +25,13 @@ class ForYouCoordinator(
 
 @Composable
 fun rememberForYouCoordinator(
-    viewModel: ForYouViewModel = hiltViewModel()
+    forYouViewModel: ForYouViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel()
 ): ForYouCoordinator {
-    return remember(viewModel) {
+    return remember(forYouViewModel) {
         ForYouCoordinator(
-            viewModel = viewModel
+            forYouViewModel = forYouViewModel,
+            userViewModel = userViewModel
         )
     }
 }
