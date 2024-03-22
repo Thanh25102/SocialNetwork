@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.*
 import tech.mobile.social.R
 import tech.mobile.social.presentation.app.home.foryou.components.InfiniteListHandler
+import tech.mobile.social.presentation.app.home.foryou.components.ScrollButton
 import tech.mobile.social.presentation.app.home.post.PostRoute
 import tech.mobile.social.presentation.app.home.post.PostState
 import tech.mobile.social.shared.UserState
@@ -85,6 +86,7 @@ fun ForYouScreen(
 //            }
         }
     }
+    ScrollButton(lazyListState = lazyListState)
 }
 
 @Composable

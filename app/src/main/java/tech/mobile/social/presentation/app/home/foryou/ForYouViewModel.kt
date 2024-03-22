@@ -44,6 +44,7 @@ class ForYouViewModel @Inject constructor(
         skip: Int = 1
     ) {
         viewModelScope.launch(Dispatchers.IO) {
+            onRequestLoading()
             delay(1000L)
             onRequestSuccess(
                 arrayListOf(
@@ -83,7 +84,25 @@ class ForYouViewModel @Inject constructor(
             )
         }
     }
-    
+
+    private fun onRequestLoading() {
+        if (_stateFlow.value.posts.isEmpty()) {
+            _stateFlow.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
+        }
+
+        if (_stateFlow.value.posts.isNotEmpty()) {
+            _paginationState.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
+        }
+    }
+
     fun getPostsPaginated() {
         if (_stateFlow.value.posts.isEmpty()) {
             return
