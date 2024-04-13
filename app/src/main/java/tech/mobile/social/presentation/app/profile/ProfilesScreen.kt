@@ -33,9 +33,9 @@ fun ProfilesScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(11.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Start
         ) {
             Image(
                 painter = painterResource(id = R.drawable.manhthanh_3x4),
