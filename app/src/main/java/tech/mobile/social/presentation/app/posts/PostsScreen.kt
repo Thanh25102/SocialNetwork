@@ -56,11 +56,11 @@ fun PostsScreen(
                 },
             )
         }
-    ) { values ->
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(values)
+                .padding(it)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(

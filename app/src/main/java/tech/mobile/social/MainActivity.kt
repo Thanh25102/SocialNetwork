@@ -19,13 +19,6 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             NavigationBarTheme {
-//                val viewModel = hiltViewModel<CountriesViewModel>()
-//                val state by viewModel.state.collectAsState()
-//                CountriesScreen(
-//                    state = state,
-//                    onSelectCountry = viewModel::selectCountry,
-//                    onDismissCountryDialog = {},
-//                )
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     RootNavigation()
                 }

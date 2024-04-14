@@ -17,40 +17,33 @@ import tech.mobile.social.type.UserCreateInput
 import tech.mobile.social.utils.handleException
 
 class AuthorizeRepoImpl(
-    private val apolloClient: ApolloClient,
-    private val pref: SharedPreferences
+    private val apolloClient: ApolloClient, private val pref: SharedPreferences
 ) : AuthorizeRepo {
 
     override suspend fun getAuthorize(username: String, password: String): Result<Auth, DataError.ServerErrors> {
         return try {
-            val result = apolloClient
-                .mutation(AuthorizeMutation(AuthorizeInput(password = username, username = password)))
-                .execute()
+            val result =
+                apolloClient.mutation(AuthorizeMutation(AuthorizeInput(password = username, username = password)))
+                    .execute()
 
             result.data?.authorize?.accessToken.also { token ->
                 pref.edit().putString("token", token).apply()
             }
 
-            if (!result.hasErrors())
-                Result.Success(result.data!!.toAuth())
-            else
-                Result.Error(DataError.ServerErrors(handleException(result.errors!!)))
+            if (!result.hasErrors()) Result.Success(result.data!!.toAuth())
+            else Result.Error(DataError.ServerErrors(handleException(result.errors!!)))
         } catch (e: ApolloException) {
             Result.Error(DataError.ServerErrors(listOf("Đã có lỗi xảy ra")))
         }
     }
 
     override suspend fun authorize(
-        username: String,
-        password: String,
-        email: String
+        username: String, password: String, email: String
     ): Result<User, DataError.ServerErrors> {
         val result = apolloClient.mutation(
             RegisterMutation(
                 UserCreateInput(
-                    username = username,
-                    password = password,
-                    email = email
+                    username = username, password = password, email = email
                 )
             )
         ).execute()
@@ -60,4 +53,5 @@ class AuthorizeRepoImpl(
         } ?: Result.Success(result.data?.toUser() ?: User(id = "", null, null))
 
     }
+
 }
