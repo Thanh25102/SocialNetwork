@@ -8,7 +8,9 @@ import androidx.compose.runtime.staticCompositionLocalOf
 /**
  * UI State that represents PostsScreen
  **/
-class PostsState
+class PostsState {
+
+}
 
 /**
  * Posts Actions emitted from the UI Layer

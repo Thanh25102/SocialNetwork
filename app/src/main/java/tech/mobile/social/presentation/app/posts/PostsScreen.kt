@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import tech.mobile.social.R
 import tech.mobile.social.ui.theme.BtnColor
 
@@ -29,6 +30,7 @@ import tech.mobile.social.ui.theme.BtnColor
 fun PostsScreen(
     state: PostsState,
     actions: PostsActions,
+    /*navController: NavController*/
 ) {
 
     Scaffold(
@@ -39,7 +41,7 @@ fun PostsScreen(
                     Text(text = "Tạo bài viết")
                 },
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { /*navController.navigate(Screens.home)*/ }) { // please check this
                         Icon(
                             imageVector = Icons.Default.ArrowBackIosNew,
                             contentDescription = "Go back"
@@ -47,7 +49,7 @@ fun PostsScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { /*actions.doStuff()*/ }) { // please check this too
                         Icon(
                             imageVector = Icons.Default.Create,
                             contentDescription = "Create post"

@@ -35,8 +35,15 @@ class PostRepoImpl(
 
     }
 
-    override suspend fun createPost(post: Post): Result<Post, DataError.ServerErrors> {
+    override suspend fun createPost(
+        id: String,
+        content: String,
+        createdAt: LocalDateTime,
+        createdBy: User
+    ): Result<Post, DataError.ServerErrors> {
         TODO("Not yet implemented")
     }
+
+
 
 }
