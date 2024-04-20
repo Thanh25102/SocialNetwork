@@ -54,11 +54,11 @@ fun ForgotScreen(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                OutlinedTextField(
-                    label = { Text(text = "Email") },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                )
+//                OutlinedTextField(
+//                    label = { Text(text = "Email") },
+//                    singleLine = true,
+//                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+//                )
                 Button(
                     onClick = { },
 //                    colors = ButtonDefaults.buttonColors(BtnColor),
