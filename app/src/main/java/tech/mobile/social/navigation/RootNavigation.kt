@@ -31,17 +31,12 @@ fun RootNavigation() {
                 startDestination = Screens.Login.route, route = Screens.Auth.route
             ) {
                 composable(route = Screens.Login.route) {
-
                     LoginRoute(navController)
-
                 }
                 composable(route = Screens.Register.route) {
-
                     RegisterRoute(navController = navController)
-
                 }
                 composable(route = Screens.ForgotPassword.route) {
-
 
                 }
             }
