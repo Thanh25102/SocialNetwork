@@ -311,7 +311,8 @@ fun BtnApp(
         Button(
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(backgroundColor),
-            modifier = modifier.widthIn(min = 48.dp),
+            modifier = Modifier
+                .padding(horizontal = 50.dp, vertical = 50.dp), // Padding
             shape = RoundedCornerShape(10.dp)
         ) {
             Text(label)
