@@ -11,11 +11,15 @@ data class BottomNavigationItem(
     val icon: ImageVector = Icons.Filled.Home
 ) {
     fun bottomNavigationItems() = listOf(
-        BottomNavigationItem(Screens.Home.route, "Home", Icons.Filled.Home),
-        BottomNavigationItem(Screens.Friends.route, "Friends", Icons.Filled.Group),
-        BottomNavigationItem(Screens.Post.route, "Post", Icons.Filled.PostAdd),
-        BottomNavigationItem(Screens.Notification.route, "Notification", Icons.Filled.Notifications),
-        BottomNavigationItem(Screens.Profile.route, "Profile", Icons.Filled.AccountCircle)
+        BottomNavigationItem(Screens.Home.route, "Trang chủ", Icons.Filled.Home),
+        BottomNavigationItem(Screens.Friends.route, "Bạn bè", Icons.Filled.Group),
+//        BottomNavigationItem(Screens.Post.route, "Đăng bài", Icons.Filled.AddCircleOutline),
+        BottomNavigationItem(
+            Screens.Notification.route,
+            "Thông báo",
+            Icons.Filled.Notifications
+        ),
+        BottomNavigationItem(Screens.Profile.route, "Cá nhân", Icons.Filled.AccountCircle)
     )
 
 }
