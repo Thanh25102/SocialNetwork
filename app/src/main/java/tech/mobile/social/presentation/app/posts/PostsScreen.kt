@@ -29,7 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import tech.mobile.social.R
 import tech.mobile.social.Screens
-import tech.mobile.social.presentation.auth.LoginScreen
+
 import tech.mobile.social.ui.theme.BtnColor
 
 @OptIn(ExperimentalMaterial3Api::class)

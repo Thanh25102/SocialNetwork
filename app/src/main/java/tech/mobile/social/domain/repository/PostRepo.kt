@@ -8,6 +8,6 @@ import tech.mobile.social.domain.model.post.User
 import java.time.LocalDateTime
 
 interface PostRepo {
-    suspend fun getPosts(): Result<Posts, DataError.ServerErrors>
-    suspend fun createPost(id: String,content: String, createdAt: LocalDateTime,createdBy: User): Result<Post, DataError.ServerErrors>
+    suspend fun GetPosts(): Result<Posts, DataError.ServerErrors>
+    suspend fun CreatePost(id: String,content: String, createdAt: LocalDateTime,createdBy: User): Result<Post, DataError.ServerErrors>
 }

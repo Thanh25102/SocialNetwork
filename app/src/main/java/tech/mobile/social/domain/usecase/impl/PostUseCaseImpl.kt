@@ -12,10 +12,10 @@ import java.time.LocalDateTime
 
 class PostUseCaseImpl(private val postRepo : PostRepo) : PostUseCase {
     override suspend fun Getpost(): Result<Posts, DataError.ServerErrors> {
-        return postRepo.getPosts()
+        return postRepo.GetPosts()
     }
 
     override suspend fun Createpost(id: String, content: String, createdAt: LocalDateTime, createdBy: User): Result<Post, DataError.ServerErrors> {
-        return postRepo.createPost(id,content,createdAt,createdBy)
+        return postRepo.CreatePost(id,content,createdAt,createdBy)
     }
 }
