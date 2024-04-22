@@ -17,8 +17,8 @@ class PostsCoordinator(
 ) {
     val screenStateFlow = viewModel.stateFlow
 
-    fun doStuff(id: String, content: String, createdAt: java.time.LocalDateTime, createdBy: User) {
-        viewModel.createPost(id,content,createdAt,createdBy)
+    fun doStuff() {
+        viewModel.createPost()
 
     }
 

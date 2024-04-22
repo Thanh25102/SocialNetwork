@@ -23,8 +23,10 @@ class PostsViewModel @Inject constructor(
     val stateFlow: StateFlow<PostsState> = _stateFlow.asStateFlow()
 
 
-    fun createPost(id: String, content: String, createdAt: java.time.LocalDateTime, createdBy: User) {
+    fun createPost() {
+        val (id, content, createdAt,createdBy) = stateFlow.value
         viewModelScope.launch {
+
             val result = postUseCase.Createpost(id, content, createdAt, createdBy)
         }
     }
