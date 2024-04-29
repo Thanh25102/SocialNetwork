@@ -1,5 +1,6 @@
 package tech.mobile.social.data.repository
 
+import android.content.SharedPreferences
 import com.apollographql.apollo3.ApolloClient
 import tech.mobile.social.PostQuery
 import tech.mobile.social.domain.DataError
@@ -12,7 +13,8 @@ import tech.mobile.social.domain.repository.PostRepo
 import java.time.LocalDateTime
 
 class PostRepoImpl(
-    private val apolloClient: ApolloClient
+    private val apolloClient: ApolloClient,
+    pref: SharedPreferences
 ) : PostRepo {
     override suspend fun getPosts(): Result<Posts, DataError.ServerErrors> {
         val results = apolloClient.query(PostQuery())
@@ -35,8 +37,16 @@ class PostRepoImpl(
 
     }
 
-    override suspend fun createPost(post: Post): Result<Post, DataError.ServerErrors> {
+    override suspend fun CreatePost(
+        id: String,
+        content: String,
+        createdAt: LocalDateTime,
+        createdBy: User
+    ): Result<Post, DataError.ServerErrors> {
         TODO("Not yet implemented")
     }
+
+
+
 
 }

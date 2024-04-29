@@ -30,7 +30,8 @@ fun rememberRegisterActions(coordinator: RegisterCoordinator): RegisterActions {
             onNameChange = coordinator.viewModel::doNameChange,
             onEmailChange = coordinator.viewModel::doEmailChange,
             onPasswordChange = coordinator.viewModel::doPasswordChange,
-            onPasswordConfirmChange = coordinator.viewModel::doPasswordConfirmChange
+            onPasswordConfirmChange = coordinator.viewModel::doPasswordConfirmChange,
+            goBack = coordinator::goBack
         )
     }
 }

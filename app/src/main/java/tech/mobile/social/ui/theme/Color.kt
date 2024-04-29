@@ -1,17 +1,12 @@
 package tech.mobile.social.ui.theme
 
+
 import androidx.compose.ui.graphics.Color
+import androidx.core.graphics.toColorInt
 
+val TextColor = Color("#000000".toColorInt())
+val HiddenTextColor = Color("#999999".toColorInt())
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-
-val TextColor = Color(0xFF011E40)
-val HiddenTextColor = Color(0xFF595858)
-
-val BtnColor = Color(0XFF011E40)
+val BackgroundColor = Color("#FFFFFF".toColorInt())
+val BtnColor = Color("#011E40".toColorInt())
+val PrimaryColor = Color("#F94F7C".toColorInt())

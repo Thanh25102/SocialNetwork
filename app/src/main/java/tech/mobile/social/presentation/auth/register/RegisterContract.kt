@@ -16,6 +16,7 @@ data class RegisterState(
  * passed to the coordinator to handle
  **/
 data class RegisterActions(
+    val goBack: () -> Unit = {},
     val onRegister: () -> Unit = {},
     val onNameChange: (name: String) -> Unit = {},
     val onEmailChange: (email: String) -> Unit = {},
