@@ -20,8 +20,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import tech.mobile.social.Screens
+import tech.mobile.social.navigation.app.friend.FriendNavBar
 import tech.mobile.social.navigation.app.home.HomeNavBar
-import tech.mobile.social.presentation.app.friend.FriendRoute
 import tech.mobile.social.presentation.app.notifications.NotificationsRoute
 import tech.mobile.social.presentation.app.posts.PostsRoute
 import tech.mobile.social.presentation.app.profile.ProfilesRoute
@@ -96,7 +96,8 @@ fun BottomNavigationBar(rootNavController: NavController) {
             }
             composable(Screens.Friends.route) {
 //                FriendsScreen(navController)
-                FriendRoute()
+//                FriendRoute()
+                FriendNavBar(navController)
             }
             composable(Screens.Post.route) {
 //                PostScreen(navController)
