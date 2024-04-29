@@ -39,12 +39,15 @@ android {
         compose = true
     }
     composeOptions {
-    kotlinCompilerExtensionVersion = "1.5.10"
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
 }
 
 dependencies {
     implementation("com.google.dagger:hilt-android:2.49")
+    implementation("com.google.ai.client.generativeai:common:0.2.0")
+    implementation("com.google.ai.client.generativeai:generativeai:0.3.0")
+    implementation("com.google.firebase:firebase-vertexai:16.0.0-alpha02")
     kapt("com.google.dagger:hilt-android-compiler:2.49")
 
     implementation("androidx.core:core-ktx:1.12.0")

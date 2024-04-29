@@ -20,6 +20,10 @@ import com.apollographql.apollo3.api.json.JsonReader
 import com.apollographql.apollo3.api.json.JsonWriter
 import com.apollographql.apollo3.api.Adapter
 import com.apollographql.apollo3.api.CustomScalarAdapters
+import tech.mobile.social.data.repository.PostRepoImpl
+import tech.mobile.social.domain.repository.PostRepo
+import tech.mobile.social.domain.usecase.impl.PostUseCaseImpl
+import tech.mobile.social.domain.usecase.interfaces.PostUseCase
 import tech.mobile.social.type.DateTime
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -79,6 +83,18 @@ object AppModule {
         return AuthUseCaseImpl(authorizeRepo)
     }
 
+
+    @Provides
+    @Singleton
+    fun providesPostUseCase(postRepo : PostRepo) : PostUseCase{
+        return PostUseCaseImpl(postRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun providesRepo(apolloClient: ApolloClient,pref: SharedPreferences) : PostRepo{
+        return PostRepoImpl(apolloClient,pref)
+    }
 
 }
 

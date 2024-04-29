@@ -2,12 +2,9 @@ package tech.mobile.social.presentation.auth.register
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tech.mobile.social.R
 import tech.mobile.social.presentation.utils.components.*
+import tech.mobile.social.ui.theme.BtnColor
+import tech.mobile.social.ui.theme.PrimaryColor
 
 @Composable
 fun RegisterScreen(
@@ -40,28 +39,47 @@ fun RegisterScreen(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo),
-                contentDescription = stringResource(id = R.string.logo)
+                contentDescription = stringResource(id = R.string.logo),
+                modifier = Modifier.padding(vertical = 30.dp, horizontal = 50.dp)
             )
             InputApp(onValueChange = { actions.onNameChange(it) }, label = "Họ và tên", regex = "^[a-zA-Z]\\w{5,}$")
-            EmailApp(onValueChange = { actions.onEmailChange(it) })
+            EmailApp(
+                onValueChange = { actions.onEmailChange(it) },
+                modifier = Modifier.padding(top = 10.dp)
+            )
             PasswordApp(
                 onValueChange = { actions.onPasswordChange(it) },
-//                regex = stringResource(R.string.regexPassword),
-                errMsg = stringResource(R.string.errPasswordMsg)
+                errMsg = stringResource(R.string.errPasswordMsg),
+                modifier = Modifier.padding(top = 10.dp)
             )
             PasswordApp(
                 onValueChange = { actions.onPasswordConfirmChange(it) },
                 label = "Nhập lại mật khẩu",
                 repeated = true,
                 repeatedPassword = state.password,
-                errMsg = stringResource(R.string.errPasswordRepeated)
+                errMsg = stringResource(R.string.errPasswordRepeated),
+                modifier = Modifier.padding(top = 10.dp)
             )
-            BtnApp("Đăng ký", onClick = { actions.onRegister() })
-            AuthTxtApp(
-                "Đã có tài khoản? ",
-//                onClick = { navController.navigate(Screens.Login.route) },
-                activeValue = "Đăng nhập"
-            )
+
+            Button(
+                onClick = { actions.onRegister() },
+                colors = ButtonDefaults.buttonColors(BtnColor),
+                contentPadding = PaddingValues(horizontal = 50.dp, vertical = 20.dp),
+                modifier = Modifier.padding(top = 30.dp, bottom = 10.dp),
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Text("Đăng ký")
+            }
+
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "Bạn đã có tài khoản ?")
+                TextButton(onClick = { actions.goBack() }) {
+                    Text(text = "Đăng nhập", color = PrimaryColor)
+                }
+            }
         }
     }
 }

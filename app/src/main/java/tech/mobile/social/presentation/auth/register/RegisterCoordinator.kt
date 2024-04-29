@@ -21,6 +21,10 @@ class RegisterCoordinator(
         navController.navigate(Screens.Login.route)
         // TODO Handle UI Action
     }
+
+    fun goBack() {
+        navController.navigateUp()
+    }
 }
 
 @Composable

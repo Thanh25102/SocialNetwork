@@ -12,6 +12,10 @@ import androidx.compose.material.icons.rounded.GroupAdd
 import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,7 +25,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import tech.mobile.social.R
+import tech.mobile.social.Screens
+
 import tech.mobile.social.ui.theme.BtnColor
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,6 +37,7 @@ import tech.mobile.social.ui.theme.BtnColor
 fun PostsScreen(
     state: PostsState,
     actions: PostsActions,
+
 ) {
 
     Scaffold(
@@ -39,7 +48,7 @@ fun PostsScreen(
                     Text(text = "Tạo bài viết")
                 },
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { /*navController.navigate(Screens.AppRoot.route)*/ }) { // please check this
                         Icon(
                             imageVector = Icons.Default.ArrowBackIosNew,
                             contentDescription = "Go back"
@@ -47,7 +56,7 @@ fun PostsScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { actions.onClick }) { // please check this too
                         Icon(
                             imageVector = Icons.Default.Create,
                             contentDescription = "Create post"
@@ -72,9 +81,12 @@ fun PostsScreen(
                     contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = Modifier.width(8.dp))
+                var expanded by remember { mutableStateOf(false) }
+                val options = listOf("Public", "Private")
+                var selectedIndex by remember { mutableStateOf(0) }
 
                 Column(modifier = Modifier.padding(8.dp)) {
-                    Text(text = "Bùi Mạnh Thành", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                    Text(text = "Nguyen Tri Thanh", fontWeight = FontWeight.Bold, fontSize = 18.sp)
                     Button(
                         onClick = { },
                         colors = ButtonDefaults.buttonColors(BtnColor),
@@ -91,8 +103,10 @@ fun PostsScreen(
                                 modifier = Modifier.padding(start = 4.dp)
                             )
                         }
+
                     }
                 }
+
             }
             TextField(
                 value = "",
@@ -120,7 +134,7 @@ fun PostsScreen(
                 }
 
                 Row(modifier = Modifier.align(Alignment.CenterVertically)) {
-                    IconButton(onClick = { /* handle click */ }) {
+                    IconButton(onClick = { /*navController.navigate(Screens.AppRoot.route)*/ }) { //check this navigate please
                         Icon(
                             Icons.Rounded.GroupAdd,
                             contentDescription = "Add friends"
@@ -138,9 +152,11 @@ fun PostsScreen(
 @Composable
 @Preview(name = "Posts")
 private fun PostsScreenPreview() {
+    val navController = rememberNavController()
     PostsScreen(
         state = PostsState(),
-        actions = PostsActions()
+        actions = PostsActions(),
+        /*navController = navController*/
     )
 }
 
