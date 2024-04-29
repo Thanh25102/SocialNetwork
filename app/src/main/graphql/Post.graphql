@@ -1,4 +1,4 @@
-query post($take: Float!,$after: String) {
+            query post($take: Float!,$after: String) {
     posts(take: $take, after: $after) {
         edges {
             node {

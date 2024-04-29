@@ -59,7 +59,6 @@ object AppModule {
             .add(DateTime.type, dateTimeAdapter)
             .build()
 
-
         return ApolloClient.Builder()
             .serverUrl("http://171.239.147.144:8334/graphql")
             .okHttpClient(
