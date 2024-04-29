@@ -16,8 +16,8 @@ class PostRepoImpl(
     private val apolloClient: ApolloClient,
     pref: SharedPreferences
 ) : PostRepo {
-    override suspend fun GetPosts(): Result<Posts, DataError.ServerErrors> {
-        val results = apolloClient.query(PostQuery(take = 10.0))
+    override suspend fun getPosts(): Result<Posts, DataError.ServerErrors> {
+        val results = apolloClient.query(PostQuery())
             .execute()
             .data?.posts
         val nodes = results?.edges?.map {
