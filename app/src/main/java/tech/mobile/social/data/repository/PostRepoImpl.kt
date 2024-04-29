@@ -2,6 +2,7 @@ package tech.mobile.social.data.repository
 
 import android.content.SharedPreferences
 import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.api.Optional
 import tech.mobile.social.PostQuery
 import tech.mobile.social.domain.DataError
 import tech.mobile.social.domain.Result
@@ -17,7 +18,7 @@ class PostRepoImpl(
     pref: SharedPreferences
 ) : PostRepo {
     override suspend fun GetPosts(): Result<Posts, DataError.ServerErrors> {
-        val results = apolloClient.query(PostQuery(take = 10.0))
+        val results = apolloClient.query(PostQuery(take = Optional.Present(10)))
             .execute()
             .data?.posts
         val nodes = results?.edges?.map {
@@ -45,8 +46,6 @@ class PostRepoImpl(
     ): Result<Post, DataError.ServerErrors> {
         TODO("Not yet implemented")
     }
-
-
 
 
 }

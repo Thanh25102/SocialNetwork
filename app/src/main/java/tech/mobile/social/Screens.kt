@@ -18,4 +18,8 @@ sealed class Screens(val route: String) {
     data object ForYou : Screens("for-you")
     data object Group : Screens("group")
     data object Following : Screens("following")
+
+    data object Suggestion : Screens("suggestion")
+    data object FriendRequest : Screens("friend-request")
+
 }
