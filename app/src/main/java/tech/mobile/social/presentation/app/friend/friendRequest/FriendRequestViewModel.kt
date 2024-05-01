@@ -16,7 +16,9 @@ import tech.mobile.social.R
 import tech.mobile.social.domain.Result
 import tech.mobile.social.domain.model.friend.FriendRequests
 import tech.mobile.social.domain.repository.AuthorizeRepo
+import tech.mobile.social.domain.repository.CommentRepo
 import tech.mobile.social.domain.repository.FriendRequestRepo
+import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
 import tech.mobile.social.shared.UserState
 import tech.mobile.social.type.RequestStatus
 import tech.mobile.social.type.RequestWhereInput
@@ -24,7 +26,8 @@ import tech.mobile.social.type.RequestWhereInput
 @HiltViewModel
 class FriendRequestViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val friendRequestRepo: FriendRequestRepo
+    private val friendRequestUseCase: FriendRequestUseCase,
+    private val commentRepo: CommentRepo
 ) : ViewModel() {
 
 //    val mockFriendRequests = listOf(
@@ -44,9 +47,11 @@ class FriendRequestViewModel @Inject constructor(
 
     val stateFlow: StateFlow<FriendRequestState> = _stateFlow.asStateFlow()
 
-
     init {
        val request = getFriendRequests(Optional.present(10), Optional.Present(null), Optional.Absent); // Gọi ở đây
+        viewModelScope.launch {
+            commentRepo.handleCommentAdded("662f6e4bb4ec3d607efc7d21")
+        }
 //        println("gọi friend nè")
 //        Log.d("call api", request.edges[0].cursor)
 //        Log.d("call api", "haha")
@@ -56,7 +61,7 @@ class FriendRequestViewModel @Inject constructor(
         var accessData: FriendRequests = FriendRequests(edges = emptyList(), pageInfo = FriendRequestQuery.PageInfo(endCursor = null, hasNextPage = false));
         viewModelScope.launch {
             _stateFlow.value.isLoading = true
-            when (val access = friendRequestRepo.getFriendRequests(take, after, filter)) {
+            when (val access = friendRequestUseCase.getFriendRequests(take, after, filter)) {
 //                _stateFlow.value.isLoading = true;
                 is Result.Success -> {
                     _stateFlow.value =
@@ -83,12 +88,25 @@ class FriendRequestViewModel @Inject constructor(
                 else it;
             })
         )
+
+        viewModelScope.launch {
+            when (val access = friendRequestUseCase.handleFriendRequest(requestId, RequestStatus.ACCEPTED)) {
+                is Result.Success -> {
+                }
+                is Result.Error -> {
+                    Log.i("STATE", "err msg accept " + access.error.message[0])
+                    _stateFlow.value.isLoading = false
+                }
+            }
+        }
     }
 
-    fun deleteFriendRequest(request: FriendRequest) {
-//        val currentList = _stateFlow.value.friendRequests.toMutableList()
-//        currentList.remove(request)
-//        _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList)
+    fun deleteFriendRequest(request: FriendRequestQuery.Edge) {
+        val currentList = _stateFlow.value.friendRequests.edges.toMutableList()
+        currentList.remove(request)
+        _stateFlow.value = _stateFlow.value.copy(friendRequests = _stateFlow.value.friendRequests.copy(
+            edges = currentList
+        ))
     }
 
     fun refreshFriendRequests() {

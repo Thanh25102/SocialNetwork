@@ -20,6 +20,13 @@ import com.apollographql.apollo3.api.json.JsonReader
 import com.apollographql.apollo3.api.json.JsonWriter
 import com.apollographql.apollo3.api.Adapter
 import com.apollographql.apollo3.api.CustomScalarAdapters
+import com.apollographql.apollo3.network.http.DefaultHttpEngine
+import com.apollographql.apollo3.network.ws.GraphQLWsProtocol
+import com.apollographql.apollo3.network.ws.SubscriptionWsProtocol
+import com.apollographql.apollo3.network.ws.WebSocketNetworkTransport
+import com.apollographql.apollo3.network.ws.WsFrameType
+import com.apollographql.apollo3.network.ws.WsProtocol
+import tech.mobile.social.data.repository.CommentRepoImpl
 
 import tech.mobile.social.data.repository.FriendRequestRepoImpl
 import tech.mobile.social.domain.repository.FriendRequestRepo
@@ -27,6 +34,7 @@ import tech.mobile.social.domain.usecase.impl.FriendRequestUseCaseImpl
 import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
 
 import tech.mobile.social.data.repository.PostRepoImpl
+import tech.mobile.social.domain.repository.CommentRepo
 import tech.mobile.social.domain.repository.PostRepo
 import tech.mobile.social.domain.usecase.impl.PostUseCaseImpl
 import tech.mobile.social.domain.usecase.interfaces.PostUseCase
@@ -65,12 +73,20 @@ object AppModule {
         val customScalarAdapters = CustomScalarAdapters.Builder()
             .add(DateTime.type, dateTimeAdapter)
             .build()
+        val http = OkHttpClient.Builder()
+            .addInterceptor(AuthorizationInterceptor(pref))
+            .build()
 
         return ApolloClient.Builder()
             .serverUrl("http://171.239.144.144:8334/graphql")
-            .okHttpClient(
-                OkHttpClient.Builder()
-                    .addInterceptor(AuthorizationInterceptor(pref))
+            .httpEngine(
+                DefaultHttpEngine(http)
+            )
+            .subscriptionNetworkTransport(
+                WebSocketNetworkTransport.Builder()
+//                    .headers()
+                    .protocol(GraphQLWsProtocol.Factory())
+                    .serverUrl("ws://171.239.144.144:8334/graphql")
                     .build()
             )
             .customScalarAdapters(customScalarAdapters)
@@ -111,6 +127,12 @@ object AppModule {
     @Singleton
     fun providesRepo(apolloClient: ApolloClient,pref: SharedPreferences) : PostRepo{
         return PostRepoImpl(apolloClient,pref)
+    }
+
+    @Provides
+    @Singleton
+    fun providesCommentRepo(apolloClient: ApolloClient,pref: SharedPreferences) : CommentRepo {
+        return CommentRepoImpl(apolloClient,pref)
     }
 
 }

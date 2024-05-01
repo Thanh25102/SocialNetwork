@@ -45,6 +45,6 @@ data class FriendRequest(
  **/
 data class FriendRequestActions(
     val onClick: () -> Unit = {},
-    val onDeleteRequest: (FriendRequest) -> Unit = {},
+    val onDeleteRequest: (FriendRequestQuery.Edge) -> Unit = {},
     val onAcceptFriendRequest: (String) -> Unit = {}
 )

@@ -30,8 +30,8 @@ import java.time.LocalDateTime
 fun FriendRequestItemComponent(
 //    avatarResource: Int, name: String, time: LocalDateTime,
     friendRequest: FriendRequestQuery.Edge,
-    onDelete: (FriendRequest) -> Unit,
-    onAccept: (String)  -> Unit
+    onDelete: (FriendRequestQuery.Edge) -> Unit,
+    onAccept: (String) -> Unit
 ) {
 //    val (isAccepted, setIsAccepted) = rememberSaveable { mutableStateOf(false) }
 
@@ -64,7 +64,7 @@ fun FriendRequestItemComponent(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     BtnApp(
-                        onClick = {  },
+                        onClick = { onDelete(friendRequest) },
                         label = "Xóa",
                         outline = true,
                         modifier = Modifier.width(120.dp)
@@ -82,4 +82,46 @@ fun FriendRequestItemComponent(
 //private fun PreviewFriendItemComponent() {
 //    FriendRequestItemComponent(R.drawable.manhthanh_3x4, "Manh Thanh", LocalDateTime.now())
 ////    FriendRequestItemComponent()
+//}
+
+//@Composable
+//fun FriendRequestItemComponent(
+//    friendRequest: FriendRequestQuery.Edge,
+//    onDelete: (FriendRequest) -> Unit,
+//    onAccept: (String)  -> Unit
+//) {
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(4.dp),
+//        verticalAlignment = Alignment.CenterVertically,
+//        horizontalArrangement = Arrangement.Center
+//    ) {
+//        Image(
+//            painter = painterResource(R.drawable.manhthanh_3x4),
+//            contentDescription = "Avatar",
+//            modifier = Modifier
+//                .size(80.dp)
+//                .clip(CircleShape),
+//            contentScale = ContentScale.Crop
+//        )
+//        Spacer(modifier = Modifier.width(8.dp))
+//        Column {
+//            // make text bold
+//
+//            Text(text = friendRequest.node.receiver.username, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+//            Text(text = formatTimeAgo(LocalDateTime.now()), color = HiddenTextColor, fontSize = 12.sp)
+//            Row {
+//                BtnApp(onClick = {}, label = "Chấp nhận", modifier = Modifier.width(120.dp))
+//                Spacer(modifier = Modifier.width(4.dp))
+//                BtnApp(onClick = {}, label = "Xóa", outline = true, modifier = Modifier.width(120.dp))
+//            }
+//        }
+//    }
+//}
+
+//@Preview(name = "FriendItemComponent")
+//@Composable
+//private fun PreviewFriendItemComponent() {
+//    FriendItemComponent(R.drawable.manhthanh_3x4, "Manh Thanh", LocalDateTime.now())
 //}

@@ -3,6 +3,7 @@ package tech.mobile.social.presentation.app.friend.friendRequest
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import tech.mobile.social.FriendRequestQuery
 
 /**
  * Screen's coordinator which is responsible for handling actions from the UI layer
@@ -13,7 +14,7 @@ class FriendRequestCoordinator(
 ) {
     val screenStateFlow = viewModel.stateFlow
 
-    fun deleteFriendRequest(request: FriendRequest) {
+    fun deleteFriendRequest(request: FriendRequestQuery.Edge) {
         viewModel.deleteFriendRequest(request)
     }
 
