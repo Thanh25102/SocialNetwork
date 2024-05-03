@@ -1,5 +1,5 @@
 subscription commentAdded($post_id: ID!) {
-  comment_added(post_id: $post_id) {
+  comment: comment_added(post_id: $post_id) {
     id
     content
     user {

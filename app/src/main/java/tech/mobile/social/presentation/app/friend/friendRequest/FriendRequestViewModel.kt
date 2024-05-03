@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -12,9 +13,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import tech.mobile.social.FriendRequestQuery
+import tech.mobile.social.HandleRequestMutation
 import tech.mobile.social.R
 import tech.mobile.social.domain.Result
-import tech.mobile.social.domain.model.friend.FriendRequests
 import tech.mobile.social.domain.repository.AuthorizeRepo
 import tech.mobile.social.domain.repository.CommentRepo
 import tech.mobile.social.domain.repository.FriendRequestRepo
@@ -49,52 +50,40 @@ class FriendRequestViewModel @Inject constructor(
 
     init {
        val request = getFriendRequests(Optional.present(10), Optional.Present(null), Optional.Absent); // Gọi ở đây
-        viewModelScope.launch {
-            commentRepo.handleCommentAdded("662f6e4bb4ec3d607efc7d21")
-        }
-//        println("gọi friend nè")
-//        Log.d("call api", request.edges[0].cursor)
-//        Log.d("call api", "haha")
     }
 
-    fun getFriendRequests(take: Optional<Int?>, after: Optional<String?>, filter: Optional<RequestWhereInput?>): FriendRequests {
-        var accessData: FriendRequests = FriendRequests(edges = emptyList(), pageInfo = FriendRequestQuery.PageInfo(endCursor = null, hasNextPage = false));
-        viewModelScope.launch {
+    fun getFriendRequests(take: Optional<Int?>, after: Optional<String?>, filter: Optional<RequestWhereInput?>) { viewModelScope.launch {
+//            commentRepo.handleCommentAdded("662f6e4bb4ec3d607efc7d21")
             _stateFlow.value.isLoading = true
-            when (val access = friendRequestUseCase.getFriendRequests(take, after, filter)) {
-//                _stateFlow.value.isLoading = true;
-                is Result.Success -> {
+            when (val result = friendRequestUseCase.getFriendRequests(take, after, filter)) {
+                is ApolloResponse<FriendRequestQuery.Data> -> {
                     _stateFlow.value =
-                        FriendRequestState( friendRequests = access.data)
-                    accessData = access.data;
-//                    Log.d("call api ok", access.data.edges[0].cursor)
+                        FriendRequestState( friendRequests = result.data?.requests)
                 }
+                null -> {
 
-                is Result.Error -> {
-                    Log.i("STATE", "err msg eee" + access.error.message[0])
-                    _stateFlow.value.isLoading = false
-//                    _stateFlow.value = _stateFlow.value.copy(errMsg = access.error.message[0])
                 }
             }
         }
-        return accessData;
     }
 
     fun acceptFriendRequest(requestId: String) {
         _stateFlow.value = _stateFlow.value.copy(
-            friendRequests = _stateFlow.value.friendRequests.copy( edges = _stateFlow.value.friendRequests.edges.map {
-                if (it.node.id == requestId)
-                    it.copy( node = it.node.copy(status = RequestStatus.ACCEPTED))
-                else it;
-            })
+            friendRequests = _stateFlow.value.friendRequests?.edges?.let {
+                _stateFlow.value.friendRequests!!.copy( edges = it.map {
+                    if (it.node.id == requestId)
+                        it.copy( node = it.node.copy(status = RequestStatus.ACCEPTED))
+                    else it;
+                })
+            }
         )
 
         viewModelScope.launch {
             when (val access = friendRequestUseCase.handleFriendRequest(requestId, RequestStatus.ACCEPTED)) {
-                is Result.Success -> {
+                is ApolloResponse<HandleRequestMutation.Data> -> {
                 }
-                is Result.Error -> {
-                    Log.i("STATE", "err msg accept " + access.error.message[0])
+                null -> {
+                    Log.i("STATE", "err msg accept ")
                     _stateFlow.value.isLoading = false
                 }
             }
@@ -102,11 +91,13 @@ class FriendRequestViewModel @Inject constructor(
     }
 
     fun deleteFriendRequest(request: FriendRequestQuery.Edge) {
-        val currentList = _stateFlow.value.friendRequests.edges.toMutableList()
-        currentList.remove(request)
-        _stateFlow.value = _stateFlow.value.copy(friendRequests = _stateFlow.value.friendRequests.copy(
-            edges = currentList
-        ))
+        val currentList = _stateFlow.value.friendRequests?.edges?.toMutableList()
+        currentList?.remove(request)
+        _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList?.let {
+            _stateFlow.value.friendRequests?.copy(
+                edges = it
+            )
+        })
     }
 
     fun refreshFriendRequests() {

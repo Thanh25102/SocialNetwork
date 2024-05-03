@@ -59,12 +59,14 @@ fun FriendRequestScreen(
 //        }
 
         LazyColumn {
-            items(state.friendRequests.edges.size, key = { it }) { it ->
-                FriendRequestItemComponent(
-                    friendRequest = state.friendRequests.edges[it],
-                    onDelete = actions.onDeleteRequest,
-                    onAccept = actions.onAcceptFriendRequest
-                )
+            state.friendRequests?.edges?.let { it ->
+                items(it.size, key = { it }) { it ->
+                    FriendRequestItemComponent(
+                        friendRequest = state.friendRequests.edges[it],
+                        onDelete = actions.onDeleteRequest,
+                        onAccept = actions.onAcceptFriendRequest
+                    )
+                }
             }
             item {
 

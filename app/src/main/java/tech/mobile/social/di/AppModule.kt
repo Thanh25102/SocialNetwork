@@ -70,25 +70,28 @@ object AppModule {
     @Provides
     @Singleton
     fun provideApolloClient(pref: SharedPreferences): ApolloClient {
+        val accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MmQ1NjYwZWU1ZWUyZTY1NjBmMzg1NSIsInVzZXJuYW1lIjoia2lkcDJoIiwiZW1haWwiOiJraWRwMmhAZ21haWwuY29tIiwiaWF0IjoxNzE0NjQ2OTAxLCJleHAiOjE3MjM2NDY5MDF9.yQxz419tB3FJBC9enlr4dbivaY3XgWjTAZyWGipWkdc";
         val customScalarAdapters = CustomScalarAdapters.Builder()
             .add(DateTime.type, dateTimeAdapter)
             .build()
-        val http = OkHttpClient.Builder()
+        val httpEngine = OkHttpClient.Builder()
             .addInterceptor(AuthorizationInterceptor(pref))
             .build()
 
         return ApolloClient.Builder()
             .serverUrl("http://171.239.144.144:8334/graphql")
             .httpEngine(
-                DefaultHttpEngine(http)
+                DefaultHttpEngine(httpEngine)
             )
             .subscriptionNetworkTransport(
                 WebSocketNetworkTransport.Builder()
-//                    .headers()
                     .protocol(GraphQLWsProtocol.Factory())
+                    .okHttpClient(httpEngine)
                     .serverUrl("ws://171.239.144.144:8334/graphql")
+
                     .build()
             )
+
             .customScalarAdapters(customScalarAdapters)
             .build()
     }

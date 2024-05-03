@@ -1,5 +1,5 @@
 mutation handleRequest($request_id: ID!, $status: RequestStatus!) {
-  handle_request(request_id: $request_id , status: $status) {
+  request: handle_request(request_id: $request_id , status: $status) {
     createdAt
     deletedAt
     id
