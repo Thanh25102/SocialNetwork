@@ -24,9 +24,9 @@ class RegisterViewModel @Inject constructor(
 
     val stateFlow: StateFlow<RegisterState> = _stateFlow.asStateFlow()
 
-
     fun doRegister() {
         val (name, email, password) = stateFlow.value
+
         viewModelScope.launch {
             when (val result = authUseCase.register(name, password, email)) {
                 is Result.Error -> {

@@ -45,6 +45,7 @@ class ForYouViewModel @Inject constructor(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             onRequestLoading()
+            // gắn api ở đây nha mấy ông nội
             delay(1000L)
             onRequestSuccess(
                 arrayListOf(

@@ -22,6 +22,7 @@ fun RegisterScreen(
     state: RegisterState,
     actions: RegisterActions,
 ) {
+    
     // TODO UI Rendering
     Surface(
         modifier = Modifier
