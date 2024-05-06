@@ -30,6 +30,7 @@ import tech.mobile.social.data.repository.CommentRepoImpl
 
 import tech.mobile.social.data.repository.FriendRequestRepoImpl
 import tech.mobile.social.data.repository.FriendSuggestRepoImpl
+import tech.mobile.social.data.repository.NotificationRepoImpl
 import tech.mobile.social.domain.repository.FriendRequestRepo
 import tech.mobile.social.domain.usecase.impl.FriendRequestUseCaseImpl
 import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
@@ -37,10 +38,13 @@ import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
 import tech.mobile.social.data.repository.PostRepoImpl
 import tech.mobile.social.domain.repository.CommentRepo
 import tech.mobile.social.domain.repository.FriendSuggestRepo
+import tech.mobile.social.domain.repository.NotificationRepo
 import tech.mobile.social.domain.repository.PostRepo
 import tech.mobile.social.domain.usecase.impl.FriendSuggestUseCaseImpl
+import tech.mobile.social.domain.usecase.impl.NotificationUseCaseImpl
 import tech.mobile.social.domain.usecase.impl.PostUseCaseImpl
 import tech.mobile.social.domain.usecase.interfaces.FriendSuggestUseCase
+import tech.mobile.social.domain.usecase.interfaces.NotificationUseCase
 import tech.mobile.social.domain.usecase.interfaces.PostUseCase
 
 import tech.mobile.social.type.DateTime
@@ -134,6 +138,18 @@ object AppModule {
     @Singleton
     fun providesFriendSuggestUseCase(friendSuggestRepo: FriendSuggestRepo): FriendSuggestUseCase {
         return FriendSuggestUseCaseImpl(friendSuggestRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun providesNotificationRepo(apolloClient: ApolloClient, pref: SharedPreferences): NotificationRepo {
+        return NotificationRepoImpl(apolloClient, pref)
+    }
+
+    @Provides
+    @Singleton
+    fun providesNotificationUseCase(notificationRepo: NotificationRepo): NotificationUseCase {
+        return NotificationUseCaseImpl(notificationRepo)
     }
 
     @Provides
