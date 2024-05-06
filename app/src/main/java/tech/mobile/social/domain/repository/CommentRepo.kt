@@ -9,5 +9,5 @@ import tech.mobile.social.domain.model.auth.Auth
 import tech.mobile.social.type.Comment
 
 interface CommentRepo {
-    suspend fun handleCommentAdded(postId: String) : Flow<ApolloResponse<CommentAddedSubscription.Data>>?
+//    suspend fun handleCommentAdded(postId: String) : Flow<ApolloResponse<CommentAddedSubscription.Data>>?
 }

@@ -29,14 +29,18 @@ import com.apollographql.apollo3.network.ws.WsProtocol
 import tech.mobile.social.data.repository.CommentRepoImpl
 
 import tech.mobile.social.data.repository.FriendRequestRepoImpl
+import tech.mobile.social.data.repository.FriendSuggestRepoImpl
 import tech.mobile.social.domain.repository.FriendRequestRepo
 import tech.mobile.social.domain.usecase.impl.FriendRequestUseCaseImpl
 import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
 
 import tech.mobile.social.data.repository.PostRepoImpl
 import tech.mobile.social.domain.repository.CommentRepo
+import tech.mobile.social.domain.repository.FriendSuggestRepo
 import tech.mobile.social.domain.repository.PostRepo
+import tech.mobile.social.domain.usecase.impl.FriendSuggestUseCaseImpl
 import tech.mobile.social.domain.usecase.impl.PostUseCaseImpl
+import tech.mobile.social.domain.usecase.interfaces.FriendSuggestUseCase
 import tech.mobile.social.domain.usecase.interfaces.PostUseCase
 
 import tech.mobile.social.type.DateTime
@@ -118,6 +122,18 @@ object AppModule {
     @Singleton
     fun providesFriendRequestUseCase(friendRequestRepo: FriendRequestRepo): FriendRequestUseCase {
         return FriendRequestUseCaseImpl(friendRequestRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun providesFriendSuggestRepo(apolloClient: ApolloClient, pref: SharedPreferences): FriendSuggestRepo {
+        return FriendSuggestRepoImpl(apolloClient, pref)
+    }
+
+    @Provides
+    @Singleton
+    fun providesFriendSuggestUseCase(friendSuggestRepo: FriendSuggestRepo): FriendSuggestUseCase {
+        return FriendSuggestUseCaseImpl(friendSuggestRepo)
     }
 
     @Provides

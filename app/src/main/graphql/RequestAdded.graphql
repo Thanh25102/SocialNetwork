@@ -1,0 +1,13 @@
+subscription requestAdded {
+  request: request_added {
+    id
+    receiver {
+      id
+      username
+    }
+    sender {
+      id
+      username
+    }
+  }
+}

@@ -50,6 +50,21 @@ class FriendRequestViewModel @Inject constructor(
 
     init {
        val request = getFriendRequests(Optional.present(10), Optional.Present(null), Optional.Absent); // Gọi ở đây
+        viewModelScope.launch {
+            friendRequestUseCase.requestAdded()?.collect{ it.data?.request?.let { _it ->
+                Log.d("it",
+                    _it.id
+                )
+
+                val currentList = _stateFlow.value.friendRequests?.edges?.toMutableList()
+//                currentList?.add(FriendRequestQuery.Edge(node = FriendRequestQuery.Node(), ))
+                _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList?.let {
+                    _stateFlow.value.friendRequests?.copy(
+                        edges = it
+                    )
+                })
+            } }
+        }
     }
 
     fun getFriendRequests(take: Optional<Int?>, after: Optional<String?>, filter: Optional<RequestWhereInput?>) { viewModelScope.launch {
@@ -98,6 +113,17 @@ class FriendRequestViewModel @Inject constructor(
                 edges = it
             )
         })
+
+        viewModelScope.launch {
+            when (val access = friendRequestUseCase.handleFriendRequest(request.node.id, RequestStatus.REJECTED)) {
+                is ApolloResponse<HandleRequestMutation.Data> -> {
+                }
+                null -> {
+                    Log.i("STATE", "err msg accept ")
+                    _stateFlow.value.isLoading = false
+                }
+            }
+        }
     }
 
     fun refreshFriendRequests() {

@@ -1,11 +1,12 @@
-subscription commentAdded($post_id: ID!) {
-  comment: comment_added(post_id: $post_id) {
+subscription commentAdded {
+  comment: comment_added {
     id
     content
     user {
       id
       username
       email
+      createdAt
     }
   }
 }

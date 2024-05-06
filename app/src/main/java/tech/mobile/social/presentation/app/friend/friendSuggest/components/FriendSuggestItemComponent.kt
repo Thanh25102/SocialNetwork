@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -16,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import tech.mobile.social.FriendRequestQuery
+import tech.mobile.social.FriendSuggestQuery
 import tech.mobile.social.R
 import tech.mobile.social.presentation.utils.components.BtnApp
 import tech.mobile.social.presentation.utils.formatTimeAgo
@@ -24,20 +28,22 @@ import tech.mobile.social.ui.theme.HiddenTextColor
 import java.time.LocalDateTime
 
 @Composable
-fun FriendRequestItemComponent(
+fun FriendSuggestItemComponent(
 //    avatarResource: Int, name: String, time: LocalDateTime,
-    friendRequest: FriendRequestQuery.Edge,
-    onDelete: (FriendRequestQuery.Edge) -> Unit,
-    onAccept: (String) -> Unit
+    friendSuggest: FriendSuggestQuery.Edge,
+    onDelete: (String) -> Unit,
+    onSendRequest: (String) -> Unit
 ) {
-//    val (isAccepted, setIsAccepted) = rememberSaveable { mutableStateOf(false) }
+    val (isSentRequest, setIsSentRequest) = rememberSaveable { mutableStateOf(false) }
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp),
+            .padding(4.dp)
+        ,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
+
     ) {
         Image(
             painter = painterResource(R.drawable.manhthanh_3x4),
@@ -50,26 +56,34 @@ fun FriendRequestItemComponent(
         Spacer(modifier = Modifier.width(8.dp))
         Column() {
             // make text bold
-            Text(text = "Phú Thịnh", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-            Text(text = formatTimeAgo(LocalDateTime.now()), color = HiddenTextColor, fontSize = 12.sp)
+            Text(text = friendSuggest.node.username, fontWeight = FontWeight.Bold, fontSize = 16.sp)
             Row() {
-                if (friendRequest.node.status != RequestStatus.ACCEPTED) {
+                if (!isSentRequest) {
+//                    BtnApp(
+//                        onClick = { onAccept(friendRequest.node.id) },
+//                        label = "Chấp nhận",
+//                        modifier = Modifier.width(120.dp)
+//                    )
+                Button(
+                    onClick = {
+                        setIsSentRequest(true);
+                        onSendRequest(friendSuggest.node.id);
+                    },
+                    modifier = Modifier.width(240.dp),
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Text("Kết bạn")
+                }
+                } else {
                     Button(
-                        onClick = { onAccept(friendRequest.node.id) },
-                        modifier = Modifier.width(120.dp),
+                        onClick = {
+                            setIsSentRequest(false);
+                        },
+                        modifier = Modifier.width(240.dp),
                         shape = RoundedCornerShape(10.dp)
                     ) {
-                        Text("Chấp nhận")
+                        Text("Hủy")
                     }
-                    Spacer(modifier = Modifier.width(10.dp))
-                    BtnApp(
-                        onClick = { onDelete(friendRequest) },
-                        label = "Xóa",
-                        outline = true,
-                        modifier = Modifier.width(120.dp)
-                    )
-                } else {
-                    Text(text="Đã chấp nhận lời mời kết bạn", fontWeight = FontWeight.Bold, fontSize = 14.sp, modifier = Modifier.width(240.dp))
                 }
             }
         }

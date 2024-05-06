@@ -1,0 +1,73 @@
+query user($id: ID!, $take: Int, $after: String) {
+  user(id: $id) {
+    id
+    posts(take: $take, after: $after) {
+      edges {
+        node {
+          id
+          content
+        }
+      }
+    }
+    friends {
+      edges {
+        node {
+          id
+          user {
+            username
+            posts {
+              edges {
+                node {
+                  id
+                  content
+                  file {
+                    path
+                    type
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    friendOf {
+      id
+      user {
+        username
+        posts {
+          edges {
+            node {
+              id
+              content
+            }
+          }
+        }
+      }
+    }
+    suggests: suggest_friends {
+      edges {
+        node {
+          id
+          username
+          email
+        }
+      }
+    }
+    comments(take: $take, after: $after) {
+      edges {
+        node {
+          id
+          content
+        }
+      }
+    }
+    reactions(take: $take, after: $after) {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+}

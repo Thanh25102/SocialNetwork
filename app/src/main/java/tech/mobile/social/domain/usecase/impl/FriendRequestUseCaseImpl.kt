@@ -2,8 +2,10 @@ package tech.mobile.social.domain.usecase.impl
 
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
+import kotlinx.coroutines.flow.Flow
 import tech.mobile.social.FriendRequestQuery
 import tech.mobile.social.HandleRequestMutation
+import tech.mobile.social.RequestAddedSubscription
 import tech.mobile.social.domain.repository.FriendRequestRepo
 import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
 import tech.mobile.social.type.RequestStatus
@@ -15,5 +17,9 @@ class FriendRequestUseCaseImpl(private val friendRequestRepo: FriendRequestRepo)
     }
     override suspend fun handleFriendRequest(requestId: String, status: RequestStatus):  ApolloResponse<HandleRequestMutation.Data>? {
         return friendRequestRepo.handleFriendRequest(requestId,status)
+    }
+
+    override suspend fun requestAdded(): Flow<ApolloResponse<RequestAddedSubscription.Data>>? {
+        return friendRequestRepo.requestAdded()
     }
 }

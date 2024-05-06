@@ -7,9 +7,11 @@ import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import com.apollographql.apollo3.exception.ApolloException
+import kotlinx.coroutines.flow.Flow
 
 import tech.mobile.social.FriendRequestQuery
 import tech.mobile.social.HandleRequestMutation
+import tech.mobile.social.RequestAddedSubscription
 
 import tech.mobile.social.domain.repository.FriendRequestRepo
 import tech.mobile.social.type.RequestStatus
@@ -52,6 +54,18 @@ class FriendRequestRepoImpl(
                 return null;
             }
            return result;
+        } catch (e: ApolloException) {
+            Log.e("FriendRequestRepoImpl", "handleFriendRequest: ${e.message}")
+            return null;
+        }
+    }
+
+    override suspend fun requestAdded(): Flow<ApolloResponse<RequestAddedSubscription.Data>>? {
+        try {
+            val result = apolloClient
+                .subscription(RequestAddedSubscription())
+                .toFlow()
+            return result;
         } catch (e: ApolloException) {
             Log.e("FriendRequestRepoImpl", "handleFriendRequest: ${e.message}")
             return null;
