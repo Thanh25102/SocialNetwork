@@ -12,7 +12,7 @@ data class FriendRequestUiState(
 
 data class FriendRequestState(
 //    val friendRequests: FriendRequests = FriendRequests::class.java.getConstructor().newInstance(),
-    val friendRequests: FriendRequestQuery.Requests? = null,
+    val friendRequests: List<FriendRequestQuery.Node>? = null,
     var isLoading: Boolean = false,
     val error: String = "",
 )
@@ -24,6 +24,6 @@ data class FriendRequestState(
  **/
 data class FriendRequestActions(
     val onClick: () -> Unit = {},
-    val onDeleteRequest: (FriendRequestQuery.Edge) -> Unit = {},
-    val onAcceptFriendRequest: (String) -> Unit = {}
+    val onDeleteRequest: (FriendRequestQuery.Node) -> Unit = {},
+    val onAcceptFriendRequest: (FriendRequestQuery.Node) -> Unit = {}
 )

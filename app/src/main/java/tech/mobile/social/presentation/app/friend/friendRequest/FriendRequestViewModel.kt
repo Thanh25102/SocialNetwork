@@ -20,6 +20,7 @@ import tech.mobile.social.domain.repository.AuthorizeRepo
 import tech.mobile.social.domain.repository.CommentRepo
 import tech.mobile.social.domain.repository.FriendRequestRepo
 import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
+import tech.mobile.social.fragment.RequestFragment
 import tech.mobile.social.shared.UserState
 import tech.mobile.social.type.RequestStatus
 import tech.mobile.social.type.RequestWhereInput
@@ -53,16 +54,12 @@ class FriendRequestViewModel @Inject constructor(
         viewModelScope.launch {
             friendRequestUseCase.requestAdded()?.collect{ it.data?.request?.let { _it ->
                 Log.d("it",
-                    _it.id
+                    _it.requestFragment.id
                 )
 
-                val currentList = _stateFlow.value.friendRequests?.edges?.toMutableList()
-//                currentList?.add(FriendRequestQuery.Edge(node = FriendRequestQuery.Node(), ))
-                _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList?.let {
-                    _stateFlow.value.friendRequests?.copy(
-                        edges = it
-                    )
-                })
+                val currentList = _stateFlow.value.friendRequests?.toMutableList()
+                currentList?.add(FriendRequestQuery.Node(_it.requestFragment.__typename,_it.requestFragment))
+                _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList)
             } }
         }
     }
@@ -73,7 +70,7 @@ class FriendRequestViewModel @Inject constructor(
             when (val result = friendRequestUseCase.getFriendRequests(take, after, filter)) {
                 is ApolloResponse<FriendRequestQuery.Data> -> {
                     _stateFlow.value =
-                        FriendRequestState( friendRequests = result.data?.requests)
+                        FriendRequestState( friendRequests = result.data?.requests?.edges?.map { it.node })
                 }
                 null -> {
 
@@ -82,19 +79,15 @@ class FriendRequestViewModel @Inject constructor(
         }
     }
 
-    fun acceptFriendRequest(requestId: String) {
-        _stateFlow.value = _stateFlow.value.copy(
-            friendRequests = _stateFlow.value.friendRequests?.edges?.let {
-                _stateFlow.value.friendRequests!!.copy( edges = it.map {
-                    if (it.node.id == requestId)
-                        it.copy( node = it.node.copy(status = RequestStatus.ACCEPTED))
-                    else it;
-                })
-            }
-        )
+    fun acceptFriendRequest(request: FriendRequestQuery.Node) {
+
+
+        val currentList = _stateFlow.value.friendRequests?.toMutableList();
+        currentList?.remove(request)
+        _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList)
 
         viewModelScope.launch {
-            when (val access = friendRequestUseCase.handleFriendRequest(requestId, RequestStatus.ACCEPTED)) {
+            when (val access = friendRequestUseCase.handleFriendRequest(request.requestFragment.id, RequestStatus.ACCEPTED)) {
                 is ApolloResponse<HandleRequestMutation.Data> -> {
                 }
                 null -> {
@@ -105,17 +98,13 @@ class FriendRequestViewModel @Inject constructor(
         }
     }
 
-    fun deleteFriendRequest(request: FriendRequestQuery.Edge) {
-        val currentList = _stateFlow.value.friendRequests?.edges?.toMutableList()
+    fun deleteFriendRequest(request: FriendRequestQuery.Node) {
+        val currentList = _stateFlow.value.friendRequests?.toMutableList();
         currentList?.remove(request)
-        _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList?.let {
-            _stateFlow.value.friendRequests?.copy(
-                edges = it
-            )
-        })
+        _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList)
 
         viewModelScope.launch {
-            when (val access = friendRequestUseCase.handleFriendRequest(request.node.id, RequestStatus.REJECTED)) {
+            when (val access = friendRequestUseCase.handleFriendRequest(request.requestFragment.id, RequestStatus.REJECTED)) {
                 is ApolloResponse<HandleRequestMutation.Data> -> {
                 }
                 null -> {

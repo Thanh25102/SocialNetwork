@@ -26,9 +26,9 @@ import java.time.LocalDateTime
 @Composable
 fun FriendRequestItemComponent(
 //    avatarResource: Int, name: String, time: LocalDateTime,
-    friendRequest: FriendRequestQuery.Edge,
-    onDelete: (FriendRequestQuery.Edge) -> Unit,
-    onAccept: (String) -> Unit
+    friendRequest: FriendRequestQuery.Node?,
+    onDelete: (FriendRequestQuery.Node) -> Unit,
+    onAccept: (FriendRequestQuery.Node) -> Unit
 ) {
 //    val (isAccepted, setIsAccepted) = rememberSaveable { mutableStateOf(false) }
 
@@ -53,23 +53,25 @@ fun FriendRequestItemComponent(
             Text(text = "Phú Thịnh", fontWeight = FontWeight.Bold, fontSize = 16.sp)
             Text(text = formatTimeAgo(LocalDateTime.now()), color = HiddenTextColor, fontSize = 12.sp)
             Row() {
-                if (friendRequest.node.status != RequestStatus.ACCEPTED) {
-                    Button(
-                        onClick = { onAccept(friendRequest.node.id) },
-                        modifier = Modifier.width(120.dp),
-                        shape = RoundedCornerShape(10.dp)
-                    ) {
-                        Text("Chấp nhận")
+                if (friendRequest != null) {
+                    if (friendRequest.requestFragment.status != RequestStatus.ACCEPTED) {
+                        Button(
+                            onClick = { onAccept(friendRequest) },
+                            modifier = Modifier.width(120.dp),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Text("Chấp nhận")
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                        BtnApp(
+                            onClick = { onDelete(friendRequest) },
+                            label = "Xóa",
+                            outline = true,
+                            modifier = Modifier.width(120.dp)
+                        )
+                    } else {
+                        Text(text="Đã chấp nhận lời mời kết bạn", fontWeight = FontWeight.Bold, fontSize = 14.sp, modifier = Modifier.width(240.dp))
                     }
-                    Spacer(modifier = Modifier.width(10.dp))
-                    BtnApp(
-                        onClick = { onDelete(friendRequest) },
-                        label = "Xóa",
-                        outline = true,
-                        modifier = Modifier.width(120.dp)
-                    )
-                } else {
-                    Text(text="Đã chấp nhận lời mời kết bạn", fontWeight = FontWeight.Bold, fontSize = 14.sp, modifier = Modifier.width(240.dp))
                 }
             }
         }

@@ -14,12 +14,12 @@ class FriendRequestCoordinator(
 ) {
     val screenStateFlow = viewModel.stateFlow
 
-    fun deleteFriendRequest(request: FriendRequestQuery.Edge) {
+    fun deleteFriendRequest(request: FriendRequestQuery.Node) {
         viewModel.deleteFriendRequest(request)
     }
 
-    fun acceptFriendRequest(requestId: String) {
-        viewModel.acceptFriendRequest(requestId)
+    fun acceptFriendRequest(request: FriendRequestQuery.Node) {
+        viewModel.acceptFriendRequest(request)
     }
 
     fun doStuff() {
