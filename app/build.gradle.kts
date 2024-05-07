@@ -84,7 +84,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
-
+    implementation ("com.google.accompanist:accompanist-coil:0.15.0")
     implementation("com.airbnb.android:lottie-compose:6.4.0")
 
 }
@@ -98,7 +98,7 @@ apollo {
     service("service") {
         packageName.set("tech.mobile.social")
 //        mapScalar("DateTime", "java.util.Date", "com.apollographql.apollo3.adapter.DateAdapter")
-        mapScalar("DateTime", "java.time.LocalDateTime", "com.apollographql.apollo3.adapter.JavaLocalDateTimeAdapter")
+        mapScalar("DateTime", "java.util.Date", "com.apollographql.apollo3.adapter.DateAdapter")
 //        introspection {
 //            endpointUrl.set("https://example.com/graphql")
 //            headers.put("api-key", "1234567890abcdef")

@@ -12,21 +12,31 @@ import tech.mobile.social.domain.model.post.Posts
 import tech.mobile.social.domain.model.post.User
 import tech.mobile.social.domain.repository.PostRepo
 import java.time.LocalDateTime
+import java.util.*
 
 class PostRepoImpl(
     private val apolloClient: ApolloClient,
     pref: SharedPreferences
 ) : PostRepo {
     override suspend fun GetPosts(): Result<Posts, DataError.ServerErrors> {
-        val results = apolloClient.query(PostQuery(take = Optional.Present(10)))
+        val results = apolloClient
+            .newBuilder().apply {
+                addHttpHeader(
+                    "Authorization",
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MmQyZTEyYWM3NjMzODgwZjgwMDBjZiIsInVzZXJuYW1lIjoiY2hpdGhpbmgiLCJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE3MTQzMjk1NzYsImV4cCI6MTcyMzMyOTU3Nn0.0JoeCakHWWqcdDUnExZVHLYT-5stmwoe9EZDzeKCotc"
+                )
+            }
+            .build()
+            .query(PostQuery(take = Optional.Present(10)))
             .execute()
             .data?.posts
         val nodes = results?.edges?.map {
             Post(
                 it.node.id,
                 it.node.content,
-                it.node.createdAt ?: LocalDateTime.now(),
-                User(it.node.user.id, it.node.user.username)
+                it.node.createdAt ?: Date(),
+                User(it.node.user.id, it.node.user.username),
+                it.node.file?.path
             )
         } ?: emptyList()
 
