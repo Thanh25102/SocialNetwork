@@ -21,6 +21,7 @@ import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
 import tech.mobile.social.domain.usecase.interfaces.FriendSuggestUseCase
 import tech.mobile.social.type.RequestStatus
 import tech.mobile.social.type.RequestWhereInput
+import tech.mobile.social.utils.DefaultPaginator
 
 @HiltViewModel
 class FriendSuggestViewModel @Inject constructor(
@@ -52,19 +53,29 @@ class FriendSuggestViewModel @Inject constructor(
         Log.d("Gọi query", "haha");
     }
 
-    fun getFriendSuggests(take: Optional<Int?>, after: Optional<String?>) {
+//    val paginator = DefaultPaginator(
+//        initialKey = _stateFlow.value.after,
+//        onRequest = {nextKey ->  this.getFriendSuggests(13, nextKey)},
+//
+//    )
+
+    fun getFriendSuggests(take: Optional<Int?>, after: Optional<String?>): Result<List<FriendSuggestQuery.Node>> {
+        var resultList: List<FriendSuggestQuery.Node> = emptyList();
         viewModelScope.launch {
-            _stateFlow.value.isLoading = true
+//            _stateFlow.value.isLoading = true
             when (val result = friendSuggestUseCase.getFriendSuggests(take, after)) {
                 is ApolloResponse<FriendSuggestQuery.Data> -> {
                     _stateFlow.value =
                         FriendSuggestState( friendSuggests = result.data?.user?.suggests)
+                        resultList = result.data?.user?.suggests?.edges?.map { it.node }!!
                 }
                 null -> {
 
                 }
             }
         }
+
+        return Result.success(resultList)
     }
 
     fun acceptFriendRequest(userId: String) {

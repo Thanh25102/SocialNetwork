@@ -16,6 +16,7 @@ data class FriendSuggestState(
     val friendSuggests: FriendSuggestQuery.Suggests? = null,
     var isLoading: Boolean = false,
     val error: String = "",
+    val after: Int? = null
 )
 
 

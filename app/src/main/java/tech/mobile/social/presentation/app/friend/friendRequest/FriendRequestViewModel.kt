@@ -24,6 +24,7 @@ import tech.mobile.social.fragment.RequestFragment
 import tech.mobile.social.shared.UserState
 import tech.mobile.social.type.RequestStatus
 import tech.mobile.social.type.RequestWhereInput
+import tech.mobile.social.utils.DefaultPaginator
 
 @HiltViewModel
 class FriendRequestViewModel @Inject constructor(
