@@ -1,0 +1,13 @@
+mutation requestFriend($user_id:ID!) {
+  request: request_friend(user_id: $user_id) {
+    id,
+    receiver {
+      username
+      id
+    }
+    sender {
+      username
+      id
+    }
+  }
+}

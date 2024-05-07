@@ -1,0 +1,20 @@
+fragment ReceiverRequest on Request {
+    receiver {
+        id
+        username
+    }
+}
+
+fragment SenderRequest on Request {
+    sender {
+        id
+        username
+    }
+}
+fragment RequestFragment on Request {
+    id
+    ...ReceiverRequest,
+    ...SenderRequest,
+    status,
+    createdAt
+}

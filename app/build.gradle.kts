@@ -98,7 +98,7 @@ apollo {
     service("service") {
         packageName.set("tech.mobile.social")
 //        mapScalar("DateTime", "java.util.Date", "com.apollographql.apollo3.adapter.DateAdapter")
-        mapScalar("DateTime", "java.time.LocalDateTime", "com.apollographql.apollo3.adapter.JavaLocalDateTimeAdapter")
+//        mapScalar("DateTime", "java.time.LocalDateTime", "com.apollographql.apollo3.adapter.JavaLocalDateTimeAdapter")
 //        introspection {
 //            endpointUrl.set("https://example.com/graphql")
 //            headers.put("api-key", "1234567890abcdef")

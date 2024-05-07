@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.friend.friendRequest
+package tech.mobile.social.presentation.app.friend.friendSuggest
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -9,17 +9,17 @@ import tech.mobile.social.FriendRequestQuery
  * Screen's coordinator which is responsible for handling actions from the UI layer
  * and one-shot actions based on the new UI state
  */
-class FriendRequestCoordinator(
-    val viewModel: FriendRequestViewModel
+class FriendSuggestCoordinator(
+    val viewModel: FriendSuggestViewModel
 ) {
     val screenStateFlow = viewModel.stateFlow
 
-    fun deleteFriendRequest(request: FriendRequestQuery.Node) {
-        viewModel.deleteFriendRequest(request)
+    fun deleteFriendSuggest(userId: String) {
+        viewModel.deleteFriendRequest(userId)
     }
 
-    fun acceptFriendRequest(request: FriendRequestQuery.Node) {
-        viewModel.acceptFriendRequest(request)
+    fun sendFriendRequest(userId: String) {
+        viewModel.sendFriendRequest(userId)
     }
 
     fun doStuff() {
@@ -28,11 +28,11 @@ class FriendRequestCoordinator(
 }
 
 @Composable
-fun rememberFriendRequestCoordinator(
-    viewModel: FriendRequestViewModel = hiltViewModel()
-): FriendRequestCoordinator {
+fun rememberFriendSuggestCoordinator(
+    viewModel: FriendSuggestViewModel = hiltViewModel()
+): FriendSuggestCoordinator {
     return remember(viewModel) {
-        FriendRequestCoordinator(
+        FriendSuggestCoordinator(
             viewModel = viewModel
         )
     }
