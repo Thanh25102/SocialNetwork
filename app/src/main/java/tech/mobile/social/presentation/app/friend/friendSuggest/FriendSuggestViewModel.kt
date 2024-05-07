@@ -49,25 +49,40 @@ class FriendSuggestViewModel @Inject constructor(
     val stateFlow: StateFlow<FriendSuggestState> = _stateFlow.asStateFlow()
 
     init {
-       val request = getFriendSuggests(Optional.present(21), Optional.Present(null)); // Gọi ở đây
+//       val request = getFriendSuggests(Optional.present(21), Optional.Present(null)); // Gọi ở đây
         Log.d("Gọi query", "haha");
     }
 
-//    val paginator = DefaultPaginator(
-//        initialKey = _stateFlow.value.after,
-//        onRequest = {nextKey ->  this.getFriendSuggests(13, nextKey)},
-//
-//    )
+    val paginator = DefaultPaginator(
+        initialKey = stateFlow.value.after,
+        onLoadUpdated = {
+            _stateFlow.value = _stateFlow.value.copy(isLoading = it)
+        },
+        onRequest = {nextKey -> this.getFriendSuggests(Optional.present(10), nextKey)},
+        getNextKey = {
+           Optional.present(_stateFlow.value.friendSuggests?.get(_stateFlow.value.friendSuggests?.size!! - 1)?.id)
+        },
+        onError = {
+            _stateFlow.value.copy(error = it?.localizedMessage)
+        },
+        onSuccess = { items, newKey  ->
+            _stateFlow.value.copy(
+                friendSuggests = _stateFlow.value.friendSuggests?.plus(items),
+                after = newKey,
+                endReached = items.isEmpty()
+            )
+        },
+    )
 
-    fun getFriendSuggests(take: Optional<Int?>, after: Optional<String?>): Result<List<FriendSuggestQuery.Node>> {
+    suspend fun getFriendSuggests(take: Optional<Int?>, after: Optional<String?>): Result<List<FriendSuggestQuery.Node>> {
         var resultList: List<FriendSuggestQuery.Node> = emptyList();
         viewModelScope.launch {
 //            _stateFlow.value.isLoading = true
             when (val result = friendSuggestUseCase.getFriendSuggests(take, after)) {
                 is ApolloResponse<FriendSuggestQuery.Data> -> {
+                    resultList = result.data?.user?.suggests?.edges?.map { it.node }!!
                     _stateFlow.value =
-                        FriendSuggestState( friendSuggests = result.data?.user?.suggests)
-                        resultList = result.data?.user?.suggests?.edges?.map { it.node }!!
+                        FriendSuggestState( friendSuggests = resultList)
                 }
                 null -> {
 
@@ -78,7 +93,7 @@ class FriendSuggestViewModel @Inject constructor(
         return Result.success(resultList)
     }
 
-    fun acceptFriendRequest(userId: String) {
+    fun sendFriendRequest(userId: String) {
 //        _stateFlow.value = _stateFlow.value.copy(
 //            friendSuggests = _stateFlow.value.friendSuggests?.edges?.let {
 //                _stateFlow.value.friendSuggests!!.copy( edges = it.map {
@@ -110,16 +125,16 @@ class FriendSuggestViewModel @Inject constructor(
 //            )
 //        })
 //
-//        viewModelScope.launch {
-//            when (val access = friendRequestUseCase.handleFriendRequest(userId, RequestStatus.REJECTED)) {
-//                is ApolloResponse<HandleRequestMutation.Data> -> {
-//                }
-//                null -> {
-//                    Log.i("STATE", "err msg accept ")
-//                    _stateFlow.value.isLoading = false
-//                }
-//            }
-//        }
+        viewModelScope.launch {
+            when (val access = friendRequestUseCase.handleFriendRequest(userId, RequestStatus.REJECTED)) {
+                is ApolloResponse<HandleRequestMutation.Data> -> {
+                }
+                null -> {
+                    Log.i("STATE", "err msg accept ")
+                    _stateFlow.value.isLoading = false
+                }
+            }
+        }
     }
 
     fun refreshFriendRequests() {

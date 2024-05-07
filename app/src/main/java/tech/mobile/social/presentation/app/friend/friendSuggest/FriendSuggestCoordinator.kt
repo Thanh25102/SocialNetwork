@@ -19,7 +19,7 @@ class FriendSuggestCoordinator(
     }
 
     fun sendFriendRequest(userId: String) {
-        viewModel.acceptFriendRequest(userId)
+        viewModel.sendFriendRequest(userId)
     }
 
     fun doStuff() {

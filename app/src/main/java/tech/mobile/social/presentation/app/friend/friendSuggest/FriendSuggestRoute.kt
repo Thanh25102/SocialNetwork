@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 
 @Composable
 fun FriendSuggestRoute(
-    coordinator: FriendSuggestCoordinator = rememberFriendSuggestCoordinator()
+    coordinator: FriendSuggestCoordinator = rememberFriendSuggestCoordinator(),
 ) {
     // State observing and declarations
     val uiState by coordinator.screenStateFlow.collectAsState(FriendSuggestState())

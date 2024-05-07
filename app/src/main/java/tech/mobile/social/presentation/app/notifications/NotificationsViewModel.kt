@@ -29,6 +29,8 @@ class NotificationsViewModel @Inject constructor(
 
     init {
         getNotifications(Optional.present(10), Optional.Present(null));
+
+
     }
 
     fun getNotifications(take: Optional<Int?>, after: Optional<String?>) {
