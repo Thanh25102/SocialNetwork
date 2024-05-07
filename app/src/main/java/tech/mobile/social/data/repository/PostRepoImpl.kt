@@ -23,7 +23,7 @@ class PostRepoImpl(
     pref: SharedPreferences
 ) : PostRepo {
     override suspend fun GetPosts(): Result<Posts, DataError.ServerErrors> {
-        val results = apolloClient.query(PostQuery(take = 10))
+        val results = apolloClient.query(PostQuery(take = Optional.Present(10)))
             .execute()
             .data?.posts
         val nodes = results?.edges?.map {
@@ -53,8 +53,6 @@ class PostRepoImpl(
         val result = apolloClient.mutation(
             Create_postMutation(
                 PostCreateInput(
-                    id = id,
-                    user = createdBy,
                     content = content
                 )
             )
