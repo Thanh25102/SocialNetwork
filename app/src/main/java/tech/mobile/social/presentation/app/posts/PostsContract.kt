@@ -1,21 +1,38 @@
 package tech.mobile.social.presentation.app.posts
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.staticCompositionLocalOf
-import tech.mobile.social.domain.model.post.User
+import com.apollographql.apollo3.api.Optional
+import com.apollographql.apollo3.api.Optional.*
+import tech.mobile.social.type.UserCreateNestedOneWithoutPostsInput
+import tech.mobile.social.type.UserCreateOrConnectWithoutPostsInput
+import tech.mobile.social.type.UserCreateWithoutPostsInput
+import tech.mobile.social.type.UserWhereUniqueInput
 import java.time.LocalDateTime
 
 
 /**
  * UI State that represents PostsScreen id, content, createdAt,createdBy
  **/
-data class PostsState (
+val userId = Absent
+val userWhereUnique = UserWhereUniqueInput(id = userId)
+val userCreate = UserCreateWithoutPostsInput(username = "", password = "", email = "")
 
-    val id : String = "",
-    val content : String ="",
+
+
+
+
+val tempUserInput = UserCreateNestedOneWithoutPostsInput(
+    connect = Optional.Present(UserWhereUniqueInput(userId)),
+
+)
+
+
+
+
+data class PostsState(
+    val id: Optional<String?> = Absent,
+    val content: String ="",
     val createdAt: LocalDateTime = LocalDateTime.now(),
-    val createdBy: User = User(id= "", username = "")
+    val createdBy: UserCreateNestedOneWithoutPostsInput = tempUserInput
 )
 
 /**

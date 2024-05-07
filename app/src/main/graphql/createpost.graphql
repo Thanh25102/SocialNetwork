@@ -1,0 +1,11 @@
+mutation create_post($input: PostCreateInput!) {
+    create_post(input: $input) {
+        id,
+        user {
+            id,
+            username
+            email
+        }
+        content
+    }
+}
