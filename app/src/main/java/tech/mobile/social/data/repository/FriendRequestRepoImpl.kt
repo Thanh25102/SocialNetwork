@@ -1,20 +1,21 @@
 package tech.mobile.social.data.repository
 
-//import tech.mobile.social.type.AuthorizeInput
-//import tech.mobile.social.type.RequestWhereInput
-//import tech.mobile.social.type.UserCreateInput
+
 import android.content.SharedPreferences
+import android.util.Log
 import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import com.apollographql.apollo3.exception.ApolloException
+import kotlinx.coroutines.flow.Flow
+
 import tech.mobile.social.FriendRequestQuery
-import tech.mobile.social.data.mapper.toFriendRequest
-import tech.mobile.social.domain.DataError
-import tech.mobile.social.domain.Result
-import tech.mobile.social.domain.model.friend.FriendRequests
+import tech.mobile.social.HandleRequestMutation
+import tech.mobile.social.RequestAddedSubscription
+
 import tech.mobile.social.domain.repository.FriendRequestRepo
+import tech.mobile.social.type.RequestStatus
 import tech.mobile.social.type.RequestWhereInput
-import tech.mobile.social.utils.handleException
 
 //
 class FriendRequestRepoImpl(
@@ -22,18 +23,52 @@ class FriendRequestRepoImpl(
     private val pref: SharedPreferences
 ) : FriendRequestRepo {
 
-    override suspend fun getFriendRequests(take: Optional<Int?>, after: Optional<String?>, filter: Optional<RequestWhereInput?>): Result<FriendRequests, DataError.ServerErrors> {
+    override suspend fun getFriendRequests(take: Optional<Int?>, after: Optional<String?>, filter: Optional<RequestWhereInput?>): ApolloResponse<FriendRequestQuery.Data>? {
         return try {
-            val result = apolloClient.newBuilder().apply { addHttpHeader("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MmQyZTEyYWM3NjMzODgwZjgwMDBjZiIsInVzZXJuYW1lIjoiY2hpdGhpbmgiLCJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE3MTQzMjk1NzYsImV4cCI6MTcyMzMyOTU3Nn0.0JoeCakHWWqcdDUnExZVHLYT-5stmwoe9EZDzeKCotc") }.build()
+            val result = apolloClient
                 .query(FriendRequestQuery(take, after, filter))
                 .execute()
-
-            if (!result.hasErrors())
-                Result.Success(result.data!!.toFriendRequest())
-            else
-                Result.Error(DataError.ServerErrors(handleException(result.errors!!)))
+            if(result.hasErrors()) {
+                val error = result.errors?.firstOrNull()
+                Log.e("FriendRequestRepoImpl", "getFriendRequests: ${error?.message}")
+                return null;
+            }
+            return result;
         } catch (e: ApolloException) {
-            Result.Error(DataError.ServerErrors(listOf(e.toString())))
+            Log.e("FriendRequestRepoImpl", "getFriendRequests: ${e.message}")
+            return null;
+        }
+    }
+
+    override suspend fun handleFriendRequest(
+        requestId: String,
+        status: RequestStatus
+    ):  ApolloResponse<HandleRequestMutation.Data>? {
+        try {
+            val result = apolloClient
+                .mutation(HandleRequestMutation(requestId, status))
+                .execute()
+            if(result.hasErrors()) {
+                val error = result.errors?.firstOrNull()
+                Log.e("FriendRequestRepoImpl", "handleFriendRequest: ${error?.message}")
+                return null;
+            }
+           return result;
+        } catch (e: ApolloException) {
+            Log.e("FriendRequestRepoImpl", "handleFriendRequest: ${e.message}")
+            return null;
+        }
+    }
+
+    override suspend fun requestAdded(): Flow<ApolloResponse<RequestAddedSubscription.Data>>? {
+        try {
+            val result = apolloClient
+                .subscription(RequestAddedSubscription())
+                .toFlow()
+            return result;
+        } catch (e: ApolloException) {
+            Log.e("FriendRequestRepoImpl", "handleFriendRequest: ${e.message}")
+            return null;
         }
     }
 }

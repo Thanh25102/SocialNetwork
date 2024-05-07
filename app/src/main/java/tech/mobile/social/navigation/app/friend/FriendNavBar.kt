@@ -22,6 +22,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import tech.mobile.social.Screens
 import tech.mobile.social.presentation.app.friend.friendRequest.FriendRequestRoute
+import tech.mobile.social.presentation.app.friend.friendSuggest.FriendSuggestRoute
 
 @Composable
 fun FriendNavBar(appNavController: NavController) {
@@ -92,6 +93,7 @@ fun FriendNavBar(appNavController: NavController) {
                 FriendRequestRoute()
             }
             composable(Screens.Suggestion.route) {
+                FriendSuggestRoute()
 //                ForYouScreen(navController)
             }
         }

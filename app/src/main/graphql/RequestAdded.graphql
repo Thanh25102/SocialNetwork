@@ -1,0 +1,6 @@
+subscription requestAdded {
+  request: request_added {
+    ...RequestFragment
+  }
+}
+

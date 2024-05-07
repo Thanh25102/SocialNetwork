@@ -2,7 +2,9 @@ package tech.mobile.social.data.repository
 
 import android.content.SharedPreferences
 import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
+import tech.mobile.social.Create_postMutation
 import tech.mobile.social.PostQuery
 import tech.mobile.social.domain.DataError
 import tech.mobile.social.domain.Result
@@ -11,6 +13,8 @@ import tech.mobile.social.domain.model.post.Post
 import tech.mobile.social.domain.model.post.Posts
 import tech.mobile.social.domain.model.post.User
 import tech.mobile.social.domain.repository.PostRepo
+import tech.mobile.social.type.PostCreateInput
+import tech.mobile.social.type.UserCreateNestedOneWithoutPostsInput
 import java.time.LocalDateTime
 import java.util.*
 
@@ -19,15 +23,7 @@ class PostRepoImpl(
     pref: SharedPreferences
 ) : PostRepo {
     override suspend fun GetPosts(): Result<Posts, DataError.ServerErrors> {
-        val results = apolloClient
-            .newBuilder().apply {
-                addHttpHeader(
-                    "Authorization",
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MmQyZTEyYWM3NjMzODgwZjgwMDBjZiIsInVzZXJuYW1lIjoiY2hpdGhpbmgiLCJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE3MTQzMjk1NzYsImV4cCI6MTcyMzMyOTU3Nn0.0JoeCakHWWqcdDUnExZVHLYT-5stmwoe9EZDzeKCotc"
-                )
-            }
-            .build()
-            .query(PostQuery(take = Optional.Present(10)))
+        val results = apolloClient.query(PostQuery(take = 10))
             .execute()
             .data?.posts
         val nodes = results?.edges?.map {
@@ -49,13 +45,25 @@ class PostRepoImpl(
     }
 
     override suspend fun CreatePost(
-        id: String,
+        id: Optional<String?>,
         content: String,
         createdAt: LocalDateTime,
-        createdBy: User
-    ): Result<Post, DataError.ServerErrors> {
-        TODO("Not yet implemented")
+        createdBy: UserCreateNestedOneWithoutPostsInput
+    ): ApolloResponse<Create_postMutation.Data> {
+        val result = apolloClient.mutation(
+            Create_postMutation(
+                PostCreateInput(
+                    id = id,
+                    user = createdBy,
+                    content = content
+                )
+            )
+        ).execute()
+
+        return result;
     }
+
+
 
 
 }

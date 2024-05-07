@@ -1,0 +1,31 @@
+query notifications {
+  notifications {
+    edges {
+      node {
+        id
+        comment {
+          id
+        }
+        post {
+          id
+        }
+        request {
+          id
+        }
+        sender {
+          id
+          username
+        }
+        recipients {
+          id
+          user {
+            id
+          }
+          read
+        }
+        type
+        createdAt
+      }
+    }
+  }
+}

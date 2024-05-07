@@ -1,21 +1,22 @@
-# ------------------------------------------------------
-# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
-# ------------------------------------------------------
-
 type Asset {
   path: String
+
   type: AssetType
 }
 
 input AssetCreateInput {
   path: String
+
   type: AssetType
 }
 
 input AssetNullableCompositeFilter {
   equals: AssetObjectEqualityInput
+
   is: AssetWhereInput
+
   isNot: AssetWhereInput
+
   isSet: Boolean
 }
 
@@ -25,89 +26,126 @@ input AssetNullableCreateEnvelopeInput {
 
 input AssetNullableUpdateEnvelopeInput {
   set: AssetCreateInput
+
   unset: Boolean
+
   upsert: AssetUpsertInput
 }
 
 input AssetObjectEqualityInput {
   path: String
+
   type: AssetType
 }
 
 enum AssetType {
   IMAGE
+
   VIDEO
 }
 
 input AssetUpdateInput {
   path: String
+
   type: AssetType
 }
 
 input AssetUpsertInput {
   set: AssetCreateInput!
+
   update: AssetUpdateInput!
 }
 
 input AssetWhereInput {
   AND: [AssetWhereInput!]
+
   NOT: [AssetWhereInput!]
+
   OR: [AssetWhereInput!]
+
   path: StringNullableFilter
+
   type: EnumAssetTypeNullableFilter
 }
 
 type AuthResponse {
   accessToken: String!
+
   user: User!
 }
 
 input AuthorizeInput {
   password: String!
+
   username: String!
 }
 
 type BaseEntity {
   createdAt: String!
+
   id: ID!
+
   updatedAt: String!
 }
 
 input BoolFilter {
   equals: Boolean
+
   not: NestedBoolFilter
 }
 
+"""
+The `Boolean` scalar type represents `true` or `false`.
+"""
+scalar Boolean
+
 type Comment {
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: Asset
+
   id: ID!
+
   notifications: [Notification!]
+
   post: Post!
+
   updatedAt: DateTime
+
   user: User!
 }
 
 type CommentConnection {
   edges: [CommentEdge!]!
+
   pageInfo: PageInfo!
 }
 
 input CommentCreateInput {
   content: String!
+
   file: Upload
+
   post: PostCreateNestedOneWithoutCommentsInput!
 }
 
 input CommentCreateManyPostInput {
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableCreateEnvelopeInput
+
   id: String
+
   updatedAt: DateTime
+
   userId: String!
 }
 
@@ -117,11 +155,17 @@ input CommentCreateManyPostInputEnvelope {
 
 input CommentCreateManyUserInput {
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableCreateEnvelopeInput
+
   id: String
+
   postId: String!
+
   updatedAt: DateTime
 }
 
@@ -131,251 +175,381 @@ input CommentCreateManyUserInputEnvelope {
 
 input CommentCreateNestedManyWithoutPostInput {
   connect: [CommentWhereUniqueInput!]
+
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput!]
+
   create: [CommentCreateWithoutPostInput!]
+
   createMany: CommentCreateManyPostInputEnvelope
 }
 
 input CommentCreateNestedManyWithoutUserInput {
   connect: [CommentWhereUniqueInput!]
+
   connectOrCreate: [CommentCreateOrConnectWithoutUserInput!]
+
   create: [CommentCreateWithoutUserInput!]
+
   createMany: CommentCreateManyUserInputEnvelope
 }
 
 input CommentCreateNestedOneWithoutNotificationsInput {
   connect: CommentWhereUniqueInput
+
   connectOrCreate: CommentCreateOrConnectWithoutNotificationsInput
+
   create: CommentCreateWithoutNotificationsInput
 }
 
 input CommentCreateOrConnectWithoutNotificationsInput {
   create: CommentCreateWithoutNotificationsInput!
+
   where: CommentWhereUniqueInput!
 }
 
 input CommentCreateOrConnectWithoutPostInput {
   create: CommentCreateWithoutPostInput!
+
   where: CommentWhereUniqueInput!
 }
 
 input CommentCreateOrConnectWithoutUserInput {
   create: CommentCreateWithoutUserInput!
+
   where: CommentWhereUniqueInput!
 }
 
 input CommentCreateWithoutNotificationsInput {
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableCreateEnvelopeInput
+
   id: String
+
   post: PostCreateNestedOneWithoutCommentsInput!
+
   updatedAt: DateTime
+
   user: UserCreateNestedOneWithoutCommentsInput!
 }
 
 input CommentCreateWithoutPostInput {
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableCreateEnvelopeInput
+
   id: String
+
   notifications: NotificationCreateNestedManyWithoutCommentInput
+
   updatedAt: DateTime
+
   user: UserCreateNestedOneWithoutCommentsInput!
 }
 
 input CommentCreateWithoutUserInput {
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableCreateEnvelopeInput
+
   id: String
+
   notifications: NotificationCreateNestedManyWithoutCommentInput
+
   post: PostCreateNestedOneWithoutCommentsInput!
+
   updatedAt: DateTime
 }
 
 type CommentEdge {
   cursor: String!
+
   node: Comment!
 }
 
 input CommentListRelationFilter {
   every: CommentWhereInput
+
   none: CommentWhereInput
+
   some: CommentWhereInput
 }
 
 input CommentNullableRelationFilter {
   is: CommentWhereInput
+
   isNot: CommentWhereInput
 }
 
 input CommentScalarWhereInput {
   AND: [CommentScalarWhereInput!]
+
   NOT: [CommentScalarWhereInput!]
+
   OR: [CommentScalarWhereInput!]
+
   content: StringFilter
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   id: StringFilter
+
   postId: StringFilter
+
   updatedAt: DateTimeNullableFilter
+
   userId: StringFilter
 }
 
 input CommentUpdateManyMutationInput {
   content: String
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableUpdateEnvelopeInput
+
   updatedAt: DateTime
 }
 
 input CommentUpdateManyWithWhereWithoutPostInput {
   data: CommentUpdateManyMutationInput!
+
   where: CommentScalarWhereInput!
 }
 
 input CommentUpdateManyWithWhereWithoutUserInput {
   data: CommentUpdateManyMutationInput!
+
   where: CommentScalarWhereInput!
 }
 
 input CommentUpdateManyWithoutPostNestedInput {
   connect: [CommentWhereUniqueInput!]
+
   connectOrCreate: [CommentCreateOrConnectWithoutPostInput!]
+
   create: [CommentCreateWithoutPostInput!]
+
   createMany: CommentCreateManyPostInputEnvelope
+
   delete: [CommentWhereUniqueInput!]
+
   deleteMany: [CommentScalarWhereInput!]
+
   disconnect: [CommentWhereUniqueInput!]
+
   set: [CommentWhereUniqueInput!]
+
   update: [CommentUpdateWithWhereUniqueWithoutPostInput!]
+
   updateMany: [CommentUpdateManyWithWhereWithoutPostInput!]
+
   upsert: [CommentUpsertWithWhereUniqueWithoutPostInput!]
 }
 
 input CommentUpdateManyWithoutUserNestedInput {
   connect: [CommentWhereUniqueInput!]
+
   connectOrCreate: [CommentCreateOrConnectWithoutUserInput!]
+
   create: [CommentCreateWithoutUserInput!]
+
   createMany: CommentCreateManyUserInputEnvelope
+
   delete: [CommentWhereUniqueInput!]
+
   deleteMany: [CommentScalarWhereInput!]
+
   disconnect: [CommentWhereUniqueInput!]
+
   set: [CommentWhereUniqueInput!]
+
   update: [CommentUpdateWithWhereUniqueWithoutUserInput!]
+
   updateMany: [CommentUpdateManyWithWhereWithoutUserInput!]
+
   upsert: [CommentUpsertWithWhereUniqueWithoutUserInput!]
 }
 
 input CommentUpdateOneWithoutNotificationsNestedInput {
   connect: CommentWhereUniqueInput
+
   connectOrCreate: CommentCreateOrConnectWithoutNotificationsInput
+
   create: CommentCreateWithoutNotificationsInput
+
   delete: CommentWhereInput
+
   disconnect: Boolean
+
   update: CommentUpdateToOneWithWhereWithoutNotificationsInput
+
   upsert: CommentUpsertWithoutNotificationsInput
 }
 
 input CommentUpdateToOneWithWhereWithoutNotificationsInput {
   data: CommentUpdateWithoutNotificationsInput!
+
   where: CommentWhereInput
 }
 
 input CommentUpdateWithWhereUniqueWithoutPostInput {
   data: CommentUpdateWithoutPostInput!
+
   where: CommentWhereUniqueInput!
 }
 
 input CommentUpdateWithWhereUniqueWithoutUserInput {
   data: CommentUpdateWithoutUserInput!
+
   where: CommentWhereUniqueInput!
 }
 
 input CommentUpdateWithoutNotificationsInput {
   content: String
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableUpdateEnvelopeInput
+
   post: PostUpdateOneRequiredWithoutCommentsNestedInput
+
   updatedAt: DateTime
+
   user: UserUpdateOneRequiredWithoutCommentsNestedInput
 }
 
 input CommentUpdateWithoutPostInput {
   content: String
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableUpdateEnvelopeInput
+
   notifications: NotificationUpdateManyWithoutCommentNestedInput
+
   updatedAt: DateTime
+
   user: UserUpdateOneRequiredWithoutCommentsNestedInput
 }
 
 input CommentUpdateWithoutUserInput {
   content: String
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableUpdateEnvelopeInput
+
   notifications: NotificationUpdateManyWithoutCommentNestedInput
+
   post: PostUpdateOneRequiredWithoutCommentsNestedInput
+
   updatedAt: DateTime
 }
 
 input CommentUpsertWithWhereUniqueWithoutPostInput {
   create: CommentCreateWithoutPostInput!
+
   update: CommentUpdateWithoutPostInput!
+
   where: CommentWhereUniqueInput!
 }
 
 input CommentUpsertWithWhereUniqueWithoutUserInput {
   create: CommentCreateWithoutUserInput!
+
   update: CommentUpdateWithoutUserInput!
+
   where: CommentWhereUniqueInput!
 }
 
 input CommentUpsertWithoutNotificationsInput {
   create: CommentCreateWithoutNotificationsInput!
+
   update: CommentUpdateWithoutNotificationsInput!
+
   where: CommentWhereInput
 }
 
 input CommentWhereInput {
   AND: [CommentWhereInput!]
+
   NOT: [CommentWhereInput!]
+
   OR: [CommentWhereInput!]
+
   content: StringFilter
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   file: AssetNullableCompositeFilter
+
   id: StringFilter
+
   notifications: NotificationListRelationFilter
+
   post: PostRelationFilter
+
   postId: StringFilter
+
   updatedAt: DateTimeNullableFilter
+
   user: UserRelationFilter
+
   userId: StringFilter
 }
 
 input CommentWhereUniqueInput {
   AND: [CommentWhereInput!]
+
   NOT: [CommentWhereInput!]
+
   OR: [CommentWhereInput!]
+
   content: StringFilter
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   file: AssetNullableCompositeFilter
+
   id: String
+
   notifications: NotificationListRelationFilter
+
   post: PostRelationFilter
+
   postId: StringFilter
+
   updatedAt: DateTimeNullableFilter
+
   user: UserRelationFilter
+
   userId: StringFilter
 }
 
@@ -386,42 +560,63 @@ scalar DateTime
 
 input DateTimeNullableFilter {
   equals: DateTime
+
   gt: DateTime
+
   gte: DateTime
+
   in: [DateTime!]
+
   isSet: Boolean
+
   lt: DateTime
+
   lte: DateTime
+
   not: NestedDateTimeNullableFilter
+
   notIn: [DateTime!]
 }
 
 input EnumAssetTypeNullableFilter {
   equals: AssetType
+
   in: [AssetType!]
+
   isSet: Boolean
+
   not: NestedEnumAssetTypeNullableFilter
+
   notIn: [AssetType!]
 }
 
 input EnumNotificationTypeFilter {
   equals: NotificationType
+
   in: [NotificationType!]
+
   not: NestedEnumNotificationTypeFilter
+
   notIn: [NotificationType!]
 }
 
 input EnumReactionEnumFilter {
   equals: ReactionEnum
+
   in: [ReactionEnum!]
+
   not: NestedEnumReactionEnumFilter
+
   notIn: [ReactionEnum!]
 }
 
 input EnumRequestStatusFilter {
   equals: RequestStatus
+
   in: [RequestStatus!]
+
   not: NestedEnumRequestStatusFilter
+
   notIn: [RequestStatus!]
 }
 
@@ -431,28 +626,39 @@ input ForgotPasswordInput {
 
 type ForgotResponse {
   email: String!
+
   success: Boolean!
 }
 
 type Friend {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   friend: User!
+
   id: ID!
+
   updatedAt: DateTime
+
   user: User!
 }
 
 type FriendConnection {
   edges: [FriendEdge!]!
+
   pageInfo: PageInfo!
 }
 
 input FriendCreateManyFriendInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   updatedAt: DateTime
+
   userId: String!
 }
 
@@ -462,9 +668,13 @@ input FriendCreateManyFriendInputEnvelope {
 
 input FriendCreateManyUserInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   friendId: String!
+
   id: String
+
   updatedAt: DateTime
 }
 
@@ -474,295 +684,473 @@ input FriendCreateManyUserInputEnvelope {
 
 input FriendCreateNestedManyWithoutFriendInput {
   connect: [FriendWhereUniqueInput!]
+
   connectOrCreate: [FriendCreateOrConnectWithoutFriendInput!]
+
   create: [FriendCreateWithoutFriendInput!]
+
   createMany: FriendCreateManyFriendInputEnvelope
 }
 
 input FriendCreateNestedManyWithoutUserInput {
   connect: [FriendWhereUniqueInput!]
+
   connectOrCreate: [FriendCreateOrConnectWithoutUserInput!]
+
   create: [FriendCreateWithoutUserInput!]
+
   createMany: FriendCreateManyUserInputEnvelope
 }
 
 input FriendCreateOrConnectWithoutFriendInput {
   create: FriendCreateWithoutFriendInput!
+
   where: FriendWhereUniqueInput!
 }
 
 input FriendCreateOrConnectWithoutUserInput {
   create: FriendCreateWithoutUserInput!
+
   where: FriendWhereUniqueInput!
 }
 
 input FriendCreateWithoutFriendInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   updatedAt: DateTime
+
   user: UserCreateNestedOneWithoutFriendsInput!
 }
 
 input FriendCreateWithoutUserInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   friend: UserCreateNestedOneWithoutFriendOfInput!
+
   id: String
+
   updatedAt: DateTime
 }
 
 type FriendEdge {
   cursor: String!
+
   node: Friend!
 }
 
 input FriendListRelationFilter {
   every: FriendWhereInput
+
   none: FriendWhereInput
+
   some: FriendWhereInput
 }
 
 input FriendScalarWhereInput {
   AND: [FriendScalarWhereInput!]
+
   NOT: [FriendScalarWhereInput!]
+
   OR: [FriendScalarWhereInput!]
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   friendId: StringFilter
+
   id: StringFilter
+
   updatedAt: DateTimeNullableFilter
+
   userId: StringFilter
 }
 
 input FriendUpdateManyMutationInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   updatedAt: DateTime
 }
 
 input FriendUpdateManyWithWhereWithoutFriendInput {
   data: FriendUpdateManyMutationInput!
+
   where: FriendScalarWhereInput!
 }
 
 input FriendUpdateManyWithWhereWithoutUserInput {
   data: FriendUpdateManyMutationInput!
+
   where: FriendScalarWhereInput!
 }
 
 input FriendUpdateManyWithoutFriendNestedInput {
   connect: [FriendWhereUniqueInput!]
+
   connectOrCreate: [FriendCreateOrConnectWithoutFriendInput!]
+
   create: [FriendCreateWithoutFriendInput!]
+
   createMany: FriendCreateManyFriendInputEnvelope
+
   delete: [FriendWhereUniqueInput!]
+
   deleteMany: [FriendScalarWhereInput!]
+
   disconnect: [FriendWhereUniqueInput!]
+
   set: [FriendWhereUniqueInput!]
+
   update: [FriendUpdateWithWhereUniqueWithoutFriendInput!]
+
   updateMany: [FriendUpdateManyWithWhereWithoutFriendInput!]
+
   upsert: [FriendUpsertWithWhereUniqueWithoutFriendInput!]
 }
 
 input FriendUpdateManyWithoutUserNestedInput {
   connect: [FriendWhereUniqueInput!]
+
   connectOrCreate: [FriendCreateOrConnectWithoutUserInput!]
+
   create: [FriendCreateWithoutUserInput!]
+
   createMany: FriendCreateManyUserInputEnvelope
+
   delete: [FriendWhereUniqueInput!]
+
   deleteMany: [FriendScalarWhereInput!]
+
   disconnect: [FriendWhereUniqueInput!]
+
   set: [FriendWhereUniqueInput!]
+
   update: [FriendUpdateWithWhereUniqueWithoutUserInput!]
+
   updateMany: [FriendUpdateManyWithWhereWithoutUserInput!]
+
   upsert: [FriendUpsertWithWhereUniqueWithoutUserInput!]
 }
 
 input FriendUpdateWithWhereUniqueWithoutFriendInput {
   data: FriendUpdateWithoutFriendInput!
+
   where: FriendWhereUniqueInput!
 }
 
 input FriendUpdateWithWhereUniqueWithoutUserInput {
   data: FriendUpdateWithoutUserInput!
+
   where: FriendWhereUniqueInput!
 }
 
 input FriendUpdateWithoutFriendInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   updatedAt: DateTime
+
   user: UserUpdateOneRequiredWithoutFriendsNestedInput
 }
 
 input FriendUpdateWithoutUserInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   friend: UserUpdateOneRequiredWithoutFriendOfNestedInput
+
   updatedAt: DateTime
 }
 
 input FriendUpsertWithWhereUniqueWithoutFriendInput {
   create: FriendCreateWithoutFriendInput!
+
   update: FriendUpdateWithoutFriendInput!
+
   where: FriendWhereUniqueInput!
 }
 
 input FriendUpsertWithWhereUniqueWithoutUserInput {
   create: FriendCreateWithoutUserInput!
+
   update: FriendUpdateWithoutUserInput!
+
   where: FriendWhereUniqueInput!
 }
 
 input FriendUserIdFriendIdCompoundUniqueInput {
   friendId: String!
+
   userId: String!
 }
 
 input FriendWhereInput {
   AND: [FriendWhereInput!]
+
   NOT: [FriendWhereInput!]
+
   OR: [FriendWhereInput!]
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   friend: UserRelationFilter
+
   friendId: StringFilter
+
   id: StringFilter
+
   updatedAt: DateTimeNullableFilter
+
   user: UserRelationFilter
+
   userId: StringFilter
 }
 
 input FriendWhereUniqueInput {
   AND: [FriendWhereInput!]
+
   NOT: [FriendWhereInput!]
+
   OR: [FriendWhereInput!]
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   friend: UserRelationFilter
+
   friendId: StringFilter
+
   id: String
+
   updatedAt: DateTimeNullableFilter
+
   user: UserRelationFilter
+
   userId: StringFilter
+
   userId_friendId: FriendUserIdFriendIdCompoundUniqueInput
 }
 
+"""
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+"""
+scalar ID
+
+"""
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+"""
+scalar Int
+
 type Mutation {
   add_comment(input: CommentCreateInput!): Comment
+
   authorize(input: AuthorizeInput!): AuthResponse!
+
   create_post(input: PostCreateInput!): Post
+
   delete_comment(id: String!): [Comment!]!
+
+  delete_notification(id: String!): [Notification!]!
+
   delete_post(id: String!): [Post!]!
+
   delete_reaction(id: String!): [Reaction!]!
+
   delete_request(id: String!): [Request!]!
+
   delete_user(id: String!): [User!]!
+
   forgot_password(input: ForgotPasswordInput!): ForgotResponse
+
   handle_request(request_id: ID!, status: RequestStatus!): Request
+
   reaction_post(input: ReactionCreateInput!): Reaction!
+
   register(input: UserCreateInput!): User
+
   request_friend(user_id: ID!): Request
+
+  self_reject_request(receiver_id: ID!): Request
+
   update_user(id: ID!, input: UserUpdateInput!): User!
+
   upload_image(file: Upload!): Boolean
 }
 
 input NestedBoolFilter {
   equals: Boolean
+
   not: NestedBoolFilter
 }
 
 input NestedDateTimeNullableFilter {
   equals: DateTime
+
   gt: DateTime
+
   gte: DateTime
+
   in: [DateTime!]
+
   isSet: Boolean
+
   lt: DateTime
+
   lte: DateTime
+
   not: NestedDateTimeNullableFilter
+
   notIn: [DateTime!]
 }
 
 input NestedEnumAssetTypeNullableFilter {
   equals: AssetType
+
   in: [AssetType!]
+
   isSet: Boolean
+
   not: NestedEnumAssetTypeNullableFilter
+
   notIn: [AssetType!]
 }
 
 input NestedEnumNotificationTypeFilter {
   equals: NotificationType
+
   in: [NotificationType!]
+
   not: NestedEnumNotificationTypeFilter
+
   notIn: [NotificationType!]
 }
 
 input NestedEnumReactionEnumFilter {
   equals: ReactionEnum
+
   in: [ReactionEnum!]
+
   not: NestedEnumReactionEnumFilter
+
   notIn: [ReactionEnum!]
 }
 
 input NestedEnumRequestStatusFilter {
   equals: RequestStatus
+
   in: [RequestStatus!]
+
   not: NestedEnumRequestStatusFilter
+
   notIn: [RequestStatus!]
 }
 
 input NestedStringFilter {
   contains: String
+
   endsWith: String
+
   equals: String
+
   gt: String
+
   gte: String
+
   in: [String!]
+
   lt: String
+
   lte: String
+
   not: NestedStringFilter
+
   notIn: [String!]
+
   startsWith: String
 }
 
 input NestedStringNullableFilter {
   contains: String
+
   endsWith: String
+
   equals: String
+
   gt: String
+
   gte: String
+
   in: [String!]
+
   isSet: Boolean
+
   lt: String
+
   lte: String
+
   not: NestedStringNullableFilter
+
   notIn: [String!]
+
   startsWith: String
 }
 
 type Notification {
   comment: Comment
+
   commentId: String
+
   createdAt: DateTime
+
   id: ID!
+
   post: Post
+
   postId: String
+
   recipients: [NotificationRecipient!]
+
   request: Request
+
   requestId: String
+
   sender: User!
+
   senderId: String!
+
   type: NotificationType!
+}
+
+type NotificationConnection {
+  edges: [NotificationEdge!]!
+
+  pageInfo: PageInfo!
 }
 
 input NotificationCreateManyCommentInput {
   createdAt: DateTime
+
   id: String
+
   postId: String
+
   requestId: String
+
   senderId: String!
+
   type: NotificationType!
 }
 
@@ -772,10 +1160,15 @@ input NotificationCreateManyCommentInputEnvelope {
 
 input NotificationCreateManyPostInput {
   commentId: String
+
   createdAt: DateTime
+
   id: String
+
   requestId: String
+
   senderId: String!
+
   type: NotificationType!
 }
 
@@ -785,10 +1178,15 @@ input NotificationCreateManyPostInputEnvelope {
 
 input NotificationCreateManyRequestInput {
   commentId: String
+
   createdAt: DateTime
+
   id: String
+
   postId: String
+
   senderId: String!
+
   type: NotificationType!
 }
 
@@ -798,10 +1196,15 @@ input NotificationCreateManyRequestInputEnvelope {
 
 input NotificationCreateManySenderInput {
   commentId: String
+
   createdAt: DateTime
+
   id: String
+
   postId: String
+
   requestId: String
+
   type: NotificationType!
 }
 
@@ -811,131 +1214,195 @@ input NotificationCreateManySenderInputEnvelope {
 
 input NotificationCreateNestedManyWithoutCommentInput {
   connect: [NotificationWhereUniqueInput!]
+
   connectOrCreate: [NotificationCreateOrConnectWithoutCommentInput!]
+
   create: [NotificationCreateWithoutCommentInput!]
+
   createMany: NotificationCreateManyCommentInputEnvelope
 }
 
 input NotificationCreateNestedManyWithoutPostInput {
   connect: [NotificationWhereUniqueInput!]
+
   connectOrCreate: [NotificationCreateOrConnectWithoutPostInput!]
+
   create: [NotificationCreateWithoutPostInput!]
+
   createMany: NotificationCreateManyPostInputEnvelope
 }
 
 input NotificationCreateNestedManyWithoutRequestInput {
   connect: [NotificationWhereUniqueInput!]
+
   connectOrCreate: [NotificationCreateOrConnectWithoutRequestInput!]
+
   create: [NotificationCreateWithoutRequestInput!]
+
   createMany: NotificationCreateManyRequestInputEnvelope
 }
 
 input NotificationCreateNestedManyWithoutSenderInput {
   connect: [NotificationWhereUniqueInput!]
+
   connectOrCreate: [NotificationCreateOrConnectWithoutSenderInput!]
+
   create: [NotificationCreateWithoutSenderInput!]
+
   createMany: NotificationCreateManySenderInputEnvelope
 }
 
 input NotificationCreateNestedOneWithoutRecipientsInput {
   connect: NotificationWhereUniqueInput
+
   connectOrCreate: NotificationCreateOrConnectWithoutRecipientsInput
+
   create: NotificationCreateWithoutRecipientsInput
 }
 
 input NotificationCreateOrConnectWithoutCommentInput {
   create: NotificationCreateWithoutCommentInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationCreateOrConnectWithoutPostInput {
   create: NotificationCreateWithoutPostInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationCreateOrConnectWithoutRecipientsInput {
   create: NotificationCreateWithoutRecipientsInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationCreateOrConnectWithoutRequestInput {
   create: NotificationCreateWithoutRequestInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationCreateOrConnectWithoutSenderInput {
   create: NotificationCreateWithoutSenderInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationCreateWithoutCommentInput {
   createdAt: DateTime
+
   id: String
+
   post: PostCreateNestedOneWithoutNotificationsInput
+
   recipients: NotificationRecipientCreateNestedManyWithoutNotificationInput
+
   request: RequestCreateNestedOneWithoutNotificationsInput
+
   sender: UserCreateNestedOneWithoutNotificationsSentInput!
+
   type: NotificationType!
 }
 
 input NotificationCreateWithoutPostInput {
   comment: CommentCreateNestedOneWithoutNotificationsInput
+
   createdAt: DateTime
+
   id: String
+
   recipients: NotificationRecipientCreateNestedManyWithoutNotificationInput
+
   request: RequestCreateNestedOneWithoutNotificationsInput
+
   sender: UserCreateNestedOneWithoutNotificationsSentInput!
+
   type: NotificationType!
 }
 
 input NotificationCreateWithoutRecipientsInput {
   comment: CommentCreateNestedOneWithoutNotificationsInput
+
   createdAt: DateTime
+
   id: String
+
   post: PostCreateNestedOneWithoutNotificationsInput
+
   request: RequestCreateNestedOneWithoutNotificationsInput
+
   sender: UserCreateNestedOneWithoutNotificationsSentInput!
+
   type: NotificationType!
 }
 
 input NotificationCreateWithoutRequestInput {
   comment: CommentCreateNestedOneWithoutNotificationsInput
+
   createdAt: DateTime
+
   id: String
+
   post: PostCreateNestedOneWithoutNotificationsInput
+
   recipients: NotificationRecipientCreateNestedManyWithoutNotificationInput
+
   sender: UserCreateNestedOneWithoutNotificationsSentInput!
+
   type: NotificationType!
 }
 
 input NotificationCreateWithoutSenderInput {
   comment: CommentCreateNestedOneWithoutNotificationsInput
+
   createdAt: DateTime
+
   id: String
+
   post: PostCreateNestedOneWithoutNotificationsInput
+
   recipients: NotificationRecipientCreateNestedManyWithoutNotificationInput
+
   request: RequestCreateNestedOneWithoutNotificationsInput
+
   type: NotificationType!
+}
+
+type NotificationEdge {
+  cursor: String!
+
+  node: Notification!
 }
 
 input NotificationListRelationFilter {
   every: NotificationWhereInput
+
   none: NotificationWhereInput
+
   some: NotificationWhereInput
 }
 
 type NotificationRecipient {
   id: ID!
+
   notification: Notification!
+
   notificationId: String!
+
   read: Boolean!
+
   user: User!
+
   userId: String!
 }
 
 input NotificationRecipientCreateManyNotificationInput {
   id: String
+
   read: Boolean
+
   userId: String!
 }
 
@@ -945,7 +1412,9 @@ input NotificationRecipientCreateManyNotificationInputEnvelope {
 
 input NotificationRecipientCreateManyUserInput {
   id: String
+
   notificationId: String!
+
   read: Boolean
 }
 
@@ -955,53 +1424,73 @@ input NotificationRecipientCreateManyUserInputEnvelope {
 
 input NotificationRecipientCreateNestedManyWithoutNotificationInput {
   connect: [NotificationRecipientWhereUniqueInput!]
+
   connectOrCreate: [NotificationRecipientCreateOrConnectWithoutNotificationInput!]
+
   create: [NotificationRecipientCreateWithoutNotificationInput!]
+
   createMany: NotificationRecipientCreateManyNotificationInputEnvelope
 }
 
 input NotificationRecipientCreateNestedManyWithoutUserInput {
   connect: [NotificationRecipientWhereUniqueInput!]
+
   connectOrCreate: [NotificationRecipientCreateOrConnectWithoutUserInput!]
+
   create: [NotificationRecipientCreateWithoutUserInput!]
+
   createMany: NotificationRecipientCreateManyUserInputEnvelope
 }
 
 input NotificationRecipientCreateOrConnectWithoutNotificationInput {
   create: NotificationRecipientCreateWithoutNotificationInput!
+
   where: NotificationRecipientWhereUniqueInput!
 }
 
 input NotificationRecipientCreateOrConnectWithoutUserInput {
   create: NotificationRecipientCreateWithoutUserInput!
+
   where: NotificationRecipientWhereUniqueInput!
 }
 
 input NotificationRecipientCreateWithoutNotificationInput {
   id: String
+
   read: Boolean
+
   user: UserCreateNestedOneWithoutNotificationsReceivedInput!
 }
 
 input NotificationRecipientCreateWithoutUserInput {
   id: String
+
   notification: NotificationCreateNestedOneWithoutRecipientsInput!
+
   read: Boolean
 }
 
 input NotificationRecipientListRelationFilter {
   every: NotificationRecipientWhereInput
+
   none: NotificationRecipientWhereInput
+
   some: NotificationRecipientWhereInput
 }
 
 input NotificationRecipientScalarWhereInput {
   AND: [NotificationRecipientScalarWhereInput!]
+
   NOT: [NotificationRecipientScalarWhereInput!]
+
   OR: [NotificationRecipientScalarWhereInput!]
+
   id: StringFilter
+
   notificationId: StringFilter
+
   read: BoolFilter
+
   userId: StringFilter
 }
 
@@ -1011,382 +1500,581 @@ input NotificationRecipientUpdateManyMutationInput {
 
 input NotificationRecipientUpdateManyWithWhereWithoutNotificationInput {
   data: NotificationRecipientUpdateManyMutationInput!
+
   where: NotificationRecipientScalarWhereInput!
 }
 
 input NotificationRecipientUpdateManyWithWhereWithoutUserInput {
   data: NotificationRecipientUpdateManyMutationInput!
+
   where: NotificationRecipientScalarWhereInput!
 }
 
 input NotificationRecipientUpdateManyWithoutNotificationNestedInput {
   connect: [NotificationRecipientWhereUniqueInput!]
+
   connectOrCreate: [NotificationRecipientCreateOrConnectWithoutNotificationInput!]
+
   create: [NotificationRecipientCreateWithoutNotificationInput!]
+
   createMany: NotificationRecipientCreateManyNotificationInputEnvelope
+
   delete: [NotificationRecipientWhereUniqueInput!]
+
   deleteMany: [NotificationRecipientScalarWhereInput!]
+
   disconnect: [NotificationRecipientWhereUniqueInput!]
+
   set: [NotificationRecipientWhereUniqueInput!]
+
   update: [NotificationRecipientUpdateWithWhereUniqueWithoutNotificationInput!]
+
   updateMany: [NotificationRecipientUpdateManyWithWhereWithoutNotificationInput!]
+
   upsert: [NotificationRecipientUpsertWithWhereUniqueWithoutNotificationInput!]
 }
 
 input NotificationRecipientUpdateManyWithoutUserNestedInput {
   connect: [NotificationRecipientWhereUniqueInput!]
+
   connectOrCreate: [NotificationRecipientCreateOrConnectWithoutUserInput!]
+
   create: [NotificationRecipientCreateWithoutUserInput!]
+
   createMany: NotificationRecipientCreateManyUserInputEnvelope
+
   delete: [NotificationRecipientWhereUniqueInput!]
+
   deleteMany: [NotificationRecipientScalarWhereInput!]
+
   disconnect: [NotificationRecipientWhereUniqueInput!]
+
   set: [NotificationRecipientWhereUniqueInput!]
+
   update: [NotificationRecipientUpdateWithWhereUniqueWithoutUserInput!]
+
   updateMany: [NotificationRecipientUpdateManyWithWhereWithoutUserInput!]
+
   upsert: [NotificationRecipientUpsertWithWhereUniqueWithoutUserInput!]
 }
 
 input NotificationRecipientUpdateWithWhereUniqueWithoutNotificationInput {
   data: NotificationRecipientUpdateWithoutNotificationInput!
+
   where: NotificationRecipientWhereUniqueInput!
 }
 
 input NotificationRecipientUpdateWithWhereUniqueWithoutUserInput {
   data: NotificationRecipientUpdateWithoutUserInput!
+
   where: NotificationRecipientWhereUniqueInput!
 }
 
 input NotificationRecipientUpdateWithoutNotificationInput {
   read: Boolean
+
   user: UserUpdateOneRequiredWithoutNotificationsReceivedNestedInput
 }
 
 input NotificationRecipientUpdateWithoutUserInput {
   notification: NotificationUpdateOneRequiredWithoutRecipientsNestedInput
+
   read: Boolean
 }
 
 input NotificationRecipientUpsertWithWhereUniqueWithoutNotificationInput {
   create: NotificationRecipientCreateWithoutNotificationInput!
+
   update: NotificationRecipientUpdateWithoutNotificationInput!
+
   where: NotificationRecipientWhereUniqueInput!
 }
 
 input NotificationRecipientUpsertWithWhereUniqueWithoutUserInput {
   create: NotificationRecipientCreateWithoutUserInput!
+
   update: NotificationRecipientUpdateWithoutUserInput!
+
   where: NotificationRecipientWhereUniqueInput!
 }
 
 input NotificationRecipientWhereInput {
   AND: [NotificationRecipientWhereInput!]
+
   NOT: [NotificationRecipientWhereInput!]
+
   OR: [NotificationRecipientWhereInput!]
+
   id: StringFilter
+
   notification: NotificationRelationFilter
+
   notificationId: StringFilter
+
   read: BoolFilter
+
   user: UserRelationFilter
+
   userId: StringFilter
 }
 
 input NotificationRecipientWhereUniqueInput {
   AND: [NotificationRecipientWhereInput!]
+
   NOT: [NotificationRecipientWhereInput!]
+
   OR: [NotificationRecipientWhereInput!]
+
   id: String
+
   notification: NotificationRelationFilter
+
   notificationId: StringFilter
+
   read: BoolFilter
+
   user: UserRelationFilter
+
   userId: StringFilter
 }
 
 input NotificationRelationFilter {
   is: NotificationWhereInput
+
   isNot: NotificationWhereInput
 }
 
 input NotificationScalarWhereInput {
   AND: [NotificationScalarWhereInput!]
+
   NOT: [NotificationScalarWhereInput!]
+
   OR: [NotificationScalarWhereInput!]
+
   commentId: StringNullableFilter
+
   createdAt: DateTimeNullableFilter
+
   id: StringFilter
+
   postId: StringNullableFilter
+
   requestId: StringNullableFilter
+
   senderId: StringFilter
+
   type: EnumNotificationTypeFilter
 }
 
 enum NotificationType {
   COMMENT
+
   FRIEND_REQUEST
+
   LIKE
+
   POST
 }
 
 input NotificationUpdateManyMutationInput {
   createdAt: DateTime
+
   type: NotificationType
 }
 
 input NotificationUpdateManyWithWhereWithoutCommentInput {
   data: NotificationUpdateManyMutationInput!
+
   where: NotificationScalarWhereInput!
 }
 
 input NotificationUpdateManyWithWhereWithoutPostInput {
   data: NotificationUpdateManyMutationInput!
+
   where: NotificationScalarWhereInput!
 }
 
 input NotificationUpdateManyWithWhereWithoutRequestInput {
   data: NotificationUpdateManyMutationInput!
+
   where: NotificationScalarWhereInput!
 }
 
 input NotificationUpdateManyWithWhereWithoutSenderInput {
   data: NotificationUpdateManyMutationInput!
+
   where: NotificationScalarWhereInput!
 }
 
 input NotificationUpdateManyWithoutCommentNestedInput {
   connect: [NotificationWhereUniqueInput!]
+
   connectOrCreate: [NotificationCreateOrConnectWithoutCommentInput!]
+
   create: [NotificationCreateWithoutCommentInput!]
+
   createMany: NotificationCreateManyCommentInputEnvelope
+
   delete: [NotificationWhereUniqueInput!]
+
   deleteMany: [NotificationScalarWhereInput!]
+
   disconnect: [NotificationWhereUniqueInput!]
+
   set: [NotificationWhereUniqueInput!]
+
   update: [NotificationUpdateWithWhereUniqueWithoutCommentInput!]
+
   updateMany: [NotificationUpdateManyWithWhereWithoutCommentInput!]
+
   upsert: [NotificationUpsertWithWhereUniqueWithoutCommentInput!]
 }
 
 input NotificationUpdateManyWithoutPostNestedInput {
   connect: [NotificationWhereUniqueInput!]
+
   connectOrCreate: [NotificationCreateOrConnectWithoutPostInput!]
+
   create: [NotificationCreateWithoutPostInput!]
+
   createMany: NotificationCreateManyPostInputEnvelope
+
   delete: [NotificationWhereUniqueInput!]
+
   deleteMany: [NotificationScalarWhereInput!]
+
   disconnect: [NotificationWhereUniqueInput!]
+
   set: [NotificationWhereUniqueInput!]
+
   update: [NotificationUpdateWithWhereUniqueWithoutPostInput!]
+
   updateMany: [NotificationUpdateManyWithWhereWithoutPostInput!]
+
   upsert: [NotificationUpsertWithWhereUniqueWithoutPostInput!]
 }
 
 input NotificationUpdateManyWithoutRequestNestedInput {
   connect: [NotificationWhereUniqueInput!]
+
   connectOrCreate: [NotificationCreateOrConnectWithoutRequestInput!]
+
   create: [NotificationCreateWithoutRequestInput!]
+
   createMany: NotificationCreateManyRequestInputEnvelope
+
   delete: [NotificationWhereUniqueInput!]
+
   deleteMany: [NotificationScalarWhereInput!]
+
   disconnect: [NotificationWhereUniqueInput!]
+
   set: [NotificationWhereUniqueInput!]
+
   update: [NotificationUpdateWithWhereUniqueWithoutRequestInput!]
+
   updateMany: [NotificationUpdateManyWithWhereWithoutRequestInput!]
+
   upsert: [NotificationUpsertWithWhereUniqueWithoutRequestInput!]
 }
 
 input NotificationUpdateManyWithoutSenderNestedInput {
   connect: [NotificationWhereUniqueInput!]
+
   connectOrCreate: [NotificationCreateOrConnectWithoutSenderInput!]
+
   create: [NotificationCreateWithoutSenderInput!]
+
   createMany: NotificationCreateManySenderInputEnvelope
+
   delete: [NotificationWhereUniqueInput!]
+
   deleteMany: [NotificationScalarWhereInput!]
+
   disconnect: [NotificationWhereUniqueInput!]
+
   set: [NotificationWhereUniqueInput!]
+
   update: [NotificationUpdateWithWhereUniqueWithoutSenderInput!]
+
   updateMany: [NotificationUpdateManyWithWhereWithoutSenderInput!]
+
   upsert: [NotificationUpsertWithWhereUniqueWithoutSenderInput!]
 }
 
 input NotificationUpdateOneRequiredWithoutRecipientsNestedInput {
   connect: NotificationWhereUniqueInput
+
   connectOrCreate: NotificationCreateOrConnectWithoutRecipientsInput
+
   create: NotificationCreateWithoutRecipientsInput
+
   update: NotificationUpdateToOneWithWhereWithoutRecipientsInput
+
   upsert: NotificationUpsertWithoutRecipientsInput
 }
 
 input NotificationUpdateToOneWithWhereWithoutRecipientsInput {
   data: NotificationUpdateWithoutRecipientsInput!
+
   where: NotificationWhereInput
 }
 
 input NotificationUpdateWithWhereUniqueWithoutCommentInput {
   data: NotificationUpdateWithoutCommentInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationUpdateWithWhereUniqueWithoutPostInput {
   data: NotificationUpdateWithoutPostInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationUpdateWithWhereUniqueWithoutRequestInput {
   data: NotificationUpdateWithoutRequestInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationUpdateWithWhereUniqueWithoutSenderInput {
   data: NotificationUpdateWithoutSenderInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationUpdateWithoutCommentInput {
   createdAt: DateTime
+
   post: PostUpdateOneWithoutNotificationsNestedInput
+
   recipients: NotificationRecipientUpdateManyWithoutNotificationNestedInput
+
   request: RequestUpdateOneWithoutNotificationsNestedInput
+
   sender: UserUpdateOneRequiredWithoutNotificationsSentNestedInput
+
   type: NotificationType
 }
 
 input NotificationUpdateWithoutPostInput {
   comment: CommentUpdateOneWithoutNotificationsNestedInput
+
   createdAt: DateTime
+
   recipients: NotificationRecipientUpdateManyWithoutNotificationNestedInput
+
   request: RequestUpdateOneWithoutNotificationsNestedInput
+
   sender: UserUpdateOneRequiredWithoutNotificationsSentNestedInput
+
   type: NotificationType
 }
 
 input NotificationUpdateWithoutRecipientsInput {
   comment: CommentUpdateOneWithoutNotificationsNestedInput
+
   createdAt: DateTime
+
   post: PostUpdateOneWithoutNotificationsNestedInput
+
   request: RequestUpdateOneWithoutNotificationsNestedInput
+
   sender: UserUpdateOneRequiredWithoutNotificationsSentNestedInput
+
   type: NotificationType
 }
 
 input NotificationUpdateWithoutRequestInput {
   comment: CommentUpdateOneWithoutNotificationsNestedInput
+
   createdAt: DateTime
+
   post: PostUpdateOneWithoutNotificationsNestedInput
+
   recipients: NotificationRecipientUpdateManyWithoutNotificationNestedInput
+
   sender: UserUpdateOneRequiredWithoutNotificationsSentNestedInput
+
   type: NotificationType
 }
 
 input NotificationUpdateWithoutSenderInput {
   comment: CommentUpdateOneWithoutNotificationsNestedInput
+
   createdAt: DateTime
+
   post: PostUpdateOneWithoutNotificationsNestedInput
+
   recipients: NotificationRecipientUpdateManyWithoutNotificationNestedInput
+
   request: RequestUpdateOneWithoutNotificationsNestedInput
+
   type: NotificationType
 }
 
 input NotificationUpsertWithWhereUniqueWithoutCommentInput {
   create: NotificationCreateWithoutCommentInput!
+
   update: NotificationUpdateWithoutCommentInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationUpsertWithWhereUniqueWithoutPostInput {
   create: NotificationCreateWithoutPostInput!
+
   update: NotificationUpdateWithoutPostInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationUpsertWithWhereUniqueWithoutRequestInput {
   create: NotificationCreateWithoutRequestInput!
+
   update: NotificationUpdateWithoutRequestInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationUpsertWithWhereUniqueWithoutSenderInput {
   create: NotificationCreateWithoutSenderInput!
+
   update: NotificationUpdateWithoutSenderInput!
+
   where: NotificationWhereUniqueInput!
 }
 
 input NotificationUpsertWithoutRecipientsInput {
   create: NotificationCreateWithoutRecipientsInput!
+
   update: NotificationUpdateWithoutRecipientsInput!
+
   where: NotificationWhereInput
 }
 
 input NotificationWhereInput {
   AND: [NotificationWhereInput!]
+
   NOT: [NotificationWhereInput!]
+
   OR: [NotificationWhereInput!]
+
   comment: CommentNullableRelationFilter
+
   commentId: StringNullableFilter
+
   createdAt: DateTimeNullableFilter
+
   id: StringFilter
+
   post: PostNullableRelationFilter
+
   postId: StringNullableFilter
+
   recipients: NotificationRecipientListRelationFilter
+
   request: RequestNullableRelationFilter
+
   requestId: StringNullableFilter
+
   sender: UserRelationFilter
+
   senderId: StringFilter
+
   type: EnumNotificationTypeFilter
 }
 
 input NotificationWhereUniqueInput {
   AND: [NotificationWhereInput!]
+
   NOT: [NotificationWhereInput!]
+
   OR: [NotificationWhereInput!]
+
   comment: CommentNullableRelationFilter
+
   commentId: StringNullableFilter
+
   createdAt: DateTimeNullableFilter
+
   id: String
+
   post: PostNullableRelationFilter
+
   postId: StringNullableFilter
+
   recipients: NotificationRecipientListRelationFilter
+
   request: RequestNullableRelationFilter
+
   requestId: StringNullableFilter
+
   sender: UserRelationFilter
+
   senderId: StringFilter
+
   type: EnumNotificationTypeFilter
 }
 
 type PageInfo {
   endCursor: String
+
   hasNextPage: Boolean!
 }
 
 type Post {
-  comments(after: String, filter: CommentWhereInput! = {}, take: Int! = 999999999): CommentConnection!
+  comments(after: String, filter: CommentWhereInput! = {
+
+  }
+  , take: Int! = 999999999): CommentConnection!
+
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: Asset
+
   id: ID!
+
   notifications: [Notification!]
-  reactions: [Reaction!]
+
+  reactions(after: String, filter: ReactionWhereInput! = {
+
+  }
+  , take: Int! = 999999999): ReactionConnection!
+
   updatedAt: DateTime
+
   user: User!
 }
 
 type PostConnection {
   edges: [PostEdge!]!
+
   pageInfo: PageInfo!
 }
 
 input PostCreateInput {
   content: String!
+
   file: Upload
 }
 
 input PostCreateManyUserInput {
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableCreateEnvelopeInput
+
   id: String
+
   updatedAt: DateTime
 }
 
@@ -1396,359 +2084,571 @@ input PostCreateManyUserInputEnvelope {
 
 input PostCreateNestedManyWithoutUserInput {
   connect: [PostWhereUniqueInput!]
+
   connectOrCreate: [PostCreateOrConnectWithoutUserInput!]
+
   create: [PostCreateWithoutUserInput!]
+
   createMany: PostCreateManyUserInputEnvelope
 }
 
 input PostCreateNestedOneWithoutCommentsInput {
   connect: PostWhereUniqueInput
+
   connectOrCreate: PostCreateOrConnectWithoutCommentsInput
+
   create: PostCreateWithoutCommentsInput
 }
 
 input PostCreateNestedOneWithoutNotificationsInput {
   connect: PostWhereUniqueInput
+
   connectOrCreate: PostCreateOrConnectWithoutNotificationsInput
+
   create: PostCreateWithoutNotificationsInput
 }
 
 input PostCreateNestedOneWithoutReactionsInput {
   connect: PostWhereUniqueInput
+
   connectOrCreate: PostCreateOrConnectWithoutReactionsInput
+
   create: PostCreateWithoutReactionsInput
 }
 
 input PostCreateOrConnectWithoutCommentsInput {
   create: PostCreateWithoutCommentsInput!
+
   where: PostWhereUniqueInput!
 }
 
 input PostCreateOrConnectWithoutNotificationsInput {
   create: PostCreateWithoutNotificationsInput!
+
   where: PostWhereUniqueInput!
 }
 
 input PostCreateOrConnectWithoutReactionsInput {
   create: PostCreateWithoutReactionsInput!
+
   where: PostWhereUniqueInput!
 }
 
 input PostCreateOrConnectWithoutUserInput {
   create: PostCreateWithoutUserInput!
+
   where: PostWhereUniqueInput!
 }
 
 input PostCreateWithoutCommentsInput {
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableCreateEnvelopeInput
+
   id: String
+
   notifications: NotificationCreateNestedManyWithoutPostInput
+
   reactions: ReactionCreateNestedManyWithoutPostInput
+
   updatedAt: DateTime
+
   user: UserCreateNestedOneWithoutPostsInput!
 }
 
 input PostCreateWithoutNotificationsInput {
   comments: CommentCreateNestedManyWithoutPostInput
+
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableCreateEnvelopeInput
+
   id: String
+
   reactions: ReactionCreateNestedManyWithoutPostInput
+
   updatedAt: DateTime
+
   user: UserCreateNestedOneWithoutPostsInput!
 }
 
 input PostCreateWithoutReactionsInput {
   comments: CommentCreateNestedManyWithoutPostInput
+
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableCreateEnvelopeInput
+
   id: String
+
   notifications: NotificationCreateNestedManyWithoutPostInput
+
   updatedAt: DateTime
+
   user: UserCreateNestedOneWithoutPostsInput!
 }
 
 input PostCreateWithoutUserInput {
   comments: CommentCreateNestedManyWithoutPostInput
+
   content: String!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableCreateEnvelopeInput
+
   id: String
+
   notifications: NotificationCreateNestedManyWithoutPostInput
+
   reactions: ReactionCreateNestedManyWithoutPostInput
+
   updatedAt: DateTime
 }
 
 type PostEdge {
   cursor: String!
+
   node: Post!
 }
 
 input PostListRelationFilter {
   every: PostWhereInput
+
   none: PostWhereInput
+
   some: PostWhereInput
 }
 
 input PostNullableRelationFilter {
   is: PostWhereInput
+
   isNot: PostWhereInput
 }
 
 input PostRelationFilter {
   is: PostWhereInput
+
   isNot: PostWhereInput
 }
 
 input PostScalarWhereInput {
   AND: [PostScalarWhereInput!]
+
   NOT: [PostScalarWhereInput!]
+
   OR: [PostScalarWhereInput!]
+
   content: StringFilter
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   id: StringFilter
+
   updatedAt: DateTimeNullableFilter
+
   userId: StringFilter
 }
 
 input PostUpdateManyMutationInput {
   content: String
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableUpdateEnvelopeInput
+
   updatedAt: DateTime
 }
 
 input PostUpdateManyWithWhereWithoutUserInput {
   data: PostUpdateManyMutationInput!
+
   where: PostScalarWhereInput!
 }
 
 input PostUpdateManyWithoutUserNestedInput {
   connect: [PostWhereUniqueInput!]
+
   connectOrCreate: [PostCreateOrConnectWithoutUserInput!]
+
   create: [PostCreateWithoutUserInput!]
+
   createMany: PostCreateManyUserInputEnvelope
+
   delete: [PostWhereUniqueInput!]
+
   deleteMany: [PostScalarWhereInput!]
+
   disconnect: [PostWhereUniqueInput!]
+
   set: [PostWhereUniqueInput!]
+
   update: [PostUpdateWithWhereUniqueWithoutUserInput!]
+
   updateMany: [PostUpdateManyWithWhereWithoutUserInput!]
+
   upsert: [PostUpsertWithWhereUniqueWithoutUserInput!]
 }
 
 input PostUpdateOneRequiredWithoutCommentsNestedInput {
   connect: PostWhereUniqueInput
+
   connectOrCreate: PostCreateOrConnectWithoutCommentsInput
+
   create: PostCreateWithoutCommentsInput
+
   update: PostUpdateToOneWithWhereWithoutCommentsInput
+
   upsert: PostUpsertWithoutCommentsInput
 }
 
 input PostUpdateOneRequiredWithoutReactionsNestedInput {
   connect: PostWhereUniqueInput
+
   connectOrCreate: PostCreateOrConnectWithoutReactionsInput
+
   create: PostCreateWithoutReactionsInput
+
   update: PostUpdateToOneWithWhereWithoutReactionsInput
+
   upsert: PostUpsertWithoutReactionsInput
 }
 
 input PostUpdateOneWithoutNotificationsNestedInput {
   connect: PostWhereUniqueInput
+
   connectOrCreate: PostCreateOrConnectWithoutNotificationsInput
+
   create: PostCreateWithoutNotificationsInput
+
   delete: PostWhereInput
+
   disconnect: Boolean
+
   update: PostUpdateToOneWithWhereWithoutNotificationsInput
+
   upsert: PostUpsertWithoutNotificationsInput
 }
 
 input PostUpdateToOneWithWhereWithoutCommentsInput {
   data: PostUpdateWithoutCommentsInput!
+
   where: PostWhereInput
 }
 
 input PostUpdateToOneWithWhereWithoutNotificationsInput {
   data: PostUpdateWithoutNotificationsInput!
+
   where: PostWhereInput
 }
 
 input PostUpdateToOneWithWhereWithoutReactionsInput {
   data: PostUpdateWithoutReactionsInput!
+
   where: PostWhereInput
 }
 
 input PostUpdateWithWhereUniqueWithoutUserInput {
   data: PostUpdateWithoutUserInput!
+
   where: PostWhereUniqueInput!
 }
 
 input PostUpdateWithoutCommentsInput {
   content: String
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableUpdateEnvelopeInput
+
   notifications: NotificationUpdateManyWithoutPostNestedInput
+
   reactions: ReactionUpdateManyWithoutPostNestedInput
+
   updatedAt: DateTime
+
   user: UserUpdateOneRequiredWithoutPostsNestedInput
 }
 
 input PostUpdateWithoutNotificationsInput {
   comments: CommentUpdateManyWithoutPostNestedInput
+
   content: String
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableUpdateEnvelopeInput
+
   reactions: ReactionUpdateManyWithoutPostNestedInput
+
   updatedAt: DateTime
+
   user: UserUpdateOneRequiredWithoutPostsNestedInput
 }
 
 input PostUpdateWithoutReactionsInput {
   comments: CommentUpdateManyWithoutPostNestedInput
+
   content: String
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableUpdateEnvelopeInput
+
   notifications: NotificationUpdateManyWithoutPostNestedInput
+
   updatedAt: DateTime
+
   user: UserUpdateOneRequiredWithoutPostsNestedInput
 }
 
 input PostUpdateWithoutUserInput {
   comments: CommentUpdateManyWithoutPostNestedInput
+
   content: String
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   file: AssetNullableUpdateEnvelopeInput
+
   notifications: NotificationUpdateManyWithoutPostNestedInput
+
   reactions: ReactionUpdateManyWithoutPostNestedInput
+
   updatedAt: DateTime
 }
 
 input PostUpsertWithWhereUniqueWithoutUserInput {
   create: PostCreateWithoutUserInput!
+
   update: PostUpdateWithoutUserInput!
+
   where: PostWhereUniqueInput!
 }
 
 input PostUpsertWithoutCommentsInput {
   create: PostCreateWithoutCommentsInput!
+
   update: PostUpdateWithoutCommentsInput!
+
   where: PostWhereInput
 }
 
 input PostUpsertWithoutNotificationsInput {
   create: PostCreateWithoutNotificationsInput!
+
   update: PostUpdateWithoutNotificationsInput!
+
   where: PostWhereInput
 }
 
 input PostUpsertWithoutReactionsInput {
   create: PostCreateWithoutReactionsInput!
+
   update: PostUpdateWithoutReactionsInput!
+
   where: PostWhereInput
 }
 
 input PostWhereInput {
   AND: [PostWhereInput!]
+
   NOT: [PostWhereInput!]
+
   OR: [PostWhereInput!]
+
   comments: CommentListRelationFilter
+
   content: StringFilter
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   file: AssetNullableCompositeFilter
+
   id: StringFilter
+
   notifications: NotificationListRelationFilter
+
   reactions: ReactionListRelationFilter
+
   updatedAt: DateTimeNullableFilter
+
   user: UserRelationFilter
+
   userId: StringFilter
 }
 
 input PostWhereUniqueInput {
   AND: [PostWhereInput!]
+
   NOT: [PostWhereInput!]
+
   OR: [PostWhereInput!]
+
   comments: CommentListRelationFilter
+
   content: StringFilter
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   file: AssetNullableCompositeFilter
+
   id: String
+
   notifications: NotificationListRelationFilter
+
   reactions: ReactionListRelationFilter
+
   updatedAt: DateTimeNullableFilter
+
   user: UserRelationFilter
+
   userId: StringFilter
 }
 
 type Query {
-  comment(id: ID!): Comment!
-  comments(after: String, filter: CommentWhereInput! = {}, take: Int = 99999999): CommentConnection!
+  comment(id: ID!): Comment
+
+  comments(after: String, filter: CommentWhereInput! = {
+
+  }
+  , take: Int = 99999999): CommentConnection!
+
   for_you: PostConnection!
-  get_incoming_requests(after: String, filter: RequestWhereInput! = {}, take: Int = 99999999): RequestConnection!
-  post(id: ID!): Post!
-  posts(after: String, filter: PostWhereInput! = {}, take: Int = 99999999): PostConnection!
-  reaction(id: ID!): Reaction!
-  reactions(after: String, filter: ReactionWhereInput! = {}, take: Int = 99999999): ReactionConnection!
-  request(id: ID!): Request!
-  requests(after: String, filter: RequestWhereInput! = {}, take: Int = 99999999): RequestConnection!
-  user(id: ID!): User!
-  users(after: String, filter: UserWhereInput! = {}, take: Int = 99999999): UserConnection!
+
+  get_incoming_requests(after: String, filter: RequestWhereInput! = {
+
+  }
+  , take: Int = 99999999): RequestConnection!
+
+  notification(id: ID!): Notification
+
+  notifications(after: String, filter: NotificationWhereInput! = {
+
+  }
+  , take: Int = 99999999): NotificationConnection!
+
+  post(id: ID!): Post
+
+  posts(after: String, filter: PostWhereInput! = {
+
+  }
+  , take: Int = 99999999): PostConnection!
+
+  reaction(id: ID!): Reaction
+
+  reactions(after: String, filter: ReactionWhereInput! = {
+
+  }
+  , take: Int = 99999999): ReactionConnection!
+
+  request(id: ID!): Request
+
+  requests(after: String, filter: RequestWhereInput! = {
+
+  }
+  , take: Int = 99999999): RequestConnection!
+
+  user(id: ID): User
+
+  users(after: String, filter: UserWhereInput! = {
+
+  }
+  , take: Int = 99999999): UserConnection!
 }
 
 enum QueryMode {
   default
+
   insensitive
 }
 
 type Reaction {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: ID!
+
   post: Post!
 
-  """HideField()"""
+  """
+  HideField()
+  """
   postId: String!
-  posts(after: String, filter: PostWhereInput! = {}, take: Int! = 999999999): PostConnection!
+
   type: ReactionEnum!
+
   updatedAt: DateTime
+
   user: User!
 
-  """HideField()"""
+  """
+  HideField()
+  """
   userId: String!
-  users(after: String, filter: UserWhereInput! = {}, take: Int! = 999999999): UserConnection!
+
+  users(after: String, filter: UserWhereInput! = {
+
+  }
+  , take: Int! = 999999999): UserConnection!
 }
 
 type ReactionConnection {
   edges: [ReactionEdge!]!
+
   pageInfo: PageInfo!
 }
 
 input ReactionCreateInput {
   post: PostCreateNestedOneWithoutReactionsInput!
+
   type: ReactionEnum! = LOVE
+
+  user: UserCreateNestedOneWithoutReactionsInput!
 }
 
 input ReactionCreateManyPostInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   type: ReactionEnum!
+
   updatedAt: DateTime
+
   userId: String!
 }
 
@@ -1758,10 +2658,15 @@ input ReactionCreateManyPostInputEnvelope {
 
 input ReactionCreateManyUserInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   postId: String!
+
   type: ReactionEnum!
+
   updatedAt: DateTime
 }
 
@@ -1771,213 +2676,329 @@ input ReactionCreateManyUserInputEnvelope {
 
 input ReactionCreateNestedManyWithoutPostInput {
   connect: [ReactionWhereUniqueInput!]
+
   connectOrCreate: [ReactionCreateOrConnectWithoutPostInput!]
+
   create: [ReactionCreateWithoutPostInput!]
+
   createMany: ReactionCreateManyPostInputEnvelope
 }
 
 input ReactionCreateNestedManyWithoutUserInput {
   connect: [ReactionWhereUniqueInput!]
+
   connectOrCreate: [ReactionCreateOrConnectWithoutUserInput!]
+
   create: [ReactionCreateWithoutUserInput!]
+
   createMany: ReactionCreateManyUserInputEnvelope
 }
 
 input ReactionCreateOrConnectWithoutPostInput {
   create: ReactionCreateWithoutPostInput!
+
   where: ReactionWhereUniqueInput!
 }
 
 input ReactionCreateOrConnectWithoutUserInput {
   create: ReactionCreateWithoutUserInput!
+
   where: ReactionWhereUniqueInput!
 }
 
 input ReactionCreateWithoutPostInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   type: ReactionEnum!
+
   updatedAt: DateTime
+
   user: UserCreateNestedOneWithoutReactionsInput!
 }
 
 input ReactionCreateWithoutUserInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   post: PostCreateNestedOneWithoutReactionsInput!
+
   type: ReactionEnum!
+
   updatedAt: DateTime
 }
 
 type ReactionEdge {
   cursor: String!
+
   node: Reaction!
 }
 
 enum ReactionEnum {
   ANGRY
+
   HAHA
+
   LIKE
+
   LOVE
+
   WOW
 }
 
 input ReactionListRelationFilter {
   every: ReactionWhereInput
+
   none: ReactionWhereInput
+
   some: ReactionWhereInput
 }
 
 input ReactionScalarWhereInput {
   AND: [ReactionScalarWhereInput!]
+
   NOT: [ReactionScalarWhereInput!]
+
   OR: [ReactionScalarWhereInput!]
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   id: StringFilter
+
   postId: StringFilter
+
   type: EnumReactionEnumFilter
+
   updatedAt: DateTimeNullableFilter
+
   userId: StringFilter
 }
 
 input ReactionUpdateManyMutationInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   type: ReactionEnum
+
   updatedAt: DateTime
 }
 
 input ReactionUpdateManyWithWhereWithoutPostInput {
   data: ReactionUpdateManyMutationInput!
+
   where: ReactionScalarWhereInput!
 }
 
 input ReactionUpdateManyWithWhereWithoutUserInput {
   data: ReactionUpdateManyMutationInput!
+
   where: ReactionScalarWhereInput!
 }
 
 input ReactionUpdateManyWithoutPostNestedInput {
   connect: [ReactionWhereUniqueInput!]
+
   connectOrCreate: [ReactionCreateOrConnectWithoutPostInput!]
+
   create: [ReactionCreateWithoutPostInput!]
+
   createMany: ReactionCreateManyPostInputEnvelope
+
   delete: [ReactionWhereUniqueInput!]
+
   deleteMany: [ReactionScalarWhereInput!]
+
   disconnect: [ReactionWhereUniqueInput!]
+
   set: [ReactionWhereUniqueInput!]
+
   update: [ReactionUpdateWithWhereUniqueWithoutPostInput!]
+
   updateMany: [ReactionUpdateManyWithWhereWithoutPostInput!]
+
   upsert: [ReactionUpsertWithWhereUniqueWithoutPostInput!]
 }
 
 input ReactionUpdateManyWithoutUserNestedInput {
   connect: [ReactionWhereUniqueInput!]
+
   connectOrCreate: [ReactionCreateOrConnectWithoutUserInput!]
+
   create: [ReactionCreateWithoutUserInput!]
+
   createMany: ReactionCreateManyUserInputEnvelope
+
   delete: [ReactionWhereUniqueInput!]
+
   deleteMany: [ReactionScalarWhereInput!]
+
   disconnect: [ReactionWhereUniqueInput!]
+
   set: [ReactionWhereUniqueInput!]
+
   update: [ReactionUpdateWithWhereUniqueWithoutUserInput!]
+
   updateMany: [ReactionUpdateManyWithWhereWithoutUserInput!]
+
   upsert: [ReactionUpsertWithWhereUniqueWithoutUserInput!]
 }
 
 input ReactionUpdateWithWhereUniqueWithoutPostInput {
   data: ReactionUpdateWithoutPostInput!
+
   where: ReactionWhereUniqueInput!
 }
 
 input ReactionUpdateWithWhereUniqueWithoutUserInput {
   data: ReactionUpdateWithoutUserInput!
+
   where: ReactionWhereUniqueInput!
 }
 
 input ReactionUpdateWithoutPostInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   type: ReactionEnum
+
   updatedAt: DateTime
+
   user: UserUpdateOneRequiredWithoutReactionsNestedInput
 }
 
 input ReactionUpdateWithoutUserInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   post: PostUpdateOneRequiredWithoutReactionsNestedInput
+
   type: ReactionEnum
+
   updatedAt: DateTime
 }
 
 input ReactionUpsertWithWhereUniqueWithoutPostInput {
   create: ReactionCreateWithoutPostInput!
+
   update: ReactionUpdateWithoutPostInput!
+
   where: ReactionWhereUniqueInput!
 }
 
 input ReactionUpsertWithWhereUniqueWithoutUserInput {
   create: ReactionCreateWithoutUserInput!
+
   update: ReactionUpdateWithoutUserInput!
+
   where: ReactionWhereUniqueInput!
+}
+
+input ReactionUserIdPostIdCompoundUniqueInput {
+  postId: String!
+
+  userId: String!
 }
 
 input ReactionWhereInput {
   AND: [ReactionWhereInput!]
+
   NOT: [ReactionWhereInput!]
+
   OR: [ReactionWhereInput!]
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   id: StringFilter
+
   post: PostRelationFilter
+
   postId: StringFilter
+
   type: EnumReactionEnumFilter
+
   updatedAt: DateTimeNullableFilter
+
   user: UserRelationFilter
+
   userId: StringFilter
 }
 
 input ReactionWhereUniqueInput {
   AND: [ReactionWhereInput!]
+
   NOT: [ReactionWhereInput!]
+
   OR: [ReactionWhereInput!]
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   id: String
+
   post: PostRelationFilter
+
   postId: StringFilter
+
   type: EnumReactionEnumFilter
+
   updatedAt: DateTimeNullableFilter
+
   user: UserRelationFilter
+
   userId: StringFilter
+
+  userId_postId: ReactionUserIdPostIdCompoundUniqueInput
 }
 
 type Request {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: ID!
+
   notifications: [Notification!]
+
   receiver: User!
+
   sender: User!
+
   status: RequestStatus!
+
   updatedAt: DateTime
 }
 
 type RequestConnection {
   edges: [RequestEdge!]!
+
   pageInfo: PageInfo!
 }
 
 input RequestCreateManyReceiverInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   senderId: String!
+
   status: RequestStatus!
+
   updatedAt: DateTime
 }
 
@@ -1987,10 +3008,15 @@ input RequestCreateManyReceiverInputEnvelope {
 
 input RequestCreateManySenderInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   receiverId: String!
+
   status: RequestStatus!
+
   updatedAt: DateTime
 }
 
@@ -2000,1014 +3026,1924 @@ input RequestCreateManySenderInputEnvelope {
 
 input RequestCreateNestedManyWithoutReceiverInput {
   connect: [RequestWhereUniqueInput!]
+
   connectOrCreate: [RequestCreateOrConnectWithoutReceiverInput!]
+
   create: [RequestCreateWithoutReceiverInput!]
+
   createMany: RequestCreateManyReceiverInputEnvelope
 }
 
 input RequestCreateNestedManyWithoutSenderInput {
   connect: [RequestWhereUniqueInput!]
+
   connectOrCreate: [RequestCreateOrConnectWithoutSenderInput!]
+
   create: [RequestCreateWithoutSenderInput!]
+
   createMany: RequestCreateManySenderInputEnvelope
 }
 
 input RequestCreateNestedOneWithoutNotificationsInput {
   connect: RequestWhereUniqueInput
+
   connectOrCreate: RequestCreateOrConnectWithoutNotificationsInput
+
   create: RequestCreateWithoutNotificationsInput
 }
 
 input RequestCreateOrConnectWithoutNotificationsInput {
   create: RequestCreateWithoutNotificationsInput!
+
   where: RequestWhereUniqueInput!
 }
 
 input RequestCreateOrConnectWithoutReceiverInput {
   create: RequestCreateWithoutReceiverInput!
+
   where: RequestWhereUniqueInput!
 }
 
 input RequestCreateOrConnectWithoutSenderInput {
   create: RequestCreateWithoutSenderInput!
+
   where: RequestWhereUniqueInput!
 }
 
 input RequestCreateWithoutNotificationsInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   receiver: UserCreateNestedOneWithoutReceived_requestInput!
+
   sender: UserCreateNestedOneWithoutSent_requestInput!
+
   status: RequestStatus!
+
   updatedAt: DateTime
 }
 
 input RequestCreateWithoutReceiverInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   notifications: NotificationCreateNestedManyWithoutRequestInput
+
   sender: UserCreateNestedOneWithoutSent_requestInput!
+
   status: RequestStatus!
+
   updatedAt: DateTime
 }
 
 input RequestCreateWithoutSenderInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   id: String
+
   notifications: NotificationCreateNestedManyWithoutRequestInput
+
   receiver: UserCreateNestedOneWithoutReceived_requestInput!
+
   status: RequestStatus!
+
   updatedAt: DateTime
 }
 
 type RequestEdge {
   cursor: String!
+
   node: Request!
 }
 
 input RequestListRelationFilter {
   every: RequestWhereInput
+
   none: RequestWhereInput
+
   some: RequestWhereInput
 }
 
 input RequestNullableRelationFilter {
   is: RequestWhereInput
+
   isNot: RequestWhereInput
 }
 
 input RequestReceiverIdSenderIdCompoundUniqueInput {
   receiverId: String!
+
   senderId: String!
 }
 
 input RequestScalarWhereInput {
   AND: [RequestScalarWhereInput!]
+
   NOT: [RequestScalarWhereInput!]
+
   OR: [RequestScalarWhereInput!]
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   id: StringFilter
+
   receiverId: StringFilter
+
   senderId: StringFilter
+
   status: EnumRequestStatusFilter
+
   updatedAt: DateTimeNullableFilter
 }
 
 enum RequestStatus {
   ACCEPTED
+
   PENDING
+
   REJECTED
+
   SELF_REJECTED
 }
 
 input RequestUpdateManyMutationInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   status: RequestStatus
+
   updatedAt: DateTime
 }
 
 input RequestUpdateManyWithWhereWithoutReceiverInput {
   data: RequestUpdateManyMutationInput!
+
   where: RequestScalarWhereInput!
 }
 
 input RequestUpdateManyWithWhereWithoutSenderInput {
   data: RequestUpdateManyMutationInput!
+
   where: RequestScalarWhereInput!
 }
 
 input RequestUpdateManyWithoutReceiverNestedInput {
   connect: [RequestWhereUniqueInput!]
+
   connectOrCreate: [RequestCreateOrConnectWithoutReceiverInput!]
+
   create: [RequestCreateWithoutReceiverInput!]
+
   createMany: RequestCreateManyReceiverInputEnvelope
+
   delete: [RequestWhereUniqueInput!]
+
   deleteMany: [RequestScalarWhereInput!]
+
   disconnect: [RequestWhereUniqueInput!]
+
   set: [RequestWhereUniqueInput!]
+
   update: [RequestUpdateWithWhereUniqueWithoutReceiverInput!]
+
   updateMany: [RequestUpdateManyWithWhereWithoutReceiverInput!]
+
   upsert: [RequestUpsertWithWhereUniqueWithoutReceiverInput!]
 }
 
 input RequestUpdateManyWithoutSenderNestedInput {
   connect: [RequestWhereUniqueInput!]
+
   connectOrCreate: [RequestCreateOrConnectWithoutSenderInput!]
+
   create: [RequestCreateWithoutSenderInput!]
+
   createMany: RequestCreateManySenderInputEnvelope
+
   delete: [RequestWhereUniqueInput!]
+
   deleteMany: [RequestScalarWhereInput!]
+
   disconnect: [RequestWhereUniqueInput!]
+
   set: [RequestWhereUniqueInput!]
+
   update: [RequestUpdateWithWhereUniqueWithoutSenderInput!]
+
   updateMany: [RequestUpdateManyWithWhereWithoutSenderInput!]
+
   upsert: [RequestUpsertWithWhereUniqueWithoutSenderInput!]
 }
 
 input RequestUpdateOneWithoutNotificationsNestedInput {
   connect: RequestWhereUniqueInput
+
   connectOrCreate: RequestCreateOrConnectWithoutNotificationsInput
+
   create: RequestCreateWithoutNotificationsInput
+
   delete: RequestWhereInput
+
   disconnect: Boolean
+
   update: RequestUpdateToOneWithWhereWithoutNotificationsInput
+
   upsert: RequestUpsertWithoutNotificationsInput
 }
 
 input RequestUpdateToOneWithWhereWithoutNotificationsInput {
   data: RequestUpdateWithoutNotificationsInput!
+
   where: RequestWhereInput
 }
 
 input RequestUpdateWithWhereUniqueWithoutReceiverInput {
   data: RequestUpdateWithoutReceiverInput!
+
   where: RequestWhereUniqueInput!
 }
 
 input RequestUpdateWithWhereUniqueWithoutSenderInput {
   data: RequestUpdateWithoutSenderInput!
+
   where: RequestWhereUniqueInput!
 }
 
 input RequestUpdateWithoutNotificationsInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   receiver: UserUpdateOneRequiredWithoutReceived_requestNestedInput
+
   sender: UserUpdateOneRequiredWithoutSent_requestNestedInput
+
   status: RequestStatus
+
   updatedAt: DateTime
 }
 
 input RequestUpdateWithoutReceiverInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   notifications: NotificationUpdateManyWithoutRequestNestedInput
+
   sender: UserUpdateOneRequiredWithoutSent_requestNestedInput
+
   status: RequestStatus
+
   updatedAt: DateTime
 }
 
 input RequestUpdateWithoutSenderInput {
   createdAt: DateTime
+
   deletedAt: DateTime
+
   notifications: NotificationUpdateManyWithoutRequestNestedInput
+
   receiver: UserUpdateOneRequiredWithoutReceived_requestNestedInput
+
   status: RequestStatus
+
   updatedAt: DateTime
 }
 
 input RequestUpsertWithWhereUniqueWithoutReceiverInput {
   create: RequestCreateWithoutReceiverInput!
+
   update: RequestUpdateWithoutReceiverInput!
+
   where: RequestWhereUniqueInput!
 }
 
 input RequestUpsertWithWhereUniqueWithoutSenderInput {
   create: RequestCreateWithoutSenderInput!
+
   update: RequestUpdateWithoutSenderInput!
+
   where: RequestWhereUniqueInput!
 }
 
 input RequestUpsertWithoutNotificationsInput {
   create: RequestCreateWithoutNotificationsInput!
+
   update: RequestUpdateWithoutNotificationsInput!
+
   where: RequestWhereInput
 }
 
 input RequestWhereInput {
   AND: [RequestWhereInput!]
+
   NOT: [RequestWhereInput!]
+
   OR: [RequestWhereInput!]
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   id: StringFilter
+
   notifications: NotificationListRelationFilter
+
   receiver: UserRelationFilter
+
   receiverId: StringFilter
+
   sender: UserRelationFilter
+
   senderId: StringFilter
+
   status: EnumRequestStatusFilter
+
   updatedAt: DateTimeNullableFilter
 }
 
 input RequestWhereUniqueInput {
   AND: [RequestWhereInput!]
+
   NOT: [RequestWhereInput!]
+
   OR: [RequestWhereInput!]
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   id: String
+
   notifications: NotificationListRelationFilter
+
   receiver: UserRelationFilter
+
   receiverId: StringFilter
+
   receiverId_senderId: RequestReceiverIdSenderIdCompoundUniqueInput
+
   sender: UserRelationFilter
+
   senderId: StringFilter
+
   status: EnumRequestStatusFilter
+
   updatedAt: DateTimeNullableFilter
 }
 
+"""
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+"""
+scalar String
+
 input StringFilter {
   contains: String
+
   endsWith: String
+
   equals: String
+
   gt: String
+
   gte: String
+
   in: [String!]
+
   lt: String
+
   lte: String
+
   mode: QueryMode
+
   not: NestedStringFilter
+
   notIn: [String!]
+
   startsWith: String
 }
 
 input StringNullableFilter {
   contains: String
+
   endsWith: String
+
   equals: String
+
   gt: String
+
   gte: String
+
   in: [String!]
+
   isSet: Boolean
+
   lt: String
+
   lte: String
+
   mode: QueryMode
+
   not: NestedStringNullableFilter
+
   notIn: [String!]
+
   startsWith: String
 }
 
 type Subscription {
-  comment_added(post_id: ID!): Comment!
+  comment_added: Comment!
+
+  request_added: Request!
 }
 
-"""The `Upload` scalar type represents a file upload."""
+"""
+The `Upload` scalar type represents a file upload.
+"""
 scalar Upload
 
 type User {
   avatar: Asset
-  comments(after: String, filter: CommentWhereInput! = {}, take: Int! = 999999999): CommentConnection!
+
+  comments(after: String, filter: CommentWhereInput! = {
+
+  }
+  , take: Int! = 999999999): CommentConnection!
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friendOf: [Friend!]
-  friends(after: String, filter: FriendWhereInput! = {}, take: Int! = 999999999): FriendConnection!
+
+  friends(after: String, filter: FriendWhereInput! = {
+
+  }
+  , take: Int! = 999999999): FriendConnection
+
   id: ID!
+
   notificationsReceived: [NotificationRecipient!]
+
   notificationsSent: [Notification!]
-  posts(after: String, filter: PostWhereInput! = {}, take: Int! = 999999999): PostConnection!
-  reactions(after: String, filter: ReactionWhereInput! = {}, take: Int! = 999999999): ReactionConnection!
+
+  posts(after: String, filter: PostWhereInput! = {
+
+  }
+  , take: Int! = 999999999): PostConnection!
+
+  reactions(after: String, filter: ReactionWhereInput! = {
+
+  }
+  , take: Int! = 999999999): ReactionConnection!
+
   received_request: [Request!]
+
   sent_request: [Request!]
+
+  suggest_friends(after: String, filter: FriendWhereInput! = {
+
+  }
+  , take: Int! = 999999999): UserConnection
+
   updatedAt: DateTime
+
   username: String!
 }
 
 type UserConnection {
   edges: [UserEdge!]!
+
   pageInfo: PageInfo!
 }
 
 input UserCreateInput {
   avatar: AssetNullableCreateEnvelopeInput
+
   comments: CommentCreateNestedManyWithoutUserInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friendOf: FriendCreateNestedManyWithoutFriendInput
+
   friends: FriendCreateNestedManyWithoutUserInput
+
   id: String
+
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
+
   notificationsSent: NotificationCreateNestedManyWithoutSenderInput
+
   password: String!
+
   posts: PostCreateNestedManyWithoutUserInput
+
   reactions: ReactionCreateNestedManyWithoutUserInput
+
   received_request: RequestCreateNestedManyWithoutReceiverInput
+
   sent_request: RequestCreateNestedManyWithoutSenderInput
+
   updatedAt: DateTime
+
   username: String!
 }
 
 input UserCreateNestedOneWithoutCommentsInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutCommentsInput
+
   create: UserCreateWithoutCommentsInput
 }
 
 input UserCreateNestedOneWithoutFriendOfInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutFriendOfInput
+
   create: UserCreateWithoutFriendOfInput
 }
 
 input UserCreateNestedOneWithoutFriendsInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutFriendsInput
+
   create: UserCreateWithoutFriendsInput
 }
 
 input UserCreateNestedOneWithoutNotificationsReceivedInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutNotificationsReceivedInput
+
   create: UserCreateWithoutNotificationsReceivedInput
 }
 
 input UserCreateNestedOneWithoutNotificationsSentInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutNotificationsSentInput
+
   create: UserCreateWithoutNotificationsSentInput
 }
 
 input UserCreateNestedOneWithoutPostsInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutPostsInput
+
   create: UserCreateWithoutPostsInput
 }
 
 input UserCreateNestedOneWithoutReactionsInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutReactionsInput
+
   create: UserCreateWithoutReactionsInput
 }
 
 input UserCreateNestedOneWithoutReceived_requestInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutReceived_requestInput
+
   create: UserCreateWithoutReceived_requestInput
 }
 
 input UserCreateNestedOneWithoutSent_requestInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutSent_requestInput
+
   create: UserCreateWithoutSent_requestInput
 }
 
 input UserCreateOrConnectWithoutCommentsInput {
   create: UserCreateWithoutCommentsInput!
+
   where: UserWhereUniqueInput!
 }
 
 input UserCreateOrConnectWithoutFriendOfInput {
   create: UserCreateWithoutFriendOfInput!
+
   where: UserWhereUniqueInput!
 }
 
 input UserCreateOrConnectWithoutFriendsInput {
   create: UserCreateWithoutFriendsInput!
+
   where: UserWhereUniqueInput!
 }
 
 input UserCreateOrConnectWithoutNotificationsReceivedInput {
   create: UserCreateWithoutNotificationsReceivedInput!
+
   where: UserWhereUniqueInput!
 }
 
 input UserCreateOrConnectWithoutNotificationsSentInput {
   create: UserCreateWithoutNotificationsSentInput!
+
   where: UserWhereUniqueInput!
 }
 
 input UserCreateOrConnectWithoutPostsInput {
   create: UserCreateWithoutPostsInput!
+
   where: UserWhereUniqueInput!
 }
 
 input UserCreateOrConnectWithoutReactionsInput {
   create: UserCreateWithoutReactionsInput!
+
   where: UserWhereUniqueInput!
 }
 
 input UserCreateOrConnectWithoutReceived_requestInput {
   create: UserCreateWithoutReceived_requestInput!
+
   where: UserWhereUniqueInput!
 }
 
 input UserCreateOrConnectWithoutSent_requestInput {
   create: UserCreateWithoutSent_requestInput!
+
   where: UserWhereUniqueInput!
 }
 
 input UserCreateWithoutCommentsInput {
   avatar: AssetNullableCreateEnvelopeInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friendOf: FriendCreateNestedManyWithoutFriendInput
+
   friends: FriendCreateNestedManyWithoutUserInput
+
   id: String
+
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
+
   notificationsSent: NotificationCreateNestedManyWithoutSenderInput
+
   password: String!
+
   posts: PostCreateNestedManyWithoutUserInput
+
   reactions: ReactionCreateNestedManyWithoutUserInput
+
   received_request: RequestCreateNestedManyWithoutReceiverInput
+
   sent_request: RequestCreateNestedManyWithoutSenderInput
+
   updatedAt: DateTime
+
   username: String!
 }
 
 input UserCreateWithoutFriendOfInput {
   avatar: AssetNullableCreateEnvelopeInput
+
   comments: CommentCreateNestedManyWithoutUserInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friends: FriendCreateNestedManyWithoutUserInput
+
   id: String
+
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
+
   notificationsSent: NotificationCreateNestedManyWithoutSenderInput
+
   password: String!
+
   posts: PostCreateNestedManyWithoutUserInput
+
   reactions: ReactionCreateNestedManyWithoutUserInput
+
   received_request: RequestCreateNestedManyWithoutReceiverInput
+
   sent_request: RequestCreateNestedManyWithoutSenderInput
+
   updatedAt: DateTime
+
   username: String!
 }
 
 input UserCreateWithoutFriendsInput {
   avatar: AssetNullableCreateEnvelopeInput
+
   comments: CommentCreateNestedManyWithoutUserInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friendOf: FriendCreateNestedManyWithoutFriendInput
+
   id: String
+
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
+
   notificationsSent: NotificationCreateNestedManyWithoutSenderInput
+
   password: String!
+
   posts: PostCreateNestedManyWithoutUserInput
+
   reactions: ReactionCreateNestedManyWithoutUserInput
+
   received_request: RequestCreateNestedManyWithoutReceiverInput
+
   sent_request: RequestCreateNestedManyWithoutSenderInput
+
   updatedAt: DateTime
+
   username: String!
 }
 
 input UserCreateWithoutNotificationsReceivedInput {
   avatar: AssetNullableCreateEnvelopeInput
+
   comments: CommentCreateNestedManyWithoutUserInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friendOf: FriendCreateNestedManyWithoutFriendInput
+
   friends: FriendCreateNestedManyWithoutUserInput
+
   id: String
+
   notificationsSent: NotificationCreateNestedManyWithoutSenderInput
+
   password: String!
+
   posts: PostCreateNestedManyWithoutUserInput
+
   reactions: ReactionCreateNestedManyWithoutUserInput
+
   received_request: RequestCreateNestedManyWithoutReceiverInput
+
   sent_request: RequestCreateNestedManyWithoutSenderInput
+
   updatedAt: DateTime
+
   username: String!
 }
 
 input UserCreateWithoutNotificationsSentInput {
   avatar: AssetNullableCreateEnvelopeInput
+
   comments: CommentCreateNestedManyWithoutUserInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friendOf: FriendCreateNestedManyWithoutFriendInput
+
   friends: FriendCreateNestedManyWithoutUserInput
+
   id: String
+
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
+
   password: String!
+
   posts: PostCreateNestedManyWithoutUserInput
+
   reactions: ReactionCreateNestedManyWithoutUserInput
+
   received_request: RequestCreateNestedManyWithoutReceiverInput
+
   sent_request: RequestCreateNestedManyWithoutSenderInput
+
   updatedAt: DateTime
+
   username: String!
 }
 
 input UserCreateWithoutPostsInput {
   avatar: AssetNullableCreateEnvelopeInput
+
   comments: CommentCreateNestedManyWithoutUserInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friendOf: FriendCreateNestedManyWithoutFriendInput
+
   friends: FriendCreateNestedManyWithoutUserInput
+
   id: String
+
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
+
   notificationsSent: NotificationCreateNestedManyWithoutSenderInput
+
   password: String!
+
   reactions: ReactionCreateNestedManyWithoutUserInput
+
   received_request: RequestCreateNestedManyWithoutReceiverInput
+
   sent_request: RequestCreateNestedManyWithoutSenderInput
+
   updatedAt: DateTime
+
   username: String!
 }
 
 input UserCreateWithoutReactionsInput {
   avatar: AssetNullableCreateEnvelopeInput
+
   comments: CommentCreateNestedManyWithoutUserInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friendOf: FriendCreateNestedManyWithoutFriendInput
+
   friends: FriendCreateNestedManyWithoutUserInput
+
   id: String
+
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
+
   notificationsSent: NotificationCreateNestedManyWithoutSenderInput
+
   password: String!
+
   posts: PostCreateNestedManyWithoutUserInput
+
   received_request: RequestCreateNestedManyWithoutReceiverInput
+
   sent_request: RequestCreateNestedManyWithoutSenderInput
+
   updatedAt: DateTime
+
   username: String!
 }
 
 input UserCreateWithoutReceived_requestInput {
   avatar: AssetNullableCreateEnvelopeInput
+
   comments: CommentCreateNestedManyWithoutUserInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friendOf: FriendCreateNestedManyWithoutFriendInput
+
   friends: FriendCreateNestedManyWithoutUserInput
+
   id: String
+
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
+
   notificationsSent: NotificationCreateNestedManyWithoutSenderInput
+
   password: String!
+
   posts: PostCreateNestedManyWithoutUserInput
+
   reactions: ReactionCreateNestedManyWithoutUserInput
+
   sent_request: RequestCreateNestedManyWithoutSenderInput
+
   updatedAt: DateTime
+
   username: String!
 }
 
 input UserCreateWithoutSent_requestInput {
   avatar: AssetNullableCreateEnvelopeInput
+
   comments: CommentCreateNestedManyWithoutUserInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String!
+
   friendOf: FriendCreateNestedManyWithoutFriendInput
+
   friends: FriendCreateNestedManyWithoutUserInput
+
   id: String
+
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
+
   notificationsSent: NotificationCreateNestedManyWithoutSenderInput
+
   password: String!
+
   posts: PostCreateNestedManyWithoutUserInput
+
   reactions: ReactionCreateNestedManyWithoutUserInput
+
   received_request: RequestCreateNestedManyWithoutReceiverInput
+
   updatedAt: DateTime
+
   username: String!
 }
 
 type UserEdge {
   cursor: String!
+
   node: User!
 }
 
 input UserRelationFilter {
   is: UserWhereInput
+
   isNot: UserWhereInput
 }
 
 input UserUpdateInput {
   avatar: AssetNullableUpdateEnvelopeInput
+
   comments: CommentUpdateManyWithoutUserNestedInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String
+
   friendOf: FriendUpdateManyWithoutFriendNestedInput
+
   friends: FriendUpdateManyWithoutUserNestedInput
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
+
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
+
   password: String
+
   posts: PostUpdateManyWithoutUserNestedInput
+
   reactions: ReactionUpdateManyWithoutUserNestedInput
+
   received_request: RequestUpdateManyWithoutReceiverNestedInput
+
   sent_request: RequestUpdateManyWithoutSenderNestedInput
+
   updatedAt: DateTime
+
   username: String
 }
 
 input UserUpdateOneRequiredWithoutCommentsNestedInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutCommentsInput
+
   create: UserCreateWithoutCommentsInput
+
   update: UserUpdateToOneWithWhereWithoutCommentsInput
+
   upsert: UserUpsertWithoutCommentsInput
 }
 
 input UserUpdateOneRequiredWithoutFriendOfNestedInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutFriendOfInput
+
   create: UserCreateWithoutFriendOfInput
+
   update: UserUpdateToOneWithWhereWithoutFriendOfInput
+
   upsert: UserUpsertWithoutFriendOfInput
 }
 
 input UserUpdateOneRequiredWithoutFriendsNestedInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutFriendsInput
+
   create: UserCreateWithoutFriendsInput
+
   update: UserUpdateToOneWithWhereWithoutFriendsInput
+
   upsert: UserUpsertWithoutFriendsInput
 }
 
 input UserUpdateOneRequiredWithoutNotificationsReceivedNestedInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutNotificationsReceivedInput
+
   create: UserCreateWithoutNotificationsReceivedInput
+
   update: UserUpdateToOneWithWhereWithoutNotificationsReceivedInput
+
   upsert: UserUpsertWithoutNotificationsReceivedInput
 }
 
 input UserUpdateOneRequiredWithoutNotificationsSentNestedInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutNotificationsSentInput
+
   create: UserCreateWithoutNotificationsSentInput
+
   update: UserUpdateToOneWithWhereWithoutNotificationsSentInput
+
   upsert: UserUpsertWithoutNotificationsSentInput
 }
 
 input UserUpdateOneRequiredWithoutPostsNestedInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutPostsInput
+
   create: UserCreateWithoutPostsInput
+
   update: UserUpdateToOneWithWhereWithoutPostsInput
+
   upsert: UserUpsertWithoutPostsInput
 }
 
 input UserUpdateOneRequiredWithoutReactionsNestedInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutReactionsInput
+
   create: UserCreateWithoutReactionsInput
+
   update: UserUpdateToOneWithWhereWithoutReactionsInput
+
   upsert: UserUpsertWithoutReactionsInput
 }
 
 input UserUpdateOneRequiredWithoutReceived_requestNestedInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutReceived_requestInput
+
   create: UserCreateWithoutReceived_requestInput
+
   update: UserUpdateToOneWithWhereWithoutReceived_requestInput
+
   upsert: UserUpsertWithoutReceived_requestInput
 }
 
 input UserUpdateOneRequiredWithoutSent_requestNestedInput {
   connect: UserWhereUniqueInput
+
   connectOrCreate: UserCreateOrConnectWithoutSent_requestInput
+
   create: UserCreateWithoutSent_requestInput
+
   update: UserUpdateToOneWithWhereWithoutSent_requestInput
+
   upsert: UserUpsertWithoutSent_requestInput
 }
 
 input UserUpdateToOneWithWhereWithoutCommentsInput {
   data: UserUpdateWithoutCommentsInput!
+
   where: UserWhereInput
 }
 
 input UserUpdateToOneWithWhereWithoutFriendOfInput {
   data: UserUpdateWithoutFriendOfInput!
+
   where: UserWhereInput
 }
 
 input UserUpdateToOneWithWhereWithoutFriendsInput {
   data: UserUpdateWithoutFriendsInput!
+
   where: UserWhereInput
 }
 
 input UserUpdateToOneWithWhereWithoutNotificationsReceivedInput {
   data: UserUpdateWithoutNotificationsReceivedInput!
+
   where: UserWhereInput
 }
 
 input UserUpdateToOneWithWhereWithoutNotificationsSentInput {
   data: UserUpdateWithoutNotificationsSentInput!
+
   where: UserWhereInput
 }
 
 input UserUpdateToOneWithWhereWithoutPostsInput {
   data: UserUpdateWithoutPostsInput!
+
   where: UserWhereInput
 }
 
 input UserUpdateToOneWithWhereWithoutReactionsInput {
   data: UserUpdateWithoutReactionsInput!
+
   where: UserWhereInput
 }
 
 input UserUpdateToOneWithWhereWithoutReceived_requestInput {
   data: UserUpdateWithoutReceived_requestInput!
+
   where: UserWhereInput
 }
 
 input UserUpdateToOneWithWhereWithoutSent_requestInput {
   data: UserUpdateWithoutSent_requestInput!
+
   where: UserWhereInput
 }
 
 input UserUpdateWithoutCommentsInput {
   avatar: AssetNullableUpdateEnvelopeInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String
+
   friendOf: FriendUpdateManyWithoutFriendNestedInput
+
   friends: FriendUpdateManyWithoutUserNestedInput
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
+
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
+
   password: String
+
   posts: PostUpdateManyWithoutUserNestedInput
+
   reactions: ReactionUpdateManyWithoutUserNestedInput
+
   received_request: RequestUpdateManyWithoutReceiverNestedInput
+
   sent_request: RequestUpdateManyWithoutSenderNestedInput
+
   updatedAt: DateTime
+
   username: String
 }
 
 input UserUpdateWithoutFriendOfInput {
   avatar: AssetNullableUpdateEnvelopeInput
+
   comments: CommentUpdateManyWithoutUserNestedInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String
+
   friends: FriendUpdateManyWithoutUserNestedInput
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
+
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
+
   password: String
+
   posts: PostUpdateManyWithoutUserNestedInput
+
   reactions: ReactionUpdateManyWithoutUserNestedInput
+
   received_request: RequestUpdateManyWithoutReceiverNestedInput
+
   sent_request: RequestUpdateManyWithoutSenderNestedInput
+
   updatedAt: DateTime
+
   username: String
 }
 
 input UserUpdateWithoutFriendsInput {
   avatar: AssetNullableUpdateEnvelopeInput
+
   comments: CommentUpdateManyWithoutUserNestedInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String
+
   friendOf: FriendUpdateManyWithoutFriendNestedInput
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
+
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
+
   password: String
+
   posts: PostUpdateManyWithoutUserNestedInput
+
   reactions: ReactionUpdateManyWithoutUserNestedInput
+
   received_request: RequestUpdateManyWithoutReceiverNestedInput
+
   sent_request: RequestUpdateManyWithoutSenderNestedInput
+
   updatedAt: DateTime
+
   username: String
 }
 
 input UserUpdateWithoutNotificationsReceivedInput {
   avatar: AssetNullableUpdateEnvelopeInput
+
   comments: CommentUpdateManyWithoutUserNestedInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String
+
   friendOf: FriendUpdateManyWithoutFriendNestedInput
+
   friends: FriendUpdateManyWithoutUserNestedInput
+
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
+
   password: String
+
   posts: PostUpdateManyWithoutUserNestedInput
+
   reactions: ReactionUpdateManyWithoutUserNestedInput
+
   received_request: RequestUpdateManyWithoutReceiverNestedInput
+
   sent_request: RequestUpdateManyWithoutSenderNestedInput
+
   updatedAt: DateTime
+
   username: String
 }
 
 input UserUpdateWithoutNotificationsSentInput {
   avatar: AssetNullableUpdateEnvelopeInput
+
   comments: CommentUpdateManyWithoutUserNestedInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String
+
   friendOf: FriendUpdateManyWithoutFriendNestedInput
+
   friends: FriendUpdateManyWithoutUserNestedInput
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
+
   password: String
+
   posts: PostUpdateManyWithoutUserNestedInput
+
   reactions: ReactionUpdateManyWithoutUserNestedInput
+
   received_request: RequestUpdateManyWithoutReceiverNestedInput
+
   sent_request: RequestUpdateManyWithoutSenderNestedInput
+
   updatedAt: DateTime
+
   username: String
 }
 
 input UserUpdateWithoutPostsInput {
   avatar: AssetNullableUpdateEnvelopeInput
+
   comments: CommentUpdateManyWithoutUserNestedInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String
+
   friendOf: FriendUpdateManyWithoutFriendNestedInput
+
   friends: FriendUpdateManyWithoutUserNestedInput
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
+
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
+
   password: String
+
   reactions: ReactionUpdateManyWithoutUserNestedInput
+
   received_request: RequestUpdateManyWithoutReceiverNestedInput
+
   sent_request: RequestUpdateManyWithoutSenderNestedInput
+
   updatedAt: DateTime
+
   username: String
 }
 
 input UserUpdateWithoutReactionsInput {
   avatar: AssetNullableUpdateEnvelopeInput
+
   comments: CommentUpdateManyWithoutUserNestedInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String
+
   friendOf: FriendUpdateManyWithoutFriendNestedInput
+
   friends: FriendUpdateManyWithoutUserNestedInput
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
+
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
+
   password: String
+
   posts: PostUpdateManyWithoutUserNestedInput
+
   received_request: RequestUpdateManyWithoutReceiverNestedInput
+
   sent_request: RequestUpdateManyWithoutSenderNestedInput
+
   updatedAt: DateTime
+
   username: String
 }
 
 input UserUpdateWithoutReceived_requestInput {
   avatar: AssetNullableUpdateEnvelopeInput
+
   comments: CommentUpdateManyWithoutUserNestedInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String
+
   friendOf: FriendUpdateManyWithoutFriendNestedInput
+
   friends: FriendUpdateManyWithoutUserNestedInput
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
+
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
+
   password: String
+
   posts: PostUpdateManyWithoutUserNestedInput
+
   reactions: ReactionUpdateManyWithoutUserNestedInput
+
   sent_request: RequestUpdateManyWithoutSenderNestedInput
+
   updatedAt: DateTime
+
   username: String
 }
 
 input UserUpdateWithoutSent_requestInput {
   avatar: AssetNullableUpdateEnvelopeInput
+
   comments: CommentUpdateManyWithoutUserNestedInput
+
   createdAt: DateTime
+
   deletedAt: DateTime
+
   email: String
+
   friendOf: FriendUpdateManyWithoutFriendNestedInput
+
   friends: FriendUpdateManyWithoutUserNestedInput
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
+
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
+
   password: String
+
   posts: PostUpdateManyWithoutUserNestedInput
+
   reactions: ReactionUpdateManyWithoutUserNestedInput
+
   received_request: RequestUpdateManyWithoutReceiverNestedInput
+
   updatedAt: DateTime
+
   username: String
 }
 
 input UserUpsertWithoutCommentsInput {
   create: UserCreateWithoutCommentsInput!
+
   update: UserUpdateWithoutCommentsInput!
+
   where: UserWhereInput
 }
 
 input UserUpsertWithoutFriendOfInput {
   create: UserCreateWithoutFriendOfInput!
+
   update: UserUpdateWithoutFriendOfInput!
+
   where: UserWhereInput
 }
 
 input UserUpsertWithoutFriendsInput {
   create: UserCreateWithoutFriendsInput!
+
   update: UserUpdateWithoutFriendsInput!
+
   where: UserWhereInput
 }
 
 input UserUpsertWithoutNotificationsReceivedInput {
   create: UserCreateWithoutNotificationsReceivedInput!
+
   update: UserUpdateWithoutNotificationsReceivedInput!
+
   where: UserWhereInput
 }
 
 input UserUpsertWithoutNotificationsSentInput {
   create: UserCreateWithoutNotificationsSentInput!
+
   update: UserUpdateWithoutNotificationsSentInput!
+
   where: UserWhereInput
 }
 
 input UserUpsertWithoutPostsInput {
   create: UserCreateWithoutPostsInput!
+
   update: UserUpdateWithoutPostsInput!
+
   where: UserWhereInput
 }
 
 input UserUpsertWithoutReactionsInput {
   create: UserCreateWithoutReactionsInput!
+
   update: UserUpdateWithoutReactionsInput!
+
   where: UserWhereInput
 }
 
 input UserUpsertWithoutReceived_requestInput {
   create: UserCreateWithoutReceived_requestInput!
+
   update: UserUpdateWithoutReceived_requestInput!
+
   where: UserWhereInput
 }
 
 input UserUpsertWithoutSent_requestInput {
   create: UserCreateWithoutSent_requestInput!
+
   update: UserUpdateWithoutSent_requestInput!
+
   where: UserWhereInput
 }
 
 input UserWhereInput {
   AND: [UserWhereInput!]
+
   NOT: [UserWhereInput!]
+
   OR: [UserWhereInput!]
+
   avatar: AssetNullableCompositeFilter
+
   comments: CommentListRelationFilter
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   email: StringFilter
+
   friendOf: FriendListRelationFilter
+
   friends: FriendListRelationFilter
+
   id: StringFilter
+
   notificationsReceived: NotificationRecipientListRelationFilter
+
   notificationsSent: NotificationListRelationFilter
+
   password: StringFilter
+
   posts: PostListRelationFilter
+
   reactions: ReactionListRelationFilter
+
   received_request: RequestListRelationFilter
+
   sent_request: RequestListRelationFilter
+
   updatedAt: DateTimeNullableFilter
+
   username: StringFilter
 }
 
 input UserWhereUniqueInput {
   AND: [UserWhereInput!]
+
   NOT: [UserWhereInput!]
+
   OR: [UserWhereInput!]
+
   avatar: AssetNullableCompositeFilter
+
   comments: CommentListRelationFilter
+
   createdAt: DateTimeNullableFilter
+
   deletedAt: DateTimeNullableFilter
+
   email: String
+
   friendOf: FriendListRelationFilter
+
   friends: FriendListRelationFilter
+
   id: String
+
   notificationsReceived: NotificationRecipientListRelationFilter
+
   notificationsSent: NotificationListRelationFilter
+
   password: StringFilter
+
   posts: PostListRelationFilter
+
   reactions: ReactionListRelationFilter
+
   received_request: RequestListRelationFilter
+
   sent_request: RequestListRelationFilter
+
   updatedAt: DateTimeNullableFilter
+
   username: String
+}
+
+"""
+A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.
+
+In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
+"""
+type __Directive {
+  name: String!
+
+  description: String
+
+  isRepeatable: Boolean!
+
+  locations: [__DirectiveLocation!]!
+
+  args(includeDeprecated: Boolean = false): [__InputValue!]!
+}
+
+"""
+A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies.
+"""
+enum __DirectiveLocation {
+  """
+  Location adjacent to a query operation.
+  """
+  QUERY
+
+  """
+  Location adjacent to a mutation operation.
+  """
+  MUTATION
+
+  """
+  Location adjacent to a subscription operation.
+  """
+  SUBSCRIPTION
+
+  """
+  Location adjacent to a field.
+  """
+  FIELD
+
+  """
+  Location adjacent to a fragment definition.
+  """
+  FRAGMENT_DEFINITION
+
+  """
+  Location adjacent to a fragment spread.
+  """
+  FRAGMENT_SPREAD
+
+  """
+  Location adjacent to an inline fragment.
+  """
+  INLINE_FRAGMENT
+
+  """
+  Location adjacent to a variable definition.
+  """
+  VARIABLE_DEFINITION
+
+  """
+  Location adjacent to a schema definition.
+  """
+  SCHEMA
+
+  """
+  Location adjacent to a scalar definition.
+  """
+  SCALAR
+
+  """
+  Location adjacent to an object type definition.
+  """
+  OBJECT
+
+  """
+  Location adjacent to a field definition.
+  """
+  FIELD_DEFINITION
+
+  """
+  Location adjacent to an argument definition.
+  """
+  ARGUMENT_DEFINITION
+
+  """
+  Location adjacent to an interface definition.
+  """
+  INTERFACE
+
+  """
+  Location adjacent to a union definition.
+  """
+  UNION
+
+  """
+  Location adjacent to an enum definition.
+  """
+  ENUM
+
+  """
+  Location adjacent to an enum value definition.
+  """
+  ENUM_VALUE
+
+  """
+  Location adjacent to an input object type definition.
+  """
+  INPUT_OBJECT
+
+  """
+  Location adjacent to an input object field definition.
+  """
+  INPUT_FIELD_DEFINITION
+}
+
+"""
+One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string.
+"""
+type __EnumValue {
+  name: String!
+
+  description: String
+
+  isDeprecated: Boolean!
+
+  deprecationReason: String
+}
+
+"""
+Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type.
+"""
+type __Field {
+  name: String!
+
+  description: String
+
+  args(includeDeprecated: Boolean = false): [__InputValue!]!
+
+  type: __Type!
+
+  isDeprecated: Boolean!
+
+  deprecationReason: String
+}
+
+"""
+Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value.
+"""
+type __InputValue {
+  name: String!
+
+  description: String
+
+  type: __Type!
+
+  """
+  A GraphQL-formatted string representing the default value for this input value.
+  """
+  defaultValue: String
+
+  isDeprecated: Boolean!
+
+  deprecationReason: String
+}
+
+"""
+A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.
+"""
+type __Schema {
+  description: String
+
+  """
+  A list of all types supported by this server.
+  """
+  types: [__Type!]!
+
+  """
+  The type that query operations will be rooted at.
+  """
+  queryType: __Type!
+
+  """
+  If this server supports mutation, the type that mutation operations will be rooted at.
+  """
+  mutationType: __Type
+
+  """
+  If this server support subscription, the type that subscription operations will be rooted at.
+  """
+  subscriptionType: __Type
+
+  """
+  A list of all directives supported by this server.
+  """
+  directives: [__Directive!]!
+}
+
+"""
+The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
+
+Depending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name, description and optional `specifiedByURL`, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.
+"""
+type __Type {
+  kind: __TypeKind!
+
+  name: String
+
+  description: String
+
+  specifiedByURL: String
+
+  fields(includeDeprecated: Boolean = false): [__Field!]
+
+  interfaces: [__Type!]
+
+  possibleTypes: [__Type!]
+
+  enumValues(includeDeprecated: Boolean = false): [__EnumValue!]
+
+  inputFields(includeDeprecated: Boolean = false): [__InputValue!]
+
+  ofType: __Type
+}
+
+"""
+An enum describing what kind of type a given `__Type` is.
+"""
+enum __TypeKind {
+  """
+  Indicates this type is a scalar.
+  """
+  SCALAR
+
+  """
+  Indicates this type is an object. `fields` and `interfaces` are valid fields.
+  """
+  OBJECT
+
+  """
+  Indicates this type is an interface. `fields`, `interfaces`, and `possibleTypes` are valid fields.
+  """
+  INTERFACE
+
+  """
+  Indicates this type is a union. `possibleTypes` is a valid field.
+  """
+  UNION
+
+  """
+  Indicates this type is an enum. `enumValues` is a valid field.
+  """
+  ENUM
+
+  """
+  Indicates this type is an input object. `inputFields` is a valid field.
+  """
+  INPUT_OBJECT
+
+  """
+  Indicates this type is a list. `ofType` is a valid field.
+  """
+  LIST
+
+  """
+  Indicates this type is a non-null. `ofType` is a valid field.
+  """
+  NON_NULL
+}
+
+"""
+Marks an element of a GraphQL schema as no longer supported.
+"""
+directive @deprecated ("Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted using the Markdown syntax, as specified by [CommonMark](https:\/\/commonmark.org\/)." reason: String = "No longer supported") on ARGUMENT_DEFINITION|ENUM_VALUE|FIELD_DEFINITION|INPUT_FIELD_DEFINITION
+
+"""
+Directs the executor to include this field or fragment only when the `if` argument is true.
+"""
+directive @include ("Included when true." if: Boolean!) on FIELD|FRAGMENT_SPREAD|INLINE_FRAGMENT
+
+"""
+Directs the executor to skip this field or fragment when the `if` argument is true.
+"""
+directive @skip ("Skipped when true." if: Boolean!) on FIELD|FRAGMENT_SPREAD|INLINE_FRAGMENT
+
+"""
+Exposes a URL that specifies the behavior of this scalar.
+"""
+directive @specifiedBy ("The URL that specifies the behavior of this scalar." url: String!) on SCALAR
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
 }
