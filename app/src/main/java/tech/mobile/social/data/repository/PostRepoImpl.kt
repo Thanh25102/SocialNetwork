@@ -48,7 +48,6 @@ class PostRepoImpl(
         id: Optional<String?>,
         content: String,
         createdAt: LocalDateTime,
-        createdBy: UserCreateNestedOneWithoutPostsInput
     ): ApolloResponse<Create_postMutation.Data> {
         val result = apolloClient.mutation(
             Create_postMutation(

@@ -3,6 +3,7 @@ package tech.mobile.social.presentation.app.posts
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.apollographql.apollo3.api.Optional
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.StateFlow
@@ -26,7 +27,7 @@ class PostsViewModel @Inject constructor(
         val (id, content, createdAt,createdBy) = stateFlow.value
         viewModelScope.launch {
 
-            val result = postUseCase.Createpost(id, content, createdAt, createdBy)
+            val result = postUseCase.Createpost(Optional.present(id), content, createdAt)
         }
     }
 }

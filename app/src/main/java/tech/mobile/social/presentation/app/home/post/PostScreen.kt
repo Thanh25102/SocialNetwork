@@ -1,6 +1,5 @@
 package tech.mobile.social.presentation.app.home.post
 
-import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,7 +16,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
 import com.google.accompanist.coil.rememberCoilPainter
 import tech.mobile.social.R.drawable
 import tech.mobile.social.presentation.app.home.post.components.CommentsComponent

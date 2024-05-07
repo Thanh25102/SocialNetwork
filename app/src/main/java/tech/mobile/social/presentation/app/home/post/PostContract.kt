@@ -1,7 +1,6 @@
 package tech.mobile.social.presentation.app.home.post
 
 import java.time.LocalDateTime
-import java.util.*
 
 
 /**
@@ -27,7 +26,7 @@ data class Comment(
 data class PostState(
     var avatarResource: Int? = null,
     var authorName: String = "",
-    var postTime: Date? = null,
+    var postTime: Any? = null,
     var content: String = "",
     var imageResource: Int? = null,
     var sheetState: Boolean = false,
