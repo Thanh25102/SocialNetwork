@@ -30,7 +30,7 @@ import java.time.LocalDateTime
 @Composable
 fun FriendSuggestItemComponent(
 //    avatarResource: Int, name: String, time: LocalDateTime,
-    friendSuggest: FriendSuggestQuery.Edge,
+    friendSuggest: FriendSuggestQuery.Node,
     onDelete: (String) -> Unit,
     onSendRequest: (String) -> Unit
 ) {
@@ -56,7 +56,7 @@ fun FriendSuggestItemComponent(
         Spacer(modifier = Modifier.width(8.dp))
         Column() {
             // make text bold
-            Text(text = friendSuggest.node.username, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            Text(text = friendSuggest.username, fontWeight = FontWeight.Bold, fontSize = 16.sp)
             Row() {
                 if (!isSentRequest) {
 //                    BtnApp(
@@ -67,7 +67,7 @@ fun FriendSuggestItemComponent(
                 Button(
                     onClick = {
                         setIsSentRequest(true);
-                        onSendRequest(friendSuggest.node.id);
+                        onSendRequest(friendSuggest.id);
                     },
                     modifier = Modifier.width(240.dp),
                     shape = RoundedCornerShape(10.dp)
@@ -78,6 +78,7 @@ fun FriendSuggestItemComponent(
                     Button(
                         onClick = {
                             setIsSentRequest(false);
+                            onDelete(friendSuggest.id)
                         },
                         modifier = Modifier.width(240.dp),
                         shape = RoundedCornerShape(10.dp)

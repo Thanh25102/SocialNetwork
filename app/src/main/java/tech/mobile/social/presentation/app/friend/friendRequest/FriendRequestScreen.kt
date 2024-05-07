@@ -66,6 +66,7 @@ fun FriendRequestScreen(
                         onDelete = actions.onDeleteRequest,
                         onAccept = actions.onAcceptFriendRequest
                     )
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
             item {

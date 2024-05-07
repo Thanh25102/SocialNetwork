@@ -2,8 +2,11 @@ package tech.mobile.social.presentation.app.friend.friendSuggest
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import tech.mobile.social.presentation.app.friend.friendRequest.components.FriendRequestItemComponent
 import tech.mobile.social.presentation.app.friend.friendRequest.components.FriendSuggestItemComponent
 
@@ -51,17 +54,30 @@ fun FriendRequestScreen(
 //        }
 
         LazyColumn {
-            state.friendSuggests?.edges?.let { it ->
+            state.friendSuggests?.let { it ->
                 items(it.size, key = { it }) { it ->
+                    if(it >= state.friendSuggests.size - 1 && !state.endReached && !state.isLoading){
+
+                    }
                     FriendSuggestItemComponent(
-                        friendSuggest = state.friendSuggests.edges[it],
+                        friendSuggest = state.friendSuggests[it],
                         onDelete = actions.onDeleteSuggest,
                         onSendRequest = actions.onSendFriendRequest
                     )
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
             item {
-
+                if(state.isLoading) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
             }
         }
     }
@@ -72,7 +88,8 @@ fun FriendRequestScreen(
 private fun FriendScreenPreview() {
     FriendRequestScreen(
         state = FriendSuggestState(),
-        actions = FriendSuggestActions()
+        actions = FriendSuggestActions(),
+
     )
 }
 

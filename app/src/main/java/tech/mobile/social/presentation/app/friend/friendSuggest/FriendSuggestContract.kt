@@ -1,5 +1,6 @@
 package tech.mobile.social.presentation.app.friend.friendSuggest
 
+import com.apollographql.apollo3.api.Optional
 import tech.mobile.social.FriendRequestQuery
 import tech.mobile.social.FriendSuggestQuery
 
@@ -13,10 +14,11 @@ data class FriendSuggestUiState(
 
 data class FriendSuggestState(
 //    val friendRequests: FriendRequests = FriendRequests::class.java.getConstructor().newInstance(),
-    val friendSuggests: FriendSuggestQuery.Suggests? = null,
+    val friendSuggests: List<FriendSuggestQuery.Node>? = null,
     var isLoading: Boolean = false,
-    val error: String = "",
-    val after: Int? = null
+    val error: String? = null,
+    val after: Optional<String?> = Optional.Absent,
+    val endReached: Boolean = false
 )
 
 

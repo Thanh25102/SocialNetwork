@@ -983,6 +983,8 @@ type Mutation {
 
   request_friend(user_id: ID!): Request
 
+  self_reject_request(receiver_id: ID!): Request
+
   update_user(id: ID!, input: UserUpdateInput!): User!
 
   upload_image(file: Upload!): Boolean
