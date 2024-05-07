@@ -29,5 +29,6 @@ data class FriendSuggestState(
 data class FriendSuggestActions(
     val onClick: () -> Unit = {},
     val onDeleteSuggest: (String) -> Unit = {},
-    val onSendFriendRequest: (String) -> Unit = {}
+    val onSendFriendRequest: (String) -> Unit = {},
+    val onScroll: () -> Unit = {}
 )

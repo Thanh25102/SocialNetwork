@@ -2,13 +2,25 @@ package tech.mobile.social.presentation.app.friend.friendSuggest
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
+import tech.mobile.social.R
 import tech.mobile.social.presentation.app.friend.friendRequest.components.FriendRequestItemComponent
 import tech.mobile.social.presentation.app.friend.friendRequest.components.FriendSuggestItemComponent
+import tech.mobile.social.presentation.app.home.foryou.components.InfiniteListHandler
 
 @Composable
 fun FriendRequestScreen(
@@ -52,12 +64,18 @@ fun FriendRequestScreen(
 //                )
 //            }
 //        }
+        val lazyListState = rememberLazyListState()
+        val lottieComp by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.loading))
+        val lottieProgress by animateLottieCompositionAsState(
+            composition = lottieComp,
+            iterations = LottieConstants.IterateForever,
+        )
 
-        LazyColumn {
+        LazyColumn(state = lazyListState) {
             state.friendSuggests?.let { it ->
                 items(it.size, key = { it }) { it ->
                     if(it >= state.friendSuggests.size - 1 && !state.endReached && !state.isLoading){
-
+                        actions.onScroll();
                     }
                     FriendSuggestItemComponent(
                         friendSuggest = state.friendSuggests[it],
@@ -80,6 +98,41 @@ fun FriendRequestScreen(
                 }
             }
         }
+
+//        InfiniteListHandler(lazyListState = lazyListState) {
+//            actions.onScroll()
+//        }
+//        when {
+//            state.isLoading -> {
+//                Column(
+//                    modifier = Modifier
+//                        .fillMaxSize(),
+//                    verticalArrangement = Arrangement.Center
+//                ) {
+//                    LottieAnimation(
+//                        composition = lottieComp,
+//                        progress = { lottieProgress },
+//                    )
+//                }
+//            }
+//
+//            state.error?.isNotEmpty() == true -> {
+//                Text(
+//                    text = state.error,
+//                    color = MaterialTheme.colorScheme.error,
+//                    textAlign = TextAlign.Center,
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(horizontal = 20.dp)
+//                )
+//
+////            if(connectivityState is InternetState.Available) {
+////                viewModel.refresh()
+////            }
+//            }
+//        }
+
+
     }
 }
 

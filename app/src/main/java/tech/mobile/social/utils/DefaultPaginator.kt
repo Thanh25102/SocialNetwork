@@ -1,5 +1,7 @@
 package tech.mobile.social.utils
 
+import android.util.Log
+
 class DefaultPaginator<Key, Item>(
     private val initialKey: Key,
     private inline val onLoadUpdated: (Boolean) -> Unit,
@@ -25,6 +27,7 @@ class DefaultPaginator<Key, Item>(
             onLoadUpdated(false)
             return
         }
+
         currentKey = getNextKey(items)
         onSuccess(items, currentKey)
         onLoadUpdated(false)
