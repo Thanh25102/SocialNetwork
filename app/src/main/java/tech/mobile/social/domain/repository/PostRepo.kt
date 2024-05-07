@@ -13,5 +13,5 @@ import java.time.LocalDateTime
 
 interface PostRepo {
     suspend fun GetPosts(): Result<Posts, DataError.ServerErrors>
-    suspend fun CreatePost(id: Optional<String?>, content: String, createdAt: LocalDateTime, createdBy: UserCreateNestedOneWithoutPostsInput): ApolloResponse<Create_postMutation.Data>
+    suspend fun CreatePost(id: Optional<String?>, content: String, createdAt: LocalDateTime): ApolloResponse<Create_postMutation.Data>
 }

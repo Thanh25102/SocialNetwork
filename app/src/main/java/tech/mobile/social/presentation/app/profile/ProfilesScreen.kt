@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import tech.mobile.social.R
 import tech.mobile.social.presentation.app.home.post.PostRoute
 import tech.mobile.social.presentation.app.home.post.PostState
-import java.time.LocalDateTime
 import java.util.Date
 
 @Composable
