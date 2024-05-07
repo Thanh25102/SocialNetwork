@@ -3,26 +3,11 @@ query notifications {
     edges {
       node {
         id
-        comment {
-          id
-        }
-        post {
-          id
-        }
-        request {
-          id
-        }
-        sender {
-          id
-          username
-        }
-        recipients {
-          id
-          user {
-            id
-          }
-          read
-        }
+        ...CommentNotification
+        ...PostNotification
+        ...RequestNotification
+        ...SenderNotification,
+        ... RecipientNotification
         type
         createdAt
       }

@@ -45,7 +45,11 @@ fun NotificationItemComponent(
         Spacer(modifier = Modifier.width(16.dp))
         Column {
             // make text bold
-            notification?.sender?.username?.let { Text(text = it, fontWeight = FontWeight.Bold, fontSize = 16.sp) }
+            notification?.senderNotification?.sender?.username.let {
+                if (it != null) {
+                    Text(text = it, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                }
+            }
             val content: String = when(notification?.type) {
                 NotificationType.FRIEND_REQUEST -> "đã gửi lời mời kết bạn"
                 NotificationType.COMMENT -> "đã bình luận bài viết của bạn"
