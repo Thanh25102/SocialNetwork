@@ -15,5 +15,6 @@ fragment RequestFragment on Request {
     id
     ...ReceiverRequest,
     ...SenderRequest,
-    status
+    status,
+    createdAt
 }
