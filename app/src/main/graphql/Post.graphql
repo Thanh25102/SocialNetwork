@@ -9,6 +9,10 @@ query post($take: Int, $after: String) {
                     id
                     username
                 }
+                file {
+                    path,
+                    type
+                }
             }
             cursor
         }

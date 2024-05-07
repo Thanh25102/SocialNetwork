@@ -8,5 +8,5 @@ data class Posts(val posts: List<Post>, val pageInfo: PageInfo)
 data class Post(val id: String, val content: String, val createdAt: Any, val createdBy: User)
 
 data class PostModel(
-    val content : String
+    val content: String
 )

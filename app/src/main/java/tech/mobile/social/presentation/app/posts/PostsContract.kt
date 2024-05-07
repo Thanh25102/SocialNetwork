@@ -1,5 +1,6 @@
 package tech.mobile.social.presentation.app.posts
 
+import tech.mobile.social.domain.model.post.User
 import com.apollographql.apollo3.api.Optional
 import com.apollographql.apollo3.api.Optional.*
 import tech.mobile.social.type.UserCreateNestedOneWithoutPostsInput
@@ -12,28 +13,35 @@ import java.time.LocalDateTime
 /**
  * UI State that represents PostsScreen id, content, createdAt,createdBy
  **/
-val userId = Absent
-val userWhereUnique = UserWhereUniqueInput(id = userId)
-val userCreate = UserCreateWithoutPostsInput(username = "", password = "", email = "")
-
-
-
-
-
-val tempUserInput = UserCreateNestedOneWithoutPostsInput(
-    connect = Optional.Present(UserWhereUniqueInput(userId)),
-
-)
-
-
-
-
 data class PostsState(
-    val id: Optional<String?> = Absent,
-    val content: String ="",
+    val id: String = "",
+    val content: String = "",
     val createdAt: LocalDateTime = LocalDateTime.now(),
-    val createdBy: UserCreateNestedOneWithoutPostsInput = tempUserInput
-)
+    val createdBy: User = User(id = "", username = ""),
+    val image: String? = null
+  )
+// val userId = Absent
+// val userWhereUnique = UserWhereUniqueInput(id = userId)
+// val userCreate = UserCreateWithoutPostsInput(username = "", password = "", email = "")
+
+
+
+
+
+// val tempUserInput = UserCreateNestedOneWithoutPostsInput(
+//     connect = Optional.Present(UserWhereUniqueInput(userId)),
+
+// )
+
+
+
+
+// data class PostsState(
+//     val id: Optional<String?> = Absent,
+//     val content: String ="",
+//     val createdAt: LocalDateTime = LocalDateTime.now(),
+//     val createdBy: UserCreateNestedOneWithoutPostsInput = tempUserInput
+
 
 /**
  * Posts Actions emitted from the UI Layer

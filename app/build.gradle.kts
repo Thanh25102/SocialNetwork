@@ -84,7 +84,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
-
+    implementation ("com.google.accompanist:accompanist-coil:0.15.0")
     implementation("com.airbnb.android:lottie-compose:6.4.0")
 
 }

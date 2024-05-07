@@ -16,6 +16,7 @@ import tech.mobile.social.domain.repository.PostRepo
 import tech.mobile.social.type.PostCreateInput
 import tech.mobile.social.type.UserCreateNestedOneWithoutPostsInput
 import java.time.LocalDateTime
+import java.util.*
 
 class PostRepoImpl(
     private val apolloClient: ApolloClient,
@@ -29,8 +30,9 @@ class PostRepoImpl(
             Post(
                 it.node.id,
                 it.node.content,
-                it.node.createdAt ?: LocalDateTime.now(),
-                User(it.node.user.id, it.node.user.username)
+                it.node.createdAt ?: Date(),
+                User(it.node.user.id, it.node.user.username),
+                it.node.file?.path
             )
         } ?: emptyList()
 
