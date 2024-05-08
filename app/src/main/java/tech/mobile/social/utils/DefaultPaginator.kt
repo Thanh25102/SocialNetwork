@@ -1,6 +1,9 @@
 package tech.mobile.social.utils
 
 import android.util.Log
+import androidx.lifecycle.viewModelScope
+import com.apollographql.apollo3.api.Optional
+import kotlinx.coroutines.launch
 
 class DefaultPaginator<Key, Item>(
     private val initialKey: Key,
@@ -22,6 +25,7 @@ class DefaultPaginator<Key, Item>(
         onLoadUpdated(true)
         val result = onRequest(currentKey)
         isMakingRequest = false
+
         val items = result.getOrElse {
             onError(it)
             onLoadUpdated(false)
@@ -29,6 +33,7 @@ class DefaultPaginator<Key, Item>(
         }
 
         currentKey = getNextKey(items)
+
         onSuccess(items, currentKey)
         onLoadUpdated(false)
     }
@@ -36,5 +41,4 @@ class DefaultPaginator<Key, Item>(
     override fun reset() {
         currentKey = initialKey
     }
-
 }

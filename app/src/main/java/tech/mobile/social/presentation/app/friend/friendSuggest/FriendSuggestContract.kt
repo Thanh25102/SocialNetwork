@@ -14,7 +14,7 @@ data class FriendSuggestUiState(
 
 data class FriendSuggestState(
 //    val friendRequests: FriendRequests = FriendRequests::class.java.getConstructor().newInstance(),
-    val friendSuggests: List<FriendSuggestQuery.Node>? = null,
+    val friendSuggests: List<FriendSuggestQuery.Node>? = emptyList(),
     var isLoading: Boolean = false,
     val error: String? = null,
     val after: Optional<String?> = Optional.Absent,

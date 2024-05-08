@@ -70,7 +70,7 @@ fun FriendRequestScreen(
             composition = lottieComp,
             iterations = LottieConstants.IterateForever,
         )
-
+        val myState = state.friendSuggests
         LazyColumn(state = lazyListState) {
             state.friendSuggests?.let { it ->
                 items(it.size, key = { it }) { it ->
