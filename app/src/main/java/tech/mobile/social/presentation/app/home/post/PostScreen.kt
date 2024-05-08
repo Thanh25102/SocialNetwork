@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -17,10 +16,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.coil.rememberCoilPainter
 import tech.mobile.social.R.drawable
 import tech.mobile.social.presentation.app.home.post.components.CommentsComponent
 import tech.mobile.social.presentation.utils.formatTimeAgo
 import java.time.LocalDateTime
+import java.util.*
 
 @Composable
 fun PostScreen(
@@ -28,8 +29,10 @@ fun PostScreen(
     actions: PostActions,
 ) {
     val (
-        likes, isSheetOpen, isLiked, friends, commentsCount, comments, post,
+        likes, isSheetOpen, isLiked, friends, commentsCount, comments, post
     ) = state
+
+    val painter = rememberCoilPainter("http://171.239.144.144:8334/"+ post?.image)
 
     if (post !== null) {
         Column(
@@ -61,9 +64,10 @@ fun PostScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            post.imageResource?.let {
+
+            post.image?.let {
                 Image(
-                    painter = painterResource(id = it),
+                    painter = painter,
                     contentDescription = "Post Image",
                     modifier = Modifier.fillMaxWidth(),
                     contentScale = ContentScale.Crop
@@ -140,7 +144,7 @@ private fun PostScreenPreview() {
             post = PostState(
                 drawable.manhthanh_3x4,
                 "Thành",
-                LocalDateTime.now(),
+                Date(),
                 "nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
                 drawable.img,
                 false

@@ -1,23 +1,13 @@
 query friendRequest($take: Int, $after: String, $filter: RequestWhereInput) {
-  get_incoming_requests(take: $take, after: $after, filter: $filter) {
+  requests: get_incoming_requests(take: $take, after: $after, filter: $filter) {
     edges {
       node {
-        id
-        receiver {
-          id
-          username
-        }
-        sender {
-          id
-          username
-        }
-        status
+        ...RequestFragment
       }
       cursor
     }
     pageInfo {
       endCursor
-      hasNextPage
     }
   }
 }

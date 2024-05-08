@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,13 +12,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import okhttp3.internal.toImmutableList
 import tech.mobile.social.R
+import tech.mobile.social.domain.Result
+import tech.mobile.social.domain.usecase.interfaces.PostUseCase
 import tech.mobile.social.presentation.app.home.post.PostState
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class ForYouViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val postUseCase: PostUseCase
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<ForYouState> = MutableStateFlow(
@@ -45,44 +46,34 @@ class ForYouViewModel @Inject constructor(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             onRequestLoading()
-            // gắn api ở đây nha mấy ông nội
-            delay(1000L)
-            onRequestSuccess(
-                arrayListOf(
-                    PostState(
-                        avatarResource = R.drawable.manhthanh_3x4,
-                        content = "1nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                        sheetState = false,
-                        imageResource = R.drawable.img,
-                        authorName = "Thành",
-                        postTime = LocalDateTime.now()
-                    ),
-                    PostState(
-                        avatarResource = R.drawable.manhthanh_3x4,
-                        content = "2nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                        sheetState = false,
-                        imageResource = R.drawable.img,
-                        authorName = "Thành",
-                        postTime = LocalDateTime.now()
-                    ),
-                    PostState(
-                        avatarResource = R.drawable.manhthanh_3x4,
-                        content = "3nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                        sheetState = false,
-                        imageResource = R.drawable.img,
-                        authorName = "Thành",
-                        postTime = LocalDateTime.now()
-                    ),
-                    PostState(
-                        avatarResource = R.drawable.manhthanh_3x4,
-                        content = "4nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                        sheetState = false,
-                        imageResource = R.drawable.img,
-                        authorName = "Thành",
-                        postTime = LocalDateTime.now()
+
+            when (val result = postUseCase.Getpost()) {
+                is Result.Success -> {
+                    onRequestSuccess(
+                        result.data.posts.map {
+                            PostState(
+                                avatarResource = R.drawable.manhthanh_3x4,
+                                content = it.content,
+                                sheetState = false,
+                                imageResource = R.drawable.img,
+                                authorName = it.createdBy.username,
+                                postTime = it.createdAt,
+                                image = it.image
+                            )
+                        }
                     )
-                )
-            )
+                }
+
+                is Result.Error -> {
+                    _stateFlow.update {
+                        it.copy(
+                            isLoading = false,
+                            error = result.error.message.get(0)
+                        )
+                    }
+                }
+            }
+
         }
     }
 

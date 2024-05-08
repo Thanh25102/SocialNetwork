@@ -1,0 +1,13 @@
+query friendSuggest( $take: Int,$after: String) {
+  user {
+    suggests: suggest_friends(take: $take,after:$after) {
+      edges {
+        node {
+          id
+          username
+          email
+        }
+      }
+    }
+  }
+}

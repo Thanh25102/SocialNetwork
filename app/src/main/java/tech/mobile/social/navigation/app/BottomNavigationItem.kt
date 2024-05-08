@@ -13,7 +13,7 @@ data class BottomNavigationItem(
     fun bottomNavigationItems() = listOf(
         BottomNavigationItem(Screens.Home.route, "Trang chủ", Icons.Filled.Home),
         BottomNavigationItem(Screens.Friends.route, "Bạn bè", Icons.Filled.Group),
-//        BottomNavigationItem(Screens.Post.route, "Đăng bài", Icons.Filled.AddCircleOutline),
+        BottomNavigationItem(Screens.Post.route, "Đăng bài", Icons.Filled.AddCircleOutline),
         BottomNavigationItem(
             Screens.Notification.route,
             "Thông báo",

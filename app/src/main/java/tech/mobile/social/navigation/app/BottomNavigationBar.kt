@@ -149,9 +149,9 @@ fun BottomNavigationBar(rootNavController: NavController) {
 //                FriendRoute()
                 FriendNavBar(navController)
             }
-//            composable(Screens.Post.route) {
-//                PostsRoute()
-//            }
+            composable(Screens.Post.route) {
+                PostsRoute()
+            }
             composable(Screens.Notification.route) {
                 NotificationsRoute()
             }

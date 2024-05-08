@@ -24,7 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import tech.mobile.social.R
 import tech.mobile.social.presentation.app.home.post.PostRoute
 import tech.mobile.social.presentation.app.home.post.PostState
-import java.time.LocalDateTime
+import java.util.Date
 
 @Composable
 fun ProfilesScreen(
@@ -105,6 +105,44 @@ fun ProfilesScreen(
 @Composable
 @Preview(name = "Profiles")
 private fun ProfilesScreenPreview() {
-
+    ProfilesScreen(
+        state = ProfilesState(
+            arrayListOf(
+                PostState(
+                    avatarResource = R.drawable.manhthanh_3x4,
+                    content = "1nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
+                    sheetState = false,
+                    imageResource = R.drawable.img,
+                    authorName = "Thành",
+                    postTime = Date()
+                ),
+                PostState(
+                    avatarResource = R.drawable.manhthanh_3x4,
+                    content = "2nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
+                    sheetState = false,
+                    imageResource = R.drawable.img,
+                    authorName = "Thành",
+                    postTime = Date()
+                ),
+                PostState(
+                    avatarResource = R.drawable.manhthanh_3x4,
+                    content = "3nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
+                    sheetState = false,
+                    imageResource = R.drawable.img,
+                    authorName = "Thành",
+                    postTime = Date()
+                ),
+                PostState(
+                    avatarResource = R.drawable.manhthanh_3x4,
+                    content = "4nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
+                    sheetState = false,
+                    imageResource = R.drawable.img,
+                    authorName = "Thành",
+                    postTime = Date()
+                )
+            )
+        ),
+        actions = ProfilesActions()
+    )
 }
 

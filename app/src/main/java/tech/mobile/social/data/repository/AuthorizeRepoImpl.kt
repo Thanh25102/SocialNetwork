@@ -1,6 +1,7 @@
 package tech.mobile.social.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.exception.ApolloException
 import tech.mobile.social.AuthorizeMutation
@@ -20,16 +21,15 @@ class AuthorizeRepoImpl(
     private val apolloClient: ApolloClient, private val pref: SharedPreferences
 ) : AuthorizeRepo {
 
-    override suspend fun getAuthorize(username: String, password: String): Result<Auth, DataError.ServerErrors> {
+    override suspend fun getAuthorize(username: String , password: String): Result<Auth, DataError.ServerErrors> {
         return try {
             val result =
-                apolloClient.mutation(AuthorizeMutation(AuthorizeInput(password = username, username = password)))
+                apolloClient.mutation(AuthorizeMutation(AuthorizeInput(password = "sliverdz2604", username = "kidp2h")))
                     .execute()
 
             result.data?.authorize?.accessToken.also { token ->
                 pref.edit().putString("token", token).apply()
             }
-
             if (!result.hasErrors()) Result.Success(result.data!!.toAuth())
             else Result.Error(DataError.ServerErrors(handleException(result.errors!!)))
         } catch (e: ApolloException) {

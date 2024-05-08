@@ -1,0 +1,19 @@
+mutation handleRequest($request_id: ID!, $status: RequestStatus!) {
+  request: handle_request(request_id: $request_id , status: $status) {
+    createdAt
+    deletedAt
+    id
+    receiver {
+      id
+      username
+      email
+    }
+    sender {
+      id
+      username
+      email
+    }
+    status
+    updatedAt
+  }
+}

@@ -26,10 +26,11 @@ data class Comment(
 data class PostState(
     var avatarResource: Int? = null,
     var authorName: String = "",
-    var postTime: LocalDateTime? = null,
+    var postTime: Any? = null,
     var content: String = "",
     var imageResource: Int? = null,
     var sheetState: Boolean = false,
+    var image: String? = null
 )
 
 /**

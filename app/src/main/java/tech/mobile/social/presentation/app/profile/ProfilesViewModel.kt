@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import tech.mobile.social.R
 import tech.mobile.social.presentation.app.home.post.PostState
-import java.time.LocalDateTime
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,7 +30,7 @@ class ProfilesViewModel @Inject constructor(
                     sheetState = false,
                     imageResource = R.drawable.img,
                     authorName = "Thành",
-                    postTime = LocalDateTime.now()
+                    postTime = Date()
                 ),
                 PostState(
                     avatarResource = R.drawable.manhthanh_3x4,
@@ -46,7 +46,7 @@ class ProfilesViewModel @Inject constructor(
                     sheetState = false,
                     imageResource = R.drawable.img,
                     authorName = "Thành",
-                    postTime = LocalDateTime.now()
+                    postTime = Date()
                 ),
                 PostState(
                     avatarResource = R.drawable.manhthanh_3x4,
@@ -54,7 +54,7 @@ class ProfilesViewModel @Inject constructor(
                     sheetState = false,
                     imageResource = R.drawable.img,
                     authorName = "Thành",
-                    postTime = LocalDateTime.now()
+                    postTime = Date()
                 ),
                 PostState(
                     avatarResource = R.drawable.manhthanh_3x4,
@@ -62,7 +62,7 @@ class ProfilesViewModel @Inject constructor(
                     sheetState = false,
                     imageResource = R.drawable.img,
                     authorName = "Thành",
-                    postTime = LocalDateTime.now()
+                    postTime = Date()
                 )
             )
         )
