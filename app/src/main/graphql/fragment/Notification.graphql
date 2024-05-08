@@ -35,6 +35,7 @@ fragment CommentFragment on Comment {
     email
     createdAt
   }
+    createdAt
 }
 
 fragment CommentNotification on Notification {

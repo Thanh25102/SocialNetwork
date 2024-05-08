@@ -18,13 +18,14 @@ import tech.mobile.social.NotificationsQuery
 import tech.mobile.social.presentation.utils.formatTimeAgo
 import java.time.LocalDateTime
 import tech.mobile.social.R
+import tech.mobile.social.presentation.app.notifications.Notification
 import tech.mobile.social.type.NotificationType
 import tech.mobile.social.ui.theme.HiddenTextColor
 
 @Composable
 fun NotificationItemComponent(
 //    avatarResource: Int, name: String, time: LocalDateTime,content:String,
-    notification: NotificationsQuery.Node?,
+    notification: Notification,
     modifier: Modifier = Modifier
 ) {
     Row(

@@ -19,6 +19,7 @@ import tech.mobile.social.domain.usecase.interfaces.CommentUseCase
 import tech.mobile.social.domain.usecase.interfaces.NotificationUseCase
 import tech.mobile.social.fragment.CommentFragment
 import tech.mobile.social.fragment.CommentNotification
+import tech.mobile.social.fragment.SenderNotification
 import tech.mobile.social.presentation.app.friend.friendRequest.FriendRequestState
 import tech.mobile.social.type.NotificationType
 import tech.mobile.social.type.RequestWhereInput
@@ -31,7 +32,6 @@ class NotificationsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<NotificationsState> = MutableStateFlow(NotificationsState())
-
     val stateFlow: StateFlow<NotificationsState> = _stateFlow.asStateFlow()
 
     init {
@@ -48,11 +48,24 @@ class NotificationsViewModel @Inject constructor(
 
                 when(_it) {
                     is CommentAddedSubscription.Comment -> {
-//                        currentList?.add(NotificationsQuery.Node("",type = NotificationType.COMMENT, senderNotification = Optional.Absent, commentNotification = CommentNotification(CommentNotification.Comment(CommentFragment(_it.commentFragment.id,_it.commentFragment.content, _it.commentFragment.user))))
+                        Log.d("it",
+                            _it.commentFragment.content
+                        )
+                        currentList?.add(0,
+                                Notification(
+                                    id = _it.commentFragment.id,
+                                    type = NotificationType.COMMENT,
+                                    senderNotification = SenderNotification(sender = SenderNotification.Sender(_it.commentFragment.user.id, _it.commentFragment.user.username)),
+                                    createdAt = _it.commentFragment.createdAt,
+                                    commentNotification = CommentNotification(CommentNotification.Comment("",CommentFragment(_it.commentFragment.id, _it.commentFragment.content, _it.commentFragment.user,_it.commentFragment.createdAt)))
+
+                                ))
+                        _stateFlow.value = _stateFlow.value.copy(notifications = currentList)
+                        //NotificationsQuery.Node("",type = NotificationType.COMMENT, senderNotification = Optional.Absent, commentNotification = CommentNotification(CommentNotification.Comment(CommentFragment(_it.commentFragment.id,_it.commentFragment.content, _it.commentFragment.user)))
                     }
                 }
 
-//                _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList)
+
             } }
         }
     }
@@ -63,7 +76,7 @@ class NotificationsViewModel @Inject constructor(
         when (val result = notificationUseCase.getNotifications(take, after)) {
             is ApolloResponse<NotificationsQuery.Data> -> {
                 _stateFlow.value =
-                    NotificationsState( notifications = result.data?.notifications?.edges?.map { it.node })
+                    NotificationsState( notifications = result.data?.notifications?.edges?.map { Notification(it.node.id,it.node.type,it.node.createdAt, senderNotification = it.node.senderNotification, commentNotification = it.node.commentNotification, requestNotification = it.node.requestNotification, recipientsNotification = it.node.recipientNotification, postNotification = it.node.postNotification) })
             }
             null -> {
 

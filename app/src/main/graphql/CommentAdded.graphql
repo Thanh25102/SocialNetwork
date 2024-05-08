@@ -1,5 +1,5 @@
 subscription commentAdded {
   comment: comment_added {
-    ...CommentFragment
+    ...CommentFragment,
   }
 }
