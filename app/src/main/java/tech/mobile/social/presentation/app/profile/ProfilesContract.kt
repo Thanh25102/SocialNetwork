@@ -13,5 +13,6 @@ data class ProfilesState (val posts:List<PostState>)
  * passed to the coordinator to handle
  **/
 data class ProfilesActions(
-    val onClick: () -> Unit = {}
+    val onClick: () -> Unit = {},
+    val onopenFriend:()  ->  Unit={}
 )

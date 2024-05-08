@@ -156,7 +156,7 @@ fun BottomNavigationBar(rootNavController: NavController) {
                 NotificationsRoute()
             }
             composable(Screens.Profile.route) {
-                ProfilesRoute()
+                ProfilesRoute(navController)
             }
         }
     }

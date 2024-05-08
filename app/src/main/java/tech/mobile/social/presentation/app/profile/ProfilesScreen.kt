@@ -1,6 +1,7 @@
 package tech.mobile.social.presentation.app.profile
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -19,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import tech.mobile.social.R
 import tech.mobile.social.presentation.app.home.post.PostRoute
 import tech.mobile.social.presentation.app.home.post.PostState
@@ -28,7 +30,9 @@ import java.time.LocalDateTime
 fun ProfilesScreen(
     state: ProfilesState,
     actions: ProfilesActions,
+
 ) {
+    val viewModel:ProfilesViewModel= viewModel()
     Column {
         Row(
             modifier = Modifier
@@ -63,7 +67,10 @@ fun ProfilesScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(text = "Bạn bè")
-            Text(text = "100 người bạn")
+            Text(text = "100 người bạn",
+                modifier = Modifier.clickable { actions.onClick() }
+
+                )
         }
 
         LazyVerticalGrid(
@@ -98,44 +105,6 @@ fun ProfilesScreen(
 @Composable
 @Preview(name = "Profiles")
 private fun ProfilesScreenPreview() {
-    ProfilesScreen(
-        state = ProfilesState(
-            arrayListOf(
-                PostState(
-                    avatarResource = R.drawable.manhthanh_3x4,
-                    content = "1nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                    sheetState = false,
-                    imageResource = R.drawable.img,
-                    authorName = "Thành",
-                    postTime = LocalDateTime.now()
-                ),
-                PostState(
-                    avatarResource = R.drawable.manhthanh_3x4,
-                    content = "2nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                    sheetState = false,
-                    imageResource = R.drawable.img,
-                    authorName = "Thành",
-                    postTime = LocalDateTime.now()
-                ),
-                PostState(
-                    avatarResource = R.drawable.manhthanh_3x4,
-                    content = "3nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                    sheetState = false,
-                    imageResource = R.drawable.img,
-                    authorName = "Thành",
-                    postTime = LocalDateTime.now()
-                ),
-                PostState(
-                    avatarResource = R.drawable.manhthanh_3x4,
-                    content = "4nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                    sheetState = false,
-                    imageResource = R.drawable.img,
-                    authorName = "Thành",
-                    postTime = LocalDateTime.now()
-                )
-            )
-        ),
-        actions = ProfilesActions()
-    )
+
 }
 
