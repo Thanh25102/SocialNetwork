@@ -162,6 +162,7 @@ class NotificationsViewModel @Inject constructor(
             is ApolloResponse<NotificationsQuery.Data> -> {
                 _stateFlow.value =
                     NotificationsState( notifications = result.data?.notifications?.edges?.map { Notification(it.node.id,it.node.type,it.node.createdAt, senderNotification = it.node.senderNotification, commentNotification = it.node.commentNotification, requestNotification = it.node.requestNotification, recipientsNotification = it.node.recipientNotification, postNotification = it.node.postNotification) })
+
             }
             null -> {
 

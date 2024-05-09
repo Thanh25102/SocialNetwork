@@ -57,35 +57,22 @@ class FriendSuggestViewModel @Inject constructor(
         },
         onRequest = {nextKey -> this.getFriendSuggests(Optional.present(18), nextKey) },
         getNextKey = {
-            if(_stateFlow.value.friendSuggests?.size!! > 0) {
-                Optional.present(_stateFlow.value.friendSuggests?.get(_stateFlow.value.friendSuggests?.size!! - 1)?.id)
+            if(it.isNotEmpty()) {
+                Optional.present(it[it.size - 1].id)
             } else {
                 Optional.Absent
             }
         },
         onError = {
-            _stateFlow.value.copy(error = it?.localizedMessage)
+            _stateFlow.value = _stateFlow.value.copy(error = it?.localizedMessage)
         },
         onSuccess = { items, newKey  ->
-            Log.d("success",
-                items.get(items.size-1).username
-            )
-            var currentList: List<FriendSuggestQuery.Node>? = _stateFlow.value.friendSuggests;
-            var newList = _stateFlow.value.friendSuggests?.plus(items)
-//            if(_stateFlow.value.after == Optional.Absent) {
-//                currentList = emptyList()
-//            }
-
             _stateFlow.value = _stateFlow.value.copy(
                         friendSuggests = _stateFlow.value.friendSuggests?.plus(items),
                         after = newKey,
                         endReached = items.isEmpty(),
                 )
 
-//            _stateFlow.value =
-//                        FriendSuggestState( friendSuggests = currentList?.plus(
-//                            items
-//                        ), after = newKey, endReached = items.isEmpty())
             Log.d("newKey",
                 newKey.toString()
             )
@@ -94,11 +81,6 @@ class FriendSuggestViewModel @Inject constructor(
 
     init {
         loadNextItems()
-//        viewModelScope.launch {
-//            getFriendSuggests(Optional.present(18), Optional.Absent)
-//        }
-//       val request = getFriendSuggests(Optional.present(21), Optional.Present(null)); // Gọi ở đây
-//        Log.d("Gọi query", "haha");
     }
 
     fun loadNextItems() {
