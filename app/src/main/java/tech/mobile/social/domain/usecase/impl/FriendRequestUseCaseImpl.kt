@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import tech.mobile.social.FriendRequestQuery
 import tech.mobile.social.HandleRequestMutation
 import tech.mobile.social.RequestAddedSubscription
+import tech.mobile.social.RequestHandledSubscription
 import tech.mobile.social.domain.repository.FriendRequestRepo
 import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
 import tech.mobile.social.type.RequestStatus
@@ -21,5 +22,9 @@ class FriendRequestUseCaseImpl(private val friendRequestRepo: FriendRequestRepo)
 
     override suspend fun requestAdded(): Flow<ApolloResponse<RequestAddedSubscription.Data>>? {
         return friendRequestRepo.requestAdded()
+    }
+
+    override suspend fun requestHandled(): Flow<ApolloResponse<RequestHandledSubscription.Data>>? {
+        return friendRequestRepo.requestHandled()
     }
 }

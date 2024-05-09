@@ -1,0 +1,6 @@
+subscription requestHandled {
+    request: request_handled {
+        ...RequestFragment
+    }
+}
+

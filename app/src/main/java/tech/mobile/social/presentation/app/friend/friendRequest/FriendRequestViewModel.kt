@@ -60,7 +60,6 @@ class FriendRequestViewModel @Inject constructor(
 
                 val currentList = _stateFlow.value.friendRequests?.toMutableList()
                 currentList?.add(0,FriendRequestQuery.Node(_it.requestFragment.__typename,_it.requestFragment))
-                _stateFlow.value
                 _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList)
             } }
         }
