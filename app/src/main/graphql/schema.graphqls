@@ -2539,6 +2539,8 @@ input PostWhereUniqueInput {
 }
 
 type Query {
+  _notifications(after: String, filter: NotificationWhereInput, take: Int! = 999999999): NotificationConnection
+
   comment(id: ID!): Comment
 
   comments(after: String, filter: CommentWhereInput! = {

@@ -74,37 +74,55 @@ class NotificationsViewModel @Inject constructor(
 
             } }
 
-            friendRequestUseCase.requestAdded()?.collect{ it.data?.request?.let { _it ->
+
+        }
+
+        viewModelScope.launch {
+            friendRequestUseCase.requestAdded()?.collect {
+                it.data?.request?.let { _it ->
 //                Log.d("it",
 //                    _it.content
 //                )
 
 
-                val currentList = _stateFlow.value.notifications?.toMutableList()
+                    val currentList = _stateFlow.value.notifications?.toMutableList()
 
-                when(_it) {
-                    is RequestAddedSubscription.Request -> {
-                        Log.d("it",
-                            _it.requestFragment.id
-                        )
-                        currentList?.add(0,
-                            Notification(
-                                id = _it.requestFragment.id,
-                                type = NotificationType.FRIEND_REQUEST,
-                                senderNotification = SenderNotification(sender = SenderNotification.Sender(_it.requestFragment.senderRequest.sender.id, _it.requestFragment.senderRequest.sender.username)),
-                                createdAt = _it.requestFragment.createdAt,
-                                requestNotification = RequestNotification(RequestNotification.Request(_it.requestFragment.id))
+                    when (_it) {
+                        is RequestAddedSubscription.Request -> {
+                            Log.d(
+                                "it",
+                                _it.requestFragment.id
+                            )
+                            currentList?.add(
+                                0,
+                                Notification(
+                                    id = _it.requestFragment.id,
+                                    type = NotificationType.FRIEND_REQUEST,
+                                    senderNotification = SenderNotification(
+                                        sender = SenderNotification.Sender(
+                                            _it.requestFragment.senderRequest.sender.id,
+                                            _it.requestFragment.senderRequest.sender.username
+                                        )
+                                    ),
+                                    createdAt = _it.requestFragment.createdAt,
+                                    requestNotification = RequestNotification(
+                                        RequestNotification.Request(
+                                            _it.requestFragment.id
+                                        )
+                                    )
 
-                            ))
-                        _stateFlow.value = _stateFlow.value.copy(notifications = currentList)
-                        //NotificationsQuery.Node("",type = NotificationType.COMMENT, senderNotification = Optional.Absent, commentNotification = CommentNotification(CommentNotification.Comment(CommentFragment(_it.commentFragment.id,_it.commentFragment.content, _it.commentFragment.user)))
+                                )
+                            )
+                            _stateFlow.value = _stateFlow.value.copy(notifications = currentList)
+                            //NotificationsQuery.Node("",type = NotificationType.COMMENT, senderNotification = Optional.Absent, commentNotification = CommentNotification(CommentNotification.Comment(CommentFragment(_it.commentFragment.id,_it.commentFragment.content, _it.commentFragment.user)))
+                        }
                     }
+
+
                 }
-
-
-            } }
-
-
+            }
+        }
+        viewModelScope.launch {
             friendRequestUseCase.requestHandled()?.collect{ it.data?.request?.let { _it ->
 //                Log.d("it",
 //                    _it.content

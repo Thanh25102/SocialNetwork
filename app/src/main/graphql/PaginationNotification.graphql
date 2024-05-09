@@ -1,5 +1,5 @@
-query notifications {
-  notifications {
+query notifications($take: Int, $after: String) {
+  notifications: _notifications(take: $take, after: $after) {
     edges {
       node {
         id

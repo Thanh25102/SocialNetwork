@@ -20,7 +20,7 @@ class NotificationRepoImpl(
     ): ApolloResponse<NotificationsQuery.Data>? {
         try {
             val result = apolloClient
-                .query(NotificationsQuery())
+                .query(NotificationsQuery(take,after))
                 .execute()
             if(result.hasErrors()) {
                 val error = result.errors?.firstOrNull()

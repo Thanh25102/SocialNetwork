@@ -56,6 +56,7 @@ fun NotificationItemComponent(
                 NotificationType.COMMENT -> "đã bình luận bài viết của bạn"
                 NotificationType.LIKE -> "đã thích bài viết của bạn"
                 NotificationType.POST -> "đã đăng một bài viết mới"
+                NotificationType.FRIEND_REQUEST_ACCEPTED -> "đã chấp nhận lời mời kết bạn"
                 else -> {
                     ""
                 }
