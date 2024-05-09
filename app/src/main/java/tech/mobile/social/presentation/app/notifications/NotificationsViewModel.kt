@@ -15,10 +15,15 @@ import kotlinx.coroutines.launch
 import tech.mobile.social.CommentAddedSubscription
 import tech.mobile.social.FriendRequestQuery
 import tech.mobile.social.NotificationsQuery
+import tech.mobile.social.RequestAddedSubscription
+import tech.mobile.social.RequestHandledSubscription
 import tech.mobile.social.domain.usecase.interfaces.CommentUseCase
+import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
 import tech.mobile.social.domain.usecase.interfaces.NotificationUseCase
 import tech.mobile.social.fragment.CommentFragment
 import tech.mobile.social.fragment.CommentNotification
+import tech.mobile.social.fragment.RequestFragment
+import tech.mobile.social.fragment.RequestNotification
 import tech.mobile.social.fragment.SenderNotification
 import tech.mobile.social.presentation.app.friend.friendRequest.FriendRequestState
 import tech.mobile.social.type.NotificationType
@@ -29,6 +34,7 @@ class NotificationsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val notificationUseCase: NotificationUseCase,
     private val commentUseCase: CommentUseCase,
+    private val friendRequestUseCase: FriendRequestUseCase
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<NotificationsState> = MutableStateFlow(NotificationsState())
@@ -60,6 +66,67 @@ class NotificationsViewModel @Inject constructor(
                                     commentNotification = CommentNotification(CommentNotification.Comment("",CommentFragment(_it.commentFragment.id, _it.commentFragment.content, _it.commentFragment.user,_it.commentFragment.createdAt)))
 
                                 ))
+                        _stateFlow.value = _stateFlow.value.copy(notifications = currentList)
+                        //NotificationsQuery.Node("",type = NotificationType.COMMENT, senderNotification = Optional.Absent, commentNotification = CommentNotification(CommentNotification.Comment(CommentFragment(_it.commentFragment.id,_it.commentFragment.content, _it.commentFragment.user)))
+                    }
+                }
+
+
+            } }
+
+            friendRequestUseCase.requestAdded()?.collect{ it.data?.request?.let { _it ->
+//                Log.d("it",
+//                    _it.content
+//                )
+
+
+                val currentList = _stateFlow.value.notifications?.toMutableList()
+
+                when(_it) {
+                    is RequestAddedSubscription.Request -> {
+                        Log.d("it",
+                            _it.requestFragment.id
+                        )
+                        currentList?.add(0,
+                            Notification(
+                                id = _it.requestFragment.id,
+                                type = NotificationType.FRIEND_REQUEST,
+                                senderNotification = SenderNotification(sender = SenderNotification.Sender(_it.requestFragment.senderRequest.sender.id, _it.requestFragment.senderRequest.sender.username)),
+                                createdAt = _it.requestFragment.createdAt,
+                                requestNotification = RequestNotification(RequestNotification.Request(_it.requestFragment.id))
+
+                            ))
+                        _stateFlow.value = _stateFlow.value.copy(notifications = currentList)
+                        //NotificationsQuery.Node("",type = NotificationType.COMMENT, senderNotification = Optional.Absent, commentNotification = CommentNotification(CommentNotification.Comment(CommentFragment(_it.commentFragment.id,_it.commentFragment.content, _it.commentFragment.user)))
+                    }
+                }
+
+
+            } }
+
+
+            friendRequestUseCase.requestHandled()?.collect{ it.data?.request?.let { _it ->
+//                Log.d("it",
+//                    _it.content
+//                )
+
+
+                val currentList = _stateFlow.value.notifications?.toMutableList()
+
+                when(_it) {
+                    is RequestHandledSubscription.Request -> {
+                        Log.d("it",
+                            _it.requestFragment.id
+                        )
+                        currentList?.add(0,
+                            Notification(
+                                id = _it.requestFragment.id,
+                                type = NotificationType.FRIEND_REQUEST_ACCEPTED,
+                                senderNotification = SenderNotification(sender = SenderNotification.Sender(_it.requestFragment.senderRequest.sender.id, _it.requestFragment.senderRequest.sender.username)),
+                                createdAt = _it.requestFragment.createdAt,
+                                requestNotification = RequestNotification(RequestNotification.Request(_it.requestFragment.id))
+
+                            ))
                         _stateFlow.value = _stateFlow.value.copy(notifications = currentList)
                         //NotificationsQuery.Node("",type = NotificationType.COMMENT, senderNotification = Optional.Absent, commentNotification = CommentNotification(CommentNotification.Comment(CommentFragment(_it.commentFragment.id,_it.commentFragment.content, _it.commentFragment.user)))
                     }
