@@ -17,6 +17,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.apollographql.apollo3.api.Optional
 import tech.mobile.social.R
 import tech.mobile.social.presentation.app.friend.friendRequest.components.FriendRequestItemComponent
 import tech.mobile.social.presentation.app.friend.friendRequest.components.FriendSuggestItemComponent
@@ -74,7 +75,7 @@ fun FriendRequestScreen(
         LazyColumn(state = lazyListState) {
             state.friendSuggests?.let { it ->
                 items(it.size, key = { it }) { it ->
-                    if(it >= state.friendSuggests.size - 1 && !state.endReached && !state.isLoading){
+                    if(state.after != Optional.Absent && it >= state.friendSuggests.size - 1 && !state.endReached && !state.isLoading){
                         actions.onScroll();
                     }
                     FriendSuggestItemComponent(

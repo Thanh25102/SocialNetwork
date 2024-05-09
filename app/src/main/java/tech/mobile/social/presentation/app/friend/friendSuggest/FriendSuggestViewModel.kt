@@ -67,9 +67,9 @@ class FriendSuggestViewModel @Inject constructor(
             _stateFlow.value.copy(error = it?.localizedMessage)
         },
         onSuccess = { items, newKey  ->
-//            Log.d("success",
-//                items.get(items.size-1).username
-//            )
+            Log.d("success",
+                items.get(items.size-1).username
+            )
             var currentList: List<FriendSuggestQuery.Node>? = _stateFlow.value.friendSuggests;
             var newList = _stateFlow.value.friendSuggests?.plus(items)
 //            if(_stateFlow.value.after == Optional.Absent) {
