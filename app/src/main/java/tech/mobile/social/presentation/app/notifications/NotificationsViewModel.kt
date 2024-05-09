@@ -75,16 +75,16 @@ class NotificationsViewModel @Inject constructor(
             } }
 
             friendRequestUseCase.requestAdded()?.collect{ it.data?.request?.let { _it ->
-//                Log.d("it",
-//                    _it.content
-//                )
+                Log.d("it",
+                    "content nè"
+                )
 
 
                 val currentList = _stateFlow.value.notifications?.toMutableList()
 
                 when(_it) {
                     is RequestAddedSubscription.Request -> {
-                        Log.d("it",
+                        Log.d("itR",
                             _it.requestFragment.id
                         )
                         currentList?.add(0,
@@ -144,6 +144,7 @@ class NotificationsViewModel @Inject constructor(
             is ApolloResponse<NotificationsQuery.Data> -> {
                 _stateFlow.value =
                     NotificationsState( notifications = result.data?.notifications?.edges?.map { Notification(it.node.id,it.node.type,it.node.createdAt, senderNotification = it.node.senderNotification, commentNotification = it.node.commentNotification, requestNotification = it.node.requestNotification, recipientsNotification = it.node.recipientNotification, postNotification = it.node.postNotification) })
+
             }
             null -> {
 
