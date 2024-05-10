@@ -5,6 +5,7 @@ import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import tech.mobile.social.Create_postMutation
+import tech.mobile.social.NewsfeedQuery
 import tech.mobile.social.PostQuery
 import tech.mobile.social.domain.DataError
 import tech.mobile.social.domain.Result
@@ -60,7 +61,18 @@ class PostRepoImpl(
         return result;
     }
 
-
+    override suspend fun NewsFeed(
+        take: Optional<Int?>,
+        after: Optional<String?>
+    ): ApolloResponse<NewsfeedQuery.Data>? {
+        val result = apolloClient.query(
+            NewsfeedQuery(
+                take = take,
+                after = after
+            )
+        ).execute()
+        return result;
+    }
 
 
 }

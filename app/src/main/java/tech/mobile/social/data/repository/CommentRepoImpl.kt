@@ -25,7 +25,7 @@ class CommentRepoImpl(
             val result = apolloClient
                 .query(CommentsQuery(take, after, filter))
                 .execute()
-            if(result.hasErrors()) {
+            if (result.hasErrors()) {
                 val error = result.errors?.firstOrNull()
                 return null;
             }
@@ -33,6 +33,7 @@ class CommentRepoImpl(
         } catch (e: ApolloException) {
             return null;
         }
+    }
     override suspend fun handleCommentAdded(): Flow<ApolloResponse<CommentAddedSubscription.Data>>? {
         try {
             val result = apolloClient
