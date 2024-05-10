@@ -12,8 +12,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import tech.mobile.social.data.repository.AuthorizeRepoImpl
 import tech.mobile.social.domain.repository.AuthorizeRepo
-import tech.mobile.social.domain.usecase.impl.AuthUseCaseImpl
-import tech.mobile.social.domain.usecase.interfaces.AuthUseCase
 import tech.mobile.social.utils.AuthorizationInterceptor
 import javax.inject.Singleton
 import com.apollographql.apollo3.api.json.JsonReader
@@ -32,20 +30,14 @@ import tech.mobile.social.data.repository.FriendRequestRepoImpl
 import tech.mobile.social.data.repository.FriendSuggestRepoImpl
 import tech.mobile.social.data.repository.NotificationRepoImpl
 import tech.mobile.social.domain.repository.FriendRequestRepo
-import tech.mobile.social.domain.usecase.impl.FriendRequestUseCaseImpl
-import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
 
 import tech.mobile.social.data.repository.PostRepoImpl
 import tech.mobile.social.domain.repository.CommentRepo
 import tech.mobile.social.domain.repository.FriendSuggestRepo
 import tech.mobile.social.domain.repository.NotificationRepo
 import tech.mobile.social.domain.repository.PostRepo
-import tech.mobile.social.domain.usecase.impl.FriendSuggestUseCaseImpl
-import tech.mobile.social.domain.usecase.impl.NotificationUseCaseImpl
-import tech.mobile.social.domain.usecase.impl.PostUseCaseImpl
-import tech.mobile.social.domain.usecase.interfaces.FriendSuggestUseCase
-import tech.mobile.social.domain.usecase.interfaces.NotificationUseCase
-import tech.mobile.social.domain.usecase.interfaces.PostUseCase
+import tech.mobile.social.domain.usecase.impl.*
+import tech.mobile.social.domain.usecase.interfaces.*
 
 import tech.mobile.social.type.DateTime
 import java.time.LocalDateTime
@@ -67,7 +59,6 @@ val dateTimeAdapter = object : Adapter<LocalDateTime> {
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
 
     @Provides
     @Singleton
@@ -118,6 +109,18 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun providesCommentRepo(apolloClient: ApolloClient,pref: SharedPreferences) : CommentRepo {
+        return CommentRepoImpl(apolloClient,pref)
+    }
+
+    @Provides
+    @Singleton
+    fun providesCommentUseCase(commentRepo: CommentRepo) : CommentUseCase {
+        return CommentUseCaseImpl(commentRepo)
+    }
+
+    @Provides
+    @Singleton
     fun providesFriendRequestRepo(apolloClient: ApolloClient, pref: SharedPreferences): FriendRequestRepo {
         return FriendRequestRepoImpl(apolloClient, pref)
     }
@@ -164,11 +167,7 @@ object AppModule {
         return PostRepoImpl(apolloClient,pref)
     }
 
-    @Provides
-    @Singleton
-    fun providesCommentRepo(apolloClient: ApolloClient,pref: SharedPreferences) : CommentRepo {
-        return CommentRepoImpl(apolloClient,pref)
-    }
+
 
 }
 

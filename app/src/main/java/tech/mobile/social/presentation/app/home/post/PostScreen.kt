@@ -32,7 +32,7 @@ fun PostScreen(
         likes, isSheetOpen, isLiked, friends, commentsCount, comments, post
     ) = state
 
-    val painter = rememberCoilPainter("http://171.239.144.144:8334/"+ post?.image)
+    val painter = rememberCoilPainter("http://171.239.144.144:8334/" + post?.image)
 
     if (post !== null) {
         Column(
@@ -123,7 +123,7 @@ fun PostScreen(
                 }
             }
         }
-        if (isSheetOpen) {
+        if (isSheetOpen && comments != null) {
             CommentsComponent(comments = comments, closeBottomSheet = actions.onCloseComments)
         }
     } else {
