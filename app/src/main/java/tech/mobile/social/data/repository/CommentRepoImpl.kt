@@ -16,17 +16,6 @@ class CommentRepoImpl(
     private val apolloClient: ApolloClient,
     private val pref: SharedPreferences
 ) : CommentRepo {
-    //    override suspend fun handleCommentAdded(postId: String): Flow<ApolloResponse<CommentAddedSubscription.Data>>? {
-//        try {
-//            val result = apolloClient
-//                .subscription(CommentAddedSubscription(postId)).toFlow();
-//            return result;
-//        } catch (e: ApolloException) {
-//            Log.d("real time error", e.stackTraceToString())
-//            return null;
-//        }
-//
-//    }
     override suspend fun getComments(
         take: Optional<Int?>,
         after: Optional<String?>,
@@ -44,5 +33,15 @@ class CommentRepoImpl(
         } catch (e: ApolloException) {
             return null;
         }
+    override suspend fun handleCommentAdded(): Flow<ApolloResponse<CommentAddedSubscription.Data>>? {
+        try {
+            val result = apolloClient
+                .subscription(CommentAddedSubscription()).toFlow();
+            return result;
+        } catch (e: ApolloException) {
+            Log.d("real time error", e.stackTraceToString())
+            return null;
+        }
+
     }
 }

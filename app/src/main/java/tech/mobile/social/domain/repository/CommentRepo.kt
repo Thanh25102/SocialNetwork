@@ -8,4 +8,5 @@ import tech.mobile.social.type.CommentWhereInput
 
 interface CommentRepo {
     suspend fun getComments(take: Optional<Int?>, after: Optional<String?>, filter: Optional<CommentWhereInput?>):  ApolloResponse<CommentsQuery.Data>?
+    suspend fun handleCommentAdded() : Flow<ApolloResponse<CommentAddedSubscription.Data>>?
 }

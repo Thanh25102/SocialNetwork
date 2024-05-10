@@ -14,7 +14,7 @@ data class FriendSuggestUiState(
 
 data class FriendSuggestState(
 //    val friendRequests: FriendRequests = FriendRequests::class.java.getConstructor().newInstance(),
-    val friendSuggests: List<FriendSuggestQuery.Node>? = null,
+    val friendSuggests: List<FriendSuggestQuery.Node>? = emptyList(),
     var isLoading: Boolean = false,
     val error: String? = null,
     val after: Optional<String?> = Optional.Absent,
@@ -29,5 +29,6 @@ data class FriendSuggestState(
 data class FriendSuggestActions(
     val onClick: () -> Unit = {},
     val onDeleteSuggest: (String) -> Unit = {},
-    val onSendFriendRequest: (String) -> Unit = {}
+    val onSendFriendRequest: (String) -> Unit = {},
+    val onScroll: () -> Unit = {}
 )

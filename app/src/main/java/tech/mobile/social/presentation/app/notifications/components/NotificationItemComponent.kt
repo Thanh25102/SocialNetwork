@@ -18,13 +18,14 @@ import tech.mobile.social.NotificationsQuery
 import tech.mobile.social.presentation.utils.formatTimeAgo
 import java.time.LocalDateTime
 import tech.mobile.social.R
+import tech.mobile.social.presentation.app.notifications.Notification
 import tech.mobile.social.type.NotificationType
 import tech.mobile.social.ui.theme.HiddenTextColor
 
 @Composable
 fun NotificationItemComponent(
 //    avatarResource: Int, name: String, time: LocalDateTime,content:String,
-    notification: NotificationsQuery.Node?,
+    notification: Notification,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -45,12 +46,17 @@ fun NotificationItemComponent(
         Spacer(modifier = Modifier.width(16.dp))
         Column {
             // make text bold
-            notification?.sender?.username?.let { Text(text = it, fontWeight = FontWeight.Bold, fontSize = 16.sp) }
+            notification?.senderNotification?.sender?.username.let {
+                if (it != null) {
+                    Text(text = it, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                }
+            }
             val content: String = when(notification?.type) {
                 NotificationType.FRIEND_REQUEST -> "đã gửi lời mời kết bạn"
                 NotificationType.COMMENT -> "đã bình luận bài viết của bạn"
                 NotificationType.LIKE -> "đã thích bài viết của bạn"
                 NotificationType.POST -> "đã đăng một bài viết mới"
+                NotificationType.FRIEND_REQUEST_ACCEPTED -> "đã chấp nhận lời mời kết bạn"
                 else -> {
                     ""
                 }

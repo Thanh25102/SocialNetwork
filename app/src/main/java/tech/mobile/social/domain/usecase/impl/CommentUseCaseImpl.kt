@@ -15,4 +15,7 @@ class CommentUseCaseImpl(private val commentRepo: CommentRepo) : CommentUseCase 
     ): ApolloResponse<CommentsQuery.Data>? {
         return commentRepo.getComments(take, after, filter)
     }
+    override suspend fun handleCommentAdded(): Flow<ApolloResponse<CommentAddedSubscription.Data>>? {
+        return commentAddedRepo.handleCommentAdded()
+    }
 }

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import tech.mobile.social.FriendRequestQuery
 import tech.mobile.social.HandleRequestMutation
 import tech.mobile.social.RequestAddedSubscription
+import tech.mobile.social.RequestHandledSubscription
 
 import tech.mobile.social.domain.repository.FriendRequestRepo
 import tech.mobile.social.type.RequestStatus
@@ -64,6 +65,18 @@ class FriendRequestRepoImpl(
         try {
             val result = apolloClient
                 .subscription(RequestAddedSubscription())
+                .toFlow()
+            return result;
+        } catch (e: ApolloException) {
+            Log.e("FriendRequestRepoImpl", "handleFriendRequest: ${e.message}")
+            return null;
+        }
+    }
+
+    override suspend fun requestHandled(): Flow<ApolloResponse<RequestHandledSubscription.Data>>? {
+        try {
+            val result = apolloClient
+                .subscription(RequestHandledSubscription())
                 .toFlow()
             return result;
         } catch (e: ApolloException) {
