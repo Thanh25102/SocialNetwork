@@ -139,7 +139,7 @@ class ForYouViewModel @Inject constructor(
             return
         }
 
-        _getPosts(_paginationState.value.skip)
+//        _getPosts(_paginationState.value.skip)
     }
 
     private fun onRequestSuccess(
