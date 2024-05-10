@@ -124,7 +124,7 @@ fun PostScreen(
             }
         }
         if (isSheetOpen && comments != null) {
-            CommentsComponent(comments = comments, closeBottomSheet = actions.onCloseComments)
+            CommentsComponent(comments = post.comments, closeBottomSheet = actions.onCloseComments)
         }
     } else {
         Text(text = "Đã xảy ra lỗi khi cố gắng hiển thị bài viết. Vui lòng thử lại sau.")
@@ -134,24 +134,24 @@ fun PostScreen(
 @Composable
 @Preview(name = "Post")
 private fun PostScreenPreview() {
-    PostScreen(
-        state = State(
-            likes = 0,
-            isLiked = false,
-            friends = emptyList(),
-            commentsCount = 0,
-            comments = emptyList(),
-            post = PostState(
-                0, 0,
-                "",
-                drawable.manhthanh_3x4,
-                "Thành",
-                Date(),
-                "nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                drawable.img,
-                false
-            ),
-        ), actions = PostActions()
-    )
+//    PostScreen(
+//        state = State(
+//            likes = 0,
+//            isLiked = false,
+//            friends = emptyList(),
+//            commentsCount = 0,
+//            comments = emptyList(),
+//            post = PostState(
+//                0, 0,
+//                "",
+//                drawable.manhthanh_3x4,
+//                "Thành",
+//                Date(),
+//                "nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
+//                drawable.img,
+//                false
+//            ),
+//        ), actions = PostActions()
+//    )
 }
 

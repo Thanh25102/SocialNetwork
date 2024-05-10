@@ -83,7 +83,8 @@ class ForYouViewModel @Inject constructor(
                                 imageResource = R.drawable.img,
                                 authorName = it.node.user.username,
                                 postTime = it.node.createdAt,
-                                image = it.node.file?.path
+                                image = it.node.file?.path,
+                                comments = it.node.comments
                             )
                         }
                     }?.flatten() ?: emptyList()

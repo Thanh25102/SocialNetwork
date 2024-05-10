@@ -27,6 +27,7 @@ data class Comment(
 data class PostState(
     val likes: Int? = 0,
     val commentsCount: Int? = 0,
+    val comments: tech.mobile.social.fragment.Posts.Comments? ,
     var id: String = "",
     var avatarResource: Int? = null,
     var authorName: String = "",

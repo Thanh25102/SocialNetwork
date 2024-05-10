@@ -82,9 +82,6 @@ fun ForYouScreen(
                     .padding(horizontal = 20.dp)
             )
 
-//            if(connectivityState is InternetState.Available) {
-//                viewModel.refresh()
-//            }
         }
     }
     ScrollButton(lazyListState = lazyListState)
@@ -96,40 +93,40 @@ private fun ForYouScreenPreview() {
     ForYouScreen(
         state = ForYouUiState(
             ForYouState(
-                arrayListOf(
-                    PostState(
-                        avatarResource = R.drawable.manhthanh_3x4,
-                        content = "1nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                        sheetState = false,
-                        imageResource = R.drawable.img,
-                        authorName = "Thành",
-                        postTime = Date()
-                    ),
-                    PostState(
-                        avatarResource = R.drawable.manhthanh_3x4,
-                        content = "2nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                        sheetState = false,
-                        imageResource = R.drawable.img,
-                        authorName = "Thành",
-                        postTime = Date()
-                    ),
-                    PostState(
-                        avatarResource = R.drawable.manhthanh_3x4,
-                        content = "3nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                        sheetState = false,
-                        imageResource = R.drawable.img,
-                        authorName = "Thành",
-                        postTime = Date()
-                    ),
-                    PostState(
-                        avatarResource = R.drawable.manhthanh_3x4,
-                        content = "4nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
-                        sheetState = false,
-                        imageResource = R.drawable.img,
-                        authorName = "Thành",
-                        postTime = Date()
-                    )
-                )
+//                arrayListOf(
+//                    PostState(
+//                        avatarResource = R.drawable.manhthanh_3x4,
+//                        content = "1nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
+//                        sheetState = false,
+//                        imageResource = R.drawable.img,
+//                        authorName = "Thành",
+//                        postTime = Date()
+//                    ),
+//                    PostState(
+//                        avatarResource = R.drawable.manhthanh_3x4,
+//                        content = "2nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
+//                        sheetState = false,
+//                        imageResource = R.drawable.img,
+//                        authorName = "Thành",
+//                        postTime = Date()
+//                    ),
+//                    PostState(
+//                        avatarResource = R.drawable.manhthanh_3x4,
+//                        content = "3nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
+//                        sheetState = false,
+//                        imageResource = R.drawable.img,
+//                        authorName = "Thành",
+//                        postTime = Date()
+//                    ),
+//                    PostState(
+//                        avatarResource = R.drawable.manhthanh_3x4,
+//                        content = "4nam tay nhau that chat, giu tay nhau that lau, hua voi anh mot cau se di chon toi cuoi con duong den khi tim ngung dap  va doi chan ngung di ....",
+//                        sheetState = false,
+//                        imageResource = R.drawable.img,
+//                        authorName = "Thành",
+//                        postTime = Date()
+//                    )
+//                )
             ),
             UserState(null, false)
         ),

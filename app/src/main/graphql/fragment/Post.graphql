@@ -29,6 +29,7 @@ fragment Posts on User {
                             user {
                                 username
                             }
+                            content
                         }
                     }
                 }
