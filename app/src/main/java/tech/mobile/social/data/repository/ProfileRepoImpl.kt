@@ -22,7 +22,7 @@ class ProfileRepoImpl(
 ) : ProfileRepo {
     override suspend fun GetAllPost(id: Optional<String?>,  take: Optional<Int?>, after: Optional<String?>) : ApolloResponse<UserQuery.Data>? {
         try {
-            val result = apolloClient.query(UserQuery(id, take = Optional.Present(10)))
+            val result = apolloClient.query(UserQuery(id.toString(), take = Optional.Present(10)))
                 .execute()
             if(result.hasErrors()) {
                 val error = result.errors?.firstOrNull()

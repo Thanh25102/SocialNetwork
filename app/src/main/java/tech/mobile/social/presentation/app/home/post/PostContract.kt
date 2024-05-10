@@ -1,5 +1,7 @@
 package tech.mobile.social.presentation.app.home.post
 
+import tech.mobile.social.CommentsQuery
+import tech.mobile.social.FriendRequestQuery
 import java.time.LocalDateTime
 
 
@@ -12,7 +14,7 @@ data class State(
     val isLiked: Boolean,
     val friends: List<String>,
     val commentsCount: Int,
-    val comments: List<Comment>,
+    var comments: List<CommentsQuery.Node>?,
     var post: PostState? = null
 )
 
