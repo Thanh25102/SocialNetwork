@@ -7,11 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tech.mobile.social.FriendRequestQuery
 import tech.mobile.social.FriendSuggestQuery
 import tech.mobile.social.HandleRequestMutation
@@ -48,50 +50,76 @@ class FriendSuggestViewModel @Inject constructor(
 
     val stateFlow: StateFlow<FriendSuggestState> = _stateFlow.asStateFlow()
 
-    init {
-//       val request = getFriendSuggests(Optional.present(21), Optional.Present(null)); // Gọi ở đây
-        Log.d("Gọi query", "haha");
-    }
-
     val paginator = DefaultPaginator(
         initialKey = stateFlow.value.after,
         onLoadUpdated = {
             _stateFlow.value = _stateFlow.value.copy(isLoading = it)
         },
-        onRequest = {nextKey -> this.getFriendSuggests(Optional.present(10), nextKey)},
+        onRequest = {nextKey -> this.getFriendSuggests(Optional.present(18), nextKey) },
         getNextKey = {
-           Optional.present(_stateFlow.value.friendSuggests?.get(_stateFlow.value.friendSuggests?.size!! - 1)?.id)
+            if(it.isNotEmpty()) {
+                Optional.present(it[it.size - 1].id)
+            } else {
+                Optional.Absent
+            }
         },
         onError = {
-            _stateFlow.value.copy(error = it?.localizedMessage)
+            _stateFlow.value = _stateFlow.value.copy(error = it?.localizedMessage)
         },
         onSuccess = { items, newKey  ->
-            _stateFlow.value.copy(
-                friendSuggests = _stateFlow.value.friendSuggests?.plus(items),
-                after = newKey,
-                endReached = items.isEmpty()
+            _stateFlow.value = _stateFlow.value.copy(
+                        friendSuggests = _stateFlow.value.friendSuggests?.plus(items),
+                        after = newKey,
+                        endReached = items.isEmpty(),
+                )
+
+            Log.d("newKey",
+                newKey.toString()
             )
         },
     )
 
-    suspend fun getFriendSuggests(take: Optional<Int?>, after: Optional<String?>): Result<List<FriendSuggestQuery.Node>> {
-        var resultList: List<FriendSuggestQuery.Node> = emptyList();
-        viewModelScope.launch {
-//            _stateFlow.value.isLoading = true
-            when (val result = friendSuggestUseCase.getFriendSuggests(take, after)) {
-                is ApolloResponse<FriendSuggestQuery.Data> -> {
-                    resultList = result.data?.user?.suggests?.edges?.map { it.node }!!
-                    _stateFlow.value =
-                        FriendSuggestState( friendSuggests = resultList)
-                }
-                null -> {
+    init {
+        loadNextItems()
+    }
 
-                }
+    fun loadNextItems() {
+        viewModelScope.launch {
+            paginator.loadNextItems()
+        }
+        Log.d("Gọi query", "haha");
+    }
+
+//    suspend fun getFriendSuggests(take: Optional<Int?>, after: Optional<String?>): Result<List<FriendSuggestQuery.Node>> {
+//        var resultList: List<FriendSuggestQuery.Node> = emptyList();
+//        viewModelScope.launch {
+////            _stateFlow.value.isLoading = true
+//            when (val result = friendSuggestUseCase.getFriendSuggests(take, after)) {
+//                is ApolloResponse<FriendSuggestQuery.Data> -> {
+//                    resultList = result.data?.user?.suggests?.edges?.map { it.node }!!
+////                    _stateFlow.value =
+////                        FriendSuggestState( friendSuggests = resultList)
+//                }
+//                null -> {
+//
+//                }
+//            }
+//        }
+//        Log.d("item",
+//            resultList[resultList.size - 1].username
+//        )
+//        return Result.success(resultList)
+//    }
+
+    suspend fun getFriendSuggests(take: Optional<Int?>, after: Optional<String?>): Result<List<FriendSuggestQuery.Node>> =
+        withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
+            try {
+                val response = friendSuggestUseCase.getFriendSuggests(take, after)
+                Result.success(response?.data?.user?.suggests?.edges?.map { it.node } ?: emptyList())
+            } catch (e: Exception) {
+                Result.failure(e)
             }
         }
-
-        return Result.success(resultList)
-    }
 
     fun sendFriendRequest(userId: String) {
 //        _stateFlow.value = _stateFlow.value.copy(

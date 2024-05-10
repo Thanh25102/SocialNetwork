@@ -24,7 +24,7 @@ class AuthorizeRepoImpl(
     override suspend fun getAuthorize(username: String , password: String): Result<Auth, DataError.ServerErrors> {
         return try {
             val result =
-                apolloClient.mutation(AuthorizeMutation(AuthorizeInput(password = "sliverdz2604", username = "kidp2h")))
+                apolloClient.mutation(AuthorizeMutation(AuthorizeInput(password = "123456", username = "2chithinh")))
                     .execute()
 
             result.data?.authorize?.accessToken.also { token ->

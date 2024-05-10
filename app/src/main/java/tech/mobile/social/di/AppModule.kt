@@ -40,12 +40,15 @@ import tech.mobile.social.domain.repository.CommentRepo
 import tech.mobile.social.domain.repository.FriendSuggestRepo
 import tech.mobile.social.domain.repository.NotificationRepo
 import tech.mobile.social.domain.repository.PostRepo
+import tech.mobile.social.domain.usecase.impl.CommentUseCaseImpl
 import tech.mobile.social.domain.usecase.impl.FriendSuggestUseCaseImpl
 import tech.mobile.social.domain.usecase.impl.NotificationUseCaseImpl
 import tech.mobile.social.domain.usecase.impl.PostUseCaseImpl
+import tech.mobile.social.domain.usecase.interfaces.CommentUseCase
 import tech.mobile.social.domain.usecase.interfaces.FriendSuggestUseCase
 import tech.mobile.social.domain.usecase.interfaces.NotificationUseCase
 import tech.mobile.social.domain.usecase.interfaces.PostUseCase
+import tech.mobile.social.type.Comment
 
 import tech.mobile.social.type.DateTime
 import java.time.LocalDateTime
@@ -168,6 +171,12 @@ object AppModule {
     @Singleton
     fun providesCommentRepo(apolloClient: ApolloClient,pref: SharedPreferences) : CommentRepo {
         return CommentRepoImpl(apolloClient,pref)
+    }
+
+    @Provides
+    @Singleton
+    fun providesCommentUseCase(commentRepo: CommentRepo) : CommentUseCase{
+        return CommentUseCaseImpl(commentRepo)
     }
 
 }
