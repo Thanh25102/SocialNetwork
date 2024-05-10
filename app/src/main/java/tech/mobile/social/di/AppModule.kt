@@ -113,7 +113,6 @@ object AppModule {
     fun providesCommentRepo(apolloClient: ApolloClient,pref: SharedPreferences) : CommentRepo {
         return CommentRepoImpl(apolloClient,pref)
     }
-    
 
     @Provides
     @Singleton

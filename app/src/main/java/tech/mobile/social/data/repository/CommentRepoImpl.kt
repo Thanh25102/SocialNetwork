@@ -43,6 +43,5 @@ class CommentRepoImpl(
             Log.d("real time error", e.stackTraceToString())
             return null;
         }
-
     }
 }
