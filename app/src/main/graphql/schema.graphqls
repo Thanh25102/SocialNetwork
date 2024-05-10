@@ -1671,6 +1671,8 @@ enum NotificationType {
 
   FRIEND_REQUEST
 
+  FRIEND_REQUEST_ACCEPTED
+
   LIKE
 
   POST
@@ -2537,6 +2539,8 @@ input PostWhereUniqueInput {
 }
 
 type Query {
+  _notifications(after: String, filter: NotificationWhereInput, take: Int! = 999999999): NotificationConnection
+
   comment(id: ID!): Comment
 
   comments(after: String, filter: CommentWhereInput! = {
@@ -3467,6 +3471,8 @@ type Subscription {
   comment_added: Comment!
 
   request_added: Request!
+
+  request_handled: Request!
 }
 
 """

@@ -38,6 +38,7 @@ import tech.mobile.social.domain.repository.NotificationRepo
 import tech.mobile.social.domain.repository.PostRepo
 import tech.mobile.social.domain.usecase.impl.*
 import tech.mobile.social.domain.usecase.interfaces.*
+import tech.mobile.social.type.Comment
 
 import tech.mobile.social.type.DateTime
 import java.time.LocalDateTime
@@ -168,6 +169,12 @@ object AppModule {
     }
 
 
+
+    @Provides
+    @Singleton
+    fun providesCommentUseCase(commentRepo: CommentRepo) : CommentUseCase{
+        return CommentUseCaseImpl(commentRepo)
+    }
 
 }
 
