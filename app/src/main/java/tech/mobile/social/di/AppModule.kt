@@ -114,11 +114,11 @@ object AppModule {
         return CommentRepoImpl(apolloClient,pref)
     }
 
-    @Provides
-    @Singleton
-    fun providesCommentUseCase(commentRepo: CommentRepo) : CommentUseCase {
-        return CommentUseCaseImpl(commentRepo)
-    }
+//    @Provides
+//    @Singleton
+//    fun providesCommentUseCase(commentRepo: CommentRepo) : CommentUseCase {
+//        return CommentUseCaseImpl(commentRepo)
+//    }
 
     @Provides
     @Singleton
