@@ -1,0 +1,38 @@
+fragment Posts on User {
+    posts(take: $take, after: $after) {
+        edges {
+            node {
+                id
+                content
+                user {
+                    id
+                    username
+                }
+                createdAt
+                file {
+                    path
+                }
+                reactions {
+                    edges {
+                        node {
+                            id
+                            user {
+                                username
+                            }
+                        }
+                    }
+                }
+                comments {
+                    edges {
+                        node {
+                            id
+                            user {
+                                username
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

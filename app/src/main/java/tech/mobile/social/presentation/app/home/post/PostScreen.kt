@@ -95,7 +95,7 @@ fun PostScreen(
                         painter = painterResource(id = drawable.favorite_24), contentDescription = "Favorite"
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = "$likes")
+                    Text(text = "${post.likes}")
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically,
@@ -107,7 +107,7 @@ fun PostScreen(
                         painter = painterResource(id = drawable.comment_24), contentDescription = "Comment"
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = "$commentsCount Bình luận")
+                    Text(text = "${post.commentsCount} Bình luận")
                 }
 
                 Row(
@@ -142,6 +142,8 @@ private fun PostScreenPreview() {
             commentsCount = 0,
             comments = emptyList(),
             post = PostState(
+                0, 0,
+                "",
                 drawable.manhthanh_3x4,
                 "Thành",
                 Date(),

@@ -1,0 +1,15 @@
+query Newsfeed($take: Int, $after: String) {
+    user {
+        friends {
+            edges {
+                node {
+                    friend {
+                        username
+                        email
+                        ...Posts
+                    }
+                }
+            }
+        }
+    }
+}

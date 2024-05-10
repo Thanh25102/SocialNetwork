@@ -15,20 +15,16 @@ fun ForYouRoute(
     // State observing and declarations
     val uiState by combine(
         coordinator.forYouStateFlow,
-        coordinator.paginationStateFlow,
-        coordinator.isRefreshFlow,
         coordinator.userStateFlow,
-    ) { forYouState, paginationState, isRefreshState, userState ->
+    ) { forYouState,  userState ->
         ForYouUiState(
             forYouState = forYouState,
-            pagingState = paginationState,
-            refreshState = isRefreshState,
             userState = userState
         )
     }
         .collectAsState(
             initial = ForYouUiState(
-                ForYouState(emptyList()), PagingState(), false, UserState(null, false)
+                ForYouState(emptyList()),UserState(null, false)
             )
         )
 
@@ -45,7 +41,7 @@ fun rememberForYouActions(coordinator: ForYouCoordinator): ForYouActions {
     return remember(coordinator) {
         ForYouActions(
             onClick = coordinator::doStuff,
-            onScroll = coordinator.forYouViewModel::getPostsPaginated
+            onScroll = coordinator.forYouViewModel::loadNextItems
         )
     }
 }

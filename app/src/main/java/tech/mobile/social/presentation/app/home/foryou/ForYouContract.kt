@@ -1,6 +1,7 @@
 package tech.mobile.social.presentation.app.home.foryou
 
 import androidx.compose.material3.pulltorefresh.PullToRefreshState
+import com.apollographql.apollo3.api.Optional
 import tech.mobile.social.presentation.app.home.post.PostState
 import tech.mobile.social.shared.UserState
 
@@ -11,8 +12,6 @@ import tech.mobile.social.shared.UserState
 
 data class ForYouUiState(
     val forYouState: ForYouState,
-    val pagingState: PagingState,
-    val refreshState: Boolean,
     val userState: UserState
 )
 
@@ -20,13 +19,16 @@ data class ForYouState(
     val posts: List<PostState> = emptyList(),
     val isLoading: Boolean = false,
     val error: String = "",
+    val paginationKey: Int = 0,
+    val endReached: Boolean = false,
+    val after: Optional<String?> = Optional.Absent
 )
 
 data class PagingState(
     val isLoading: Boolean = false,
     val paginationKey: Int = 0,
-    val skip: Int = 1,
-    val endReached: Boolean = false
+    val endReached: Boolean = false,
+    val after: Optional<String?> = Optional.Absent
 )
 
 /**

@@ -3,6 +3,7 @@ package tech.mobile.social.presentation.app.home.foryou
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.apollographql.apollo3.api.Optional
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,11 +11,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.internal.toImmutableList
 import tech.mobile.social.R
-import tech.mobile.social.domain.Result
 import tech.mobile.social.domain.usecase.interfaces.PostUseCase
 import tech.mobile.social.presentation.app.home.post.PostState
+import tech.mobile.social.utils.DefaultPaginator
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,119 +30,66 @@ class ForYouViewModel @Inject constructor(
     )
     val stateFlow: StateFlow<ForYouState> = _stateFlow.asStateFlow()
 
-    private val _paginationState = MutableStateFlow(PagingState())
-    val paginationState: StateFlow<PagingState> = _paginationState.asStateFlow()
-
-
-    private val _isRefresh = MutableStateFlow(false)
-    val isRefresh: StateFlow<Boolean> = _isRefresh
+    val paginator = DefaultPaginator(
+        initialKey = _stateFlow.value.after,
+        onLoadUpdated = {
+            _stateFlow.value = _stateFlow.value.copy(isLoading = it)
+        },
+        onRequest = { nextKey -> this._getPosts(Optional.present(18), nextKey) },
+        getNextKey = {
+            if (it.isNotEmpty()) {
+                Optional.present(it[it.size - 1].id)
+            } else {
+                Optional.Absent
+            }
+        },
+        onError = {
+            _stateFlow.value = _stateFlow.value.copy(error = it?.message ?: "")
+        },
+        onSuccess = { items, newKey ->
+            _stateFlow.value = _stateFlow.value.copy(
+                posts = _stateFlow.value.posts.plus(items) ?: emptyList(),
+                after = newKey,
+                endReached = items.isEmpty(),
+            )
+        },
+    )
 
     init {
-        if (_stateFlow.value.posts.isEmpty()) {
-            getPosts()
+        loadNextItems()
+    }
+
+
+    fun loadNextItems() {
+        viewModelScope.launch {
+            paginator.loadNextItems()
         }
     }
 
-    private fun getPosts(
-        skip: Int = 1
-    ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            onRequestLoading()
-
-            when (val result = postUseCase.Getpost()) {
-                is Result.Success -> {
-                    onRequestSuccess(
-                        result.data.posts.map {
+    suspend fun _getPosts(take: Optional<Int?>, after: Optional<String?>): Result<List<PostState>> =
+        withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
+            try {
+                val response = postUseCase.NewsFeed(take, after)
+                Result.success(
+                    response?.data?.user?.friends?.edges?.map {
+                        it.node.friend.posts.posts.edges.map {
                             PostState(
+                                id = it.node.id,
+                                likes = it.node.reactions.edges.size,
+                                commentsCount = it.node.comments.edges.size,
                                 avatarResource = R.drawable.manhthanh_3x4,
-                                content = it.content,
+                                content = it.node.content,
                                 sheetState = false,
                                 imageResource = R.drawable.img,
-                                authorName = it.createdBy.username,
-                                postTime = it.createdAt,
-                                image = it.image
+                                authorName = it.node.user.username,
+                                postTime = it.node.createdAt,
+                                image = it.node.file?.path
                             )
                         }
-                    )
-                }
-
-                is Result.Error -> {
-                    _stateFlow.update {
-                        it.copy(
-                            isLoading = false,
-                            error = result.error.message.get(0)
-                        )
-                    }
-                }
-            }
-
-        }
-    }
-
-    private fun onRequestLoading() {
-        if (_stateFlow.value.posts.isEmpty()) {
-            _stateFlow.update {
-                it.copy(
-                    isLoading = true
+                    }?.flatten() ?: emptyList()
                 )
+            } catch (e: Exception) {
+                Result.failure(e)
             }
         }
-
-        if (_stateFlow.value.posts.isNotEmpty()) {
-            _paginationState.update {
-                it.copy(
-                    isLoading = true
-                )
-            }
-        }
-    }
-
-    fun getPostsPaginated() {
-        if (_stateFlow.value.posts.isEmpty()) {
-            return
-        }
-
-        if (_paginationState.value.endReached) {
-            return
-        }
-
-        getPosts(_paginationState.value.skip)
-    }
-
-    private fun onRequestSuccess(
-        data: List<PostState>
-    ) {
-        val posts = _stateFlow.value.posts + data
-        _stateFlow.update {
-            it.copy(
-                posts = posts.toImmutableList(),
-                isLoading = false,
-                error = ""
-            )
-        }
-
-        val listSize = _stateFlow.value.posts.size
-        _paginationState.update {
-            it.copy(
-                skip = it.skip + 1,
-                endReached = data.isEmpty() || listSize >= POSTS_LIMIT,
-                isLoading = false
-            )
-        }
-    }
-
-    fun refresh() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _isRefresh.update { true }
-            _paginationState.update { it.copy(skip = 0) }
-            _stateFlow.update { it.copy(posts = emptyList()) }
-            getPosts()
-            _isRefresh.update { false }
-        }
-
-    }
-
-    companion object {
-        const val POSTS_LIMIT = 400
-    }
 }

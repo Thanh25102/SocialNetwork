@@ -1,7 +1,6 @@
 package tech.mobile.social.presentation.app.home.post
 
 import tech.mobile.social.CommentsQuery
-import tech.mobile.social.FriendRequestQuery
 import java.time.LocalDateTime
 
 
@@ -26,6 +25,9 @@ data class Comment(
 )
 
 data class PostState(
+    val likes: Int? = 0,
+    val commentsCount: Int? = 0,
+    var id: String = "",
     var avatarResource: Int? = null,
     var authorName: String = "",
     var postTime: Any? = null,

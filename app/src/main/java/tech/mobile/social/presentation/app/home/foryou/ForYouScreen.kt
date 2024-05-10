@@ -13,6 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.*
+import com.apollographql.apollo3.api.Optional
 import tech.mobile.social.R
 import tech.mobile.social.presentation.app.home.foryou.components.InfiniteListHandler
 import tech.mobile.social.presentation.app.home.foryou.components.ScrollButton
@@ -26,7 +27,7 @@ fun ForYouScreen(
     state: ForYouUiState,
     actions: ForYouActions,
 ) {
-    val (forYouState, paginationState, isRefreshState, userState) = state
+    val (forYouState,  userState) = state
 
     val lazyListState = rememberLazyListState()
     val lottieComp by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.loading))
@@ -37,11 +38,14 @@ fun ForYouScreen(
 
     LazyColumn(state = lazyListState) {
         items(forYouState.posts.size) {
+            if(state.forYouState.after != Optional.Absent && it >= state.forYouState.posts.size - 1 && !state.forYouState.endReached && !state.forYouState.isLoading){
+                actions.onScroll();
+            }
             PostRoute(state = forYouState.posts[it])
             Spacer(modifier = Modifier.height(8.dp))
         }
         item {
-            if (paginationState.isLoading) {
+            if (forYouState.isLoading) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -52,9 +56,6 @@ fun ForYouScreen(
                 }
             }
         }
-    }
-    InfiniteListHandler(lazyListState = lazyListState) {
-        actions.onScroll()
     }
     when {
         forYouState.isLoading -> {
@@ -130,8 +131,6 @@ private fun ForYouScreenPreview() {
                     )
                 )
             ),
-            PagingState(),
-            false,
             UserState(null, false)
         ),
         actions = ForYouActions()

@@ -34,7 +34,6 @@ class CommentRepoImpl(
             return null;
         }
     }
-
     override suspend fun handleCommentAdded(): Flow<ApolloResponse<CommentAddedSubscription.Data>>? {
         try {
             val result = apolloClient

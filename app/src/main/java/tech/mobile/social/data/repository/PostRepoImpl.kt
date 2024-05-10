@@ -1,13 +1,11 @@
 package tech.mobile.social.data.repository
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
-import com.apollographql.apollo3.exception.ApolloException
 import tech.mobile.social.Create_postMutation
-import tech.mobile.social.FriendRequestQuery
+import tech.mobile.social.NewsfeedQuery
 import tech.mobile.social.PostQuery
 import tech.mobile.social.domain.DataError
 import tech.mobile.social.domain.Result
@@ -17,7 +15,6 @@ import tech.mobile.social.domain.model.post.Posts
 import tech.mobile.social.domain.model.post.User
 import tech.mobile.social.domain.repository.PostRepo
 import tech.mobile.social.type.PostCreateInput
-import tech.mobile.social.type.PostWhereInput
 import tech.mobile.social.type.UserCreateNestedOneWithoutPostsInput
 import java.time.LocalDateTime
 import java.util.*
@@ -61,6 +58,19 @@ class PostRepoImpl(
             )
         ).execute()
 
+        return result;
+    }
+
+    override suspend fun NewsFeed(
+        take: Optional<Int?>,
+        after: Optional<String?>
+    ): ApolloResponse<NewsfeedQuery.Data>? {
+        val result = apolloClient.query(
+            NewsfeedQuery(
+                take = take,
+                after = after
+            )
+        ).execute()
         return result;
     }
 

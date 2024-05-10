@@ -3503,6 +3503,8 @@ type User {
 
   id: ID!
 
+  newsfeed(after: String, take: Int! = 999999999): PostConnection!
+
   notificationsReceived: [NotificationRecipient!]
 
   notificationsSent: [Notification!]
