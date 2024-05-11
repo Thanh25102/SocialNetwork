@@ -82,7 +82,7 @@ class ForYouViewModel @Inject constructor(
 //        }
 //    }
 
-    private fun _getPosts(take: Optional<Int?>, after: Optional<String?>){
+    private fun _getPosts(take: Optional<Int?>, after: Optional<String?>) {
         viewModelScope.launch(Dispatchers.IO) {
             onRequestLoading()
 
@@ -102,6 +102,7 @@ class ForYouViewModel @Inject constructor(
                         })
                     }
                 }
+
                 null -> {
 
                 }
@@ -109,7 +110,6 @@ class ForYouViewModel @Inject constructor(
             }
         }
     }
-
 
 
     private fun onRequestLoading() {
@@ -169,7 +169,7 @@ class ForYouViewModel @Inject constructor(
             _isRefresh.update { true }
             _paginationState.update { it.copy(skip = 0) }
             _stateFlow.update { it.copy(posts = emptyList()) }
-            _getPosts()
+//            _getPosts()
             _isRefresh.update { false }
         }
 

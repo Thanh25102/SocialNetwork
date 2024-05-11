@@ -263,12 +263,13 @@ fun PasswordApp(
 
 @Composable
 fun EmailApp(
+    text: String = "",
     modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit, label: String = "Email",
     iconModifier: Modifier = Modifier,
 ) {
 
-    var email by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf(text) }
 
     OutlinedTextField(
         value = email,

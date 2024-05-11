@@ -8,17 +8,20 @@ import tech.mobile.social.domain.repository.AuthorizeRepo
 import tech.mobile.social.domain.usecase.interfaces.AuthUseCase
 
 class AuthUseCaseImpl(private val authorizeRepo: AuthorizeRepo) : AuthUseCase {
-    override suspend fun authorize(email: String, password: String): Result<Auth, DataError.ServerErrors> {
+    override suspend fun authorize(
+        email: String,
+        password: String
+    ): Result<Auth, DataError.ServerErrors> {
         return authorizeRepo.getAuthorize(email, password)
     }
 
     override suspend fun register(
-        username: String,
+        fullname: String,
         email: String,
         password: String
     ): Result<User, DataError.ServerErrors> {
 
-        return authorizeRepo.authorize(username, email, password)
+        return authorizeRepo.authorize(fullname, email, password)
     }
 
 }

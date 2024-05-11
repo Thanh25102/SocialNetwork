@@ -1,8 +1,13 @@
 package tech.mobile.social.presentation.auth.login
 
+import android.app.Activity
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.identity.Identity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,5 +34,6 @@ class LoginViewModel @Inject constructor(
         Log.d("Login", "updatePassword: $password")
         _stateFlow.value = _stateFlow.value.copy(password = password)
     }
+
 
 }
