@@ -1,1194 +1,1196 @@
 type AuthResponse {
-  accessToken: String!
-  user: User!
+    accessToken: String!
+    user: User!
 }
 
 input AuthorizeInput {
-  password: String!
-  username: String!
+    password: String!
+    username: String!
 }
 
 type BaseEntity {
-  createdAt: String!
-  id: ID!
-  updatedAt: String!
+    createdAt: String!
+    id: ID!
+    updatedAt: String!
 }
 
 type Comment {
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: ID!
-  post: Post!
-  posts(after: String, take: Float!): PostConnection!
-  updatedAt: DateTime
-  user: User!
-  users(after: String, take: Float!): UserConnection!
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: ID!
+    post: Post!
+    posts(after: String, take: Float!): PostConnection!
+    updatedAt: DateTime
+    user: User!
+    users(after: String, take: Float!): UserConnection!
 }
 
 type CommentConnection {
-  edges: [CommentEdge!]!
-  pageInfo: PageInfo!
+    edges: [CommentEdge!]!
+    pageInfo: PageInfo!
 }
 
 input CommentCreateManyPostInput {
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  updatedAt: DateTime
-  userId: String!
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    updatedAt: DateTime
+    userId: String!
 }
 
 input CommentCreateManyPostInputEnvelope {
-  data: [CommentCreateManyPostInput!]!
+    data: [CommentCreateManyPostInput!]!
 }
 
 input CommentCreateManyUserInput {
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  postId: String!
-  updatedAt: DateTime
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    postId: String!
+    updatedAt: DateTime
 }
 
 input CommentCreateManyUserInputEnvelope {
-  data: [CommentCreateManyUserInput!]!
+    data: [CommentCreateManyUserInput!]!
 }
 
 input CommentCreateNestedManyWithoutPostInput {
-  connect: [CommentWhereUniqueInput!]
-  connectOrCreate: [CommentCreateOrConnectWithoutPostInput!]
-  create: [CommentCreateWithoutPostInput!]
-  createMany: CommentCreateManyPostInputEnvelope
+    connect: [CommentWhereUniqueInput!]
+    connectOrCreate: [CommentCreateOrConnectWithoutPostInput!]
+    create: [CommentCreateWithoutPostInput!]
+    createMany: CommentCreateManyPostInputEnvelope
 }
 
 input CommentCreateNestedManyWithoutUserInput {
-  connect: [CommentWhereUniqueInput!]
-  connectOrCreate: [CommentCreateOrConnectWithoutUserInput!]
-  create: [CommentCreateWithoutUserInput!]
-  createMany: CommentCreateManyUserInputEnvelope
+    connect: [CommentWhereUniqueInput!]
+    connectOrCreate: [CommentCreateOrConnectWithoutUserInput!]
+    create: [CommentCreateWithoutUserInput!]
+    createMany: CommentCreateManyUserInputEnvelope
 }
 
 input CommentCreateOrConnectWithoutPostInput {
-  create: CommentCreateWithoutPostInput!
-  where: CommentWhereUniqueInput!
+    create: CommentCreateWithoutPostInput!
+    where: CommentWhereUniqueInput!
 }
 
 input CommentCreateOrConnectWithoutUserInput {
-  create: CommentCreateWithoutUserInput!
-  where: CommentWhereUniqueInput!
+    create: CommentCreateWithoutUserInput!
+    where: CommentWhereUniqueInput!
 }
 
 input CommentCreateWithoutPostInput {
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  updatedAt: DateTime
-  user: UserCreateNestedOneWithoutCommentsInput!
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    updatedAt: DateTime
+    user: UserCreateNestedOneWithoutCommentsInput!
 }
 
 input CommentCreateWithoutUserInput {
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  post: PostCreateNestedOneWithoutCommentsInput!
-  updatedAt: DateTime
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    post: PostCreateNestedOneWithoutCommentsInput!
+    updatedAt: DateTime
 }
 
 type CommentEdge {
-  cursor: String!
-  node: Comment!
+    cursor: String!
+    node: Comment!
 }
 
 input CommentListRelationFilter {
-  every: CommentWhereInput
-  none: CommentWhereInput
-  some: CommentWhereInput
+    every: CommentWhereInput
+    none: CommentWhereInput
+    some: CommentWhereInput
 }
 
 input CommentScalarWhereInput {
-  AND: [CommentScalarWhereInput!]
-  NOT: [CommentScalarWhereInput!]
-  OR: [CommentScalarWhereInput!]
-  content: StringFilter
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  postId: StringFilter
-  updatedAt: DateTimeNullableFilter
-  userId: StringFilter
+    AND: [CommentScalarWhereInput!]
+    NOT: [CommentScalarWhereInput!]
+    OR: [CommentScalarWhereInput!]
+    content: StringFilter
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    id: StringFilter
+    postId: StringFilter
+    updatedAt: DateTimeNullableFilter
+    userId: StringFilter
 }
 
 input CommentUpdateManyMutationInput {
-  content: String
-  createdAt: DateTime
-  deletedAt: DateTime
-  updatedAt: DateTime
+    content: String
+    createdAt: DateTime
+    deletedAt: DateTime
+    updatedAt: DateTime
 }
 
 input CommentUpdateManyWithWhereWithoutPostInput {
-  data: CommentUpdateManyMutationInput!
-  where: CommentScalarWhereInput!
+    data: CommentUpdateManyMutationInput!
+    where: CommentScalarWhereInput!
 }
 
 input CommentUpdateManyWithWhereWithoutUserInput {
-  data: CommentUpdateManyMutationInput!
-  where: CommentScalarWhereInput!
+    data: CommentUpdateManyMutationInput!
+    where: CommentScalarWhereInput!
 }
 
 input CommentUpdateManyWithoutPostNestedInput {
-  connect: [CommentWhereUniqueInput!]
-  connectOrCreate: [CommentCreateOrConnectWithoutPostInput!]
-  create: [CommentCreateWithoutPostInput!]
-  createMany: CommentCreateManyPostInputEnvelope
-  delete: [CommentWhereUniqueInput!]
-  deleteMany: [CommentScalarWhereInput!]
-  disconnect: [CommentWhereUniqueInput!]
-  set: [CommentWhereUniqueInput!]
-  update: [CommentUpdateWithWhereUniqueWithoutPostInput!]
-  updateMany: [CommentUpdateManyWithWhereWithoutPostInput!]
-  upsert: [CommentUpsertWithWhereUniqueWithoutPostInput!]
+    connect: [CommentWhereUniqueInput!]
+    connectOrCreate: [CommentCreateOrConnectWithoutPostInput!]
+    create: [CommentCreateWithoutPostInput!]
+    createMany: CommentCreateManyPostInputEnvelope
+    delete: [CommentWhereUniqueInput!]
+    deleteMany: [CommentScalarWhereInput!]
+    disconnect: [CommentWhereUniqueInput!]
+    set: [CommentWhereUniqueInput!]
+    update: [CommentUpdateWithWhereUniqueWithoutPostInput!]
+    updateMany: [CommentUpdateManyWithWhereWithoutPostInput!]
+    upsert: [CommentUpsertWithWhereUniqueWithoutPostInput!]
 }
 
 input CommentUpdateManyWithoutUserNestedInput {
-  connect: [CommentWhereUniqueInput!]
-  connectOrCreate: [CommentCreateOrConnectWithoutUserInput!]
-  create: [CommentCreateWithoutUserInput!]
-  createMany: CommentCreateManyUserInputEnvelope
-  delete: [CommentWhereUniqueInput!]
-  deleteMany: [CommentScalarWhereInput!]
-  disconnect: [CommentWhereUniqueInput!]
-  set: [CommentWhereUniqueInput!]
-  update: [CommentUpdateWithWhereUniqueWithoutUserInput!]
-  updateMany: [CommentUpdateManyWithWhereWithoutUserInput!]
-  upsert: [CommentUpsertWithWhereUniqueWithoutUserInput!]
+    connect: [CommentWhereUniqueInput!]
+    connectOrCreate: [CommentCreateOrConnectWithoutUserInput!]
+    create: [CommentCreateWithoutUserInput!]
+    createMany: CommentCreateManyUserInputEnvelope
+    delete: [CommentWhereUniqueInput!]
+    deleteMany: [CommentScalarWhereInput!]
+    disconnect: [CommentWhereUniqueInput!]
+    set: [CommentWhereUniqueInput!]
+    update: [CommentUpdateWithWhereUniqueWithoutUserInput!]
+    updateMany: [CommentUpdateManyWithWhereWithoutUserInput!]
+    upsert: [CommentUpsertWithWhereUniqueWithoutUserInput!]
 }
 
 input CommentUpdateWithWhereUniqueWithoutPostInput {
-  data: CommentUpdateWithoutPostInput!
-  where: CommentWhereUniqueInput!
+    data: CommentUpdateWithoutPostInput!
+    where: CommentWhereUniqueInput!
 }
 
 input CommentUpdateWithWhereUniqueWithoutUserInput {
-  data: CommentUpdateWithoutUserInput!
-  where: CommentWhereUniqueInput!
+    data: CommentUpdateWithoutUserInput!
+    where: CommentWhereUniqueInput!
 }
 
 input CommentUpdateWithoutPostInput {
-  content: String
-  createdAt: DateTime
-  deletedAt: DateTime
-  updatedAt: DateTime
-  user: UserUpdateOneRequiredWithoutCommentsNestedInput
+    content: String
+    createdAt: DateTime
+    deletedAt: DateTime
+    updatedAt: DateTime
+    user: UserUpdateOneRequiredWithoutCommentsNestedInput
 }
 
 input CommentUpdateWithoutUserInput {
-  content: String
-  createdAt: DateTime
-  deletedAt: DateTime
-  post: PostUpdateOneRequiredWithoutCommentsNestedInput
-  updatedAt: DateTime
+    content: String
+    createdAt: DateTime
+    deletedAt: DateTime
+    post: PostUpdateOneRequiredWithoutCommentsNestedInput
+    updatedAt: DateTime
 }
 
 input CommentUpsertWithWhereUniqueWithoutPostInput {
-  create: CommentCreateWithoutPostInput!
-  update: CommentUpdateWithoutPostInput!
-  where: CommentWhereUniqueInput!
+    create: CommentCreateWithoutPostInput!
+    update: CommentUpdateWithoutPostInput!
+    where: CommentWhereUniqueInput!
 }
 
 input CommentUpsertWithWhereUniqueWithoutUserInput {
-  create: CommentCreateWithoutUserInput!
-  update: CommentUpdateWithoutUserInput!
-  where: CommentWhereUniqueInput!
+    create: CommentCreateWithoutUserInput!
+    update: CommentUpdateWithoutUserInput!
+    where: CommentWhereUniqueInput!
 }
 
 input CommentUserIdPostIdCompoundUniqueInput {
-  postId: String!
-  userId: String!
+    postId: String!
+    userId: String!
 }
 
 input CommentWhereInput {
-  AND: [CommentWhereInput!]
-  NOT: [CommentWhereInput!]
-  OR: [CommentWhereInput!]
-  content: StringFilter
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  post: PostWhereInput
-  postId: StringFilter
-  updatedAt: DateTimeNullableFilter
-  user: UserWhereInput
-  userId: StringFilter
+    AND: [CommentWhereInput!]
+    NOT: [CommentWhereInput!]
+    OR: [CommentWhereInput!]
+    content: StringFilter
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    id: StringFilter
+    post: PostWhereInput
+    postId: StringFilter
+    updatedAt: DateTimeNullableFilter
+    user: UserWhereInput
+    userId: StringFilter
 }
 
 input CommentWhereUniqueInput {
-  AND: [CommentWhereInput!]
-  NOT: [CommentWhereInput!]
-  OR: [CommentWhereInput!]
-  content: StringFilter
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  id: String
-  post: PostRelationFilter
-  postId: StringFilter
-  updatedAt: DateTimeNullableFilter
-  user: UserRelationFilter
-  userId: StringFilter
-  userId_postId: CommentUserIdPostIdCompoundUniqueInput
+    AND: [CommentWhereInput!]
+    NOT: [CommentWhereInput!]
+    OR: [CommentWhereInput!]
+    content: StringFilter
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    id: String
+    post: PostRelationFilter
+    postId: StringFilter
+    updatedAt: DateTimeNullableFilter
+    user: UserRelationFilter
+    userId: StringFilter
+    userId_postId: CommentUserIdPostIdCompoundUniqueInput
 }
 
 # A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 scalar DateTime
 
 input DateTimeNullableFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  isSet: Boolean
-  lt: DateTime
-  lte: DateTime
-  not: NestedDateTimeNullableFilter
-  notIn: [DateTime!]
+    equals: DateTime
+    gt: DateTime
+    gte: DateTime
+    in: [DateTime!]
+    isSet: Boolean
+    lt: DateTime
+    lte: DateTime
+    not: NestedDateTimeNullableFilter
+    notIn: [DateTime!]
 }
 
 input EnumReactionEnumFilter {
-  equals: ReactionEnum
-  in: [ReactionEnum!]
-  not: NestedEnumReactionEnumFilter
-  notIn: [ReactionEnum!]
+    equals: ReactionEnum
+    in: [ReactionEnum!]
+    not: NestedEnumReactionEnumFilter
+    notIn: [ReactionEnum!]
 }
 
 input ForgotPasswordInput {
-  email: String!
+    email: String!
 }
 
 type ForgotResponse {
-  email: String!
-  success: Boolean!
+    email: String!
+    success: Boolean!
 }
 
 type Mutation {
-  add_comment(input: CommentCreateWithoutUserInput!): Comment
-  authorize(input: AuthorizeInput!): AuthResponse!
-  create_post(input: PostCreateInput!): Post
-  delete_comment(id: String!): [Comment!]!
-  delete_post(id: String!): [Post!]!
-  delete_reaction(id: String!): [Reaction!]!
-  delete_user(id: String!): [User!]!
-  forgot_password(input: ForgotPasswordInput!): ForgotResponse
-  register(input: UserCreateInput!): User
-  update_user(id: ID!, input: UserUpdateInput!): User!
+    add_comment(input: CommentCreateWithoutUserInput!): Comment
+    authorize(input: AuthorizeInput!): AuthResponse!
+    create_post(input: PostCreateInput!): Post
+    delete_comment(id: String!): [Comment!]!
+    delete_post(id: String!): [Post!]!
+    delete_reaction(id: String!): [Reaction!]!
+    delete_user(id: String!): [User!]!
+    forgot_password(input: ForgotPasswordInput!): ForgotResponse
+    register(input: UserCreateInput!): User
+    update_user(id: ID!, input: UserUpdateInput!): User!
 }
 
 input NestedDateTimeNullableFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  isSet: Boolean
-  lt: DateTime
-  lte: DateTime
-  not: NestedDateTimeNullableFilter
-  notIn: [DateTime!]
+    equals: DateTime
+    gt: DateTime
+    gte: DateTime
+    in: [DateTime!]
+    isSet: Boolean
+    lt: DateTime
+    lte: DateTime
+    not: NestedDateTimeNullableFilter
+    notIn: [DateTime!]
 }
 
 input NestedEnumReactionEnumFilter {
-  equals: ReactionEnum
-  in: [ReactionEnum!]
-  not: NestedEnumReactionEnumFilter
-  notIn: [ReactionEnum!]
+    equals: ReactionEnum
+    in: [ReactionEnum!]
+    not: NestedEnumReactionEnumFilter
+    notIn: [ReactionEnum!]
 }
 
 input NestedStringFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  not: NestedStringFilter
-  notIn: [String!]
-  startsWith: String
+    contains: String
+    endsWith: String
+    equals: String
+    gt: String
+    gte: String
+    in: [String!]
+    lt: String
+    lte: String
+    not: NestedStringFilter
+    notIn: [String!]
+    startsWith: String
 }
 
 input NestedStringNullableFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  isSet: Boolean
-  lt: String
-  lte: String
-  not: NestedStringNullableFilter
-  notIn: [String!]
-  startsWith: String
+    contains: String
+    endsWith: String
+    equals: String
+    gt: String
+    gte: String
+    in: [String!]
+    isSet: Boolean
+    lt: String
+    lte: String
+    not: NestedStringNullableFilter
+    notIn: [String!]
+    startsWith: String
 }
 
 type PageInfo {
-  endCursor: String
-  hasNextPage: Boolean!
+    endCursor: String
+    hasNextPage: Boolean!
 }
 
 type Post {
-  comments: [Comment!]
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: ID!
-  reactions: [Reaction!]
-  updatedAt: DateTime
-  user: User!
+    comments: [Comment!]
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: ID!
+    reactions: [Reaction!]
+    updatedAt: DateTime
+    user: User!
 }
 
 type PostConnection {
-  edges: [PostEdge!]!
-  pageInfo: PageInfo!
+    edges: [PostEdge!]!
+    pageInfo: PageInfo!
 }
 
 input PostCreateInput {
-  comments: CommentCreateNestedManyWithoutPostInput
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  reactions: ReactionCreateNestedManyWithoutPostInput
-  updatedAt: DateTime
-  user: UserCreateNestedOneWithoutPostsInput!
+    comments: CommentCreateNestedManyWithoutPostInput
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    reactions: ReactionCreateNestedManyWithoutPostInput
+    updatedAt: DateTime
+    user: UserCreateNestedOneWithoutPostsInput!
 }
 
 input PostCreateManyUserInput {
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  updatedAt: DateTime
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    updatedAt: DateTime
 }
 
 input PostCreateManyUserInputEnvelope {
-  data: [PostCreateManyUserInput!]!
+    data: [PostCreateManyUserInput!]!
 }
 
 input PostCreateNestedManyWithoutUserInput {
-  connect: [PostWhereUniqueInput!]
-  connectOrCreate: [PostCreateOrConnectWithoutUserInput!]
-  create: [PostCreateWithoutUserInput!]
-  createMany: PostCreateManyUserInputEnvelope
+    connect: [PostWhereUniqueInput!]
+    connectOrCreate: [PostCreateOrConnectWithoutUserInput!]
+    create: [PostCreateWithoutUserInput!]
+    createMany: PostCreateManyUserInputEnvelope
 }
 
 input PostCreateNestedOneWithoutCommentsInput {
-  connect: PostWhereUniqueInput
-  connectOrCreate: PostCreateOrConnectWithoutCommentsInput
-  create: PostCreateWithoutCommentsInput
+    connect: PostWhereUniqueInput
+    connectOrCreate: PostCreateOrConnectWithoutCommentsInput
+    create: PostCreateWithoutCommentsInput
 }
 
 input PostCreateNestedOneWithoutReactionsInput {
-  connect: PostWhereUniqueInput
-  connectOrCreate: PostCreateOrConnectWithoutReactionsInput
-  create: PostCreateWithoutReactionsInput
+    connect: PostWhereUniqueInput
+    connectOrCreate: PostCreateOrConnectWithoutReactionsInput
+    create: PostCreateWithoutReactionsInput
 }
 
 input PostCreateOrConnectWithoutCommentsInput {
-  create: PostCreateWithoutCommentsInput!
-  where: PostWhereUniqueInput!
+    create: PostCreateWithoutCommentsInput!
+    where: PostWhereUniqueInput!
 }
 
 input PostCreateOrConnectWithoutReactionsInput {
-  create: PostCreateWithoutReactionsInput!
-  where: PostWhereUniqueInput!
+    create: PostCreateWithoutReactionsInput!
+    where: PostWhereUniqueInput!
 }
 
 input PostCreateOrConnectWithoutUserInput {
-  create: PostCreateWithoutUserInput!
-  where: PostWhereUniqueInput!
+    create: PostCreateWithoutUserInput!
+    where: PostWhereUniqueInput!
 }
 
 input PostCreateWithoutCommentsInput {
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  reactions: ReactionCreateNestedManyWithoutPostInput
-  updatedAt: DateTime
-  user: UserCreateNestedOneWithoutPostsInput!
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    reactions: ReactionCreateNestedManyWithoutPostInput
+    updatedAt: DateTime
+    user: UserCreateNestedOneWithoutPostsInput!
 }
 
 input PostCreateWithoutReactionsInput {
-  comments: CommentCreateNestedManyWithoutPostInput
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  updatedAt: DateTime
-  user: UserCreateNestedOneWithoutPostsInput!
+    comments: CommentCreateNestedManyWithoutPostInput
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    updatedAt: DateTime
+    user: UserCreateNestedOneWithoutPostsInput!
 }
 
 input PostCreateWithoutUserInput {
-  comments: CommentCreateNestedManyWithoutPostInput
-  content: String!
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  reactions: ReactionCreateNestedManyWithoutPostInput
-  updatedAt: DateTime
+    comments: CommentCreateNestedManyWithoutPostInput
+    content: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    reactions: ReactionCreateNestedManyWithoutPostInput
+    updatedAt: DateTime
 }
 
 type PostEdge {
-  cursor: String!
-  node: Post!
+    cursor: String!
+    node: Post!
 }
 
 input PostListRelationFilter {
-  every: PostWhereInput
-  none: PostWhereInput
-  some: PostWhereInput
+    every: PostWhereInput
+    none: PostWhereInput
+    some: PostWhereInput
 }
 
 input PostRelationFilter {
-  is: PostWhereInput
-  isNot: PostWhereInput
+    is: PostWhereInput
+    isNot: PostWhereInput
 }
 
 input PostScalarWhereInput {
-  AND: [PostScalarWhereInput!]
-  NOT: [PostScalarWhereInput!]
-  OR: [PostScalarWhereInput!]
-  content: StringFilter
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  updatedAt: DateTimeNullableFilter
-  userId: StringFilter
+    AND: [PostScalarWhereInput!]
+    NOT: [PostScalarWhereInput!]
+    OR: [PostScalarWhereInput!]
+    content: StringFilter
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    id: StringFilter
+    updatedAt: DateTimeNullableFilter
+    userId: StringFilter
 }
 
 input PostUpdateManyMutationInput {
-  content: String
-  createdAt: DateTime
-  deletedAt: DateTime
-  updatedAt: DateTime
+    content: String
+    createdAt: DateTime
+    deletedAt: DateTime
+    updatedAt: DateTime
 }
 
 input PostUpdateManyWithWhereWithoutUserInput {
-  data: PostUpdateManyMutationInput!
-  where: PostScalarWhereInput!
+    data: PostUpdateManyMutationInput!
+    where: PostScalarWhereInput!
 }
 
 input PostUpdateManyWithoutUserNestedInput {
-  connect: [PostWhereUniqueInput!]
-  connectOrCreate: [PostCreateOrConnectWithoutUserInput!]
-  create: [PostCreateWithoutUserInput!]
-  createMany: PostCreateManyUserInputEnvelope
-  delete: [PostWhereUniqueInput!]
-  deleteMany: [PostScalarWhereInput!]
-  disconnect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutUserInput!]
-  updateMany: [PostUpdateManyWithWhereWithoutUserInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutUserInput!]
+    connect: [PostWhereUniqueInput!]
+    connectOrCreate: [PostCreateOrConnectWithoutUserInput!]
+    create: [PostCreateWithoutUserInput!]
+    createMany: PostCreateManyUserInputEnvelope
+    delete: [PostWhereUniqueInput!]
+    deleteMany: [PostScalarWhereInput!]
+    disconnect: [PostWhereUniqueInput!]
+    set: [PostWhereUniqueInput!]
+    update: [PostUpdateWithWhereUniqueWithoutUserInput!]
+    updateMany: [PostUpdateManyWithWhereWithoutUserInput!]
+    upsert: [PostUpsertWithWhereUniqueWithoutUserInput!]
 }
 
 input PostUpdateOneRequiredWithoutCommentsNestedInput {
-  connect: PostWhereUniqueInput
-  connectOrCreate: PostCreateOrConnectWithoutCommentsInput
-  create: PostCreateWithoutCommentsInput
-  update: PostUpdateToOneWithWhereWithoutCommentsInput
-  upsert: PostUpsertWithoutCommentsInput
+    connect: PostWhereUniqueInput
+    connectOrCreate: PostCreateOrConnectWithoutCommentsInput
+    create: PostCreateWithoutCommentsInput
+    update: PostUpdateToOneWithWhereWithoutCommentsInput
+    upsert: PostUpsertWithoutCommentsInput
 }
 
 input PostUpdateOneRequiredWithoutReactionsNestedInput {
-  connect: PostWhereUniqueInput
-  connectOrCreate: PostCreateOrConnectWithoutReactionsInput
-  create: PostCreateWithoutReactionsInput
-  update: PostUpdateToOneWithWhereWithoutReactionsInput
-  upsert: PostUpsertWithoutReactionsInput
+    connect: PostWhereUniqueInput
+    connectOrCreate: PostCreateOrConnectWithoutReactionsInput
+    create: PostCreateWithoutReactionsInput
+    update: PostUpdateToOneWithWhereWithoutReactionsInput
+    upsert: PostUpsertWithoutReactionsInput
 }
 
 input PostUpdateToOneWithWhereWithoutCommentsInput {
-  data: PostUpdateWithoutCommentsInput!
-  where: PostWhereInput
+    data: PostUpdateWithoutCommentsInput!
+    where: PostWhereInput
 }
 
 input PostUpdateToOneWithWhereWithoutReactionsInput {
-  data: PostUpdateWithoutReactionsInput!
-  where: PostWhereInput
+    data: PostUpdateWithoutReactionsInput!
+    where: PostWhereInput
 }
 
 input PostUpdateWithWhereUniqueWithoutUserInput {
-  data: PostUpdateWithoutUserInput!
-  where: PostWhereUniqueInput!
+    data: PostUpdateWithoutUserInput!
+    where: PostWhereUniqueInput!
 }
 
 input PostUpdateWithoutCommentsInput {
-  content: String
-  createdAt: DateTime
-  deletedAt: DateTime
-  reactions: ReactionUpdateManyWithoutPostNestedInput
-  updatedAt: DateTime
-  user: UserUpdateOneRequiredWithoutPostsNestedInput
+    content: String
+    createdAt: DateTime
+    deletedAt: DateTime
+    reactions: ReactionUpdateManyWithoutPostNestedInput
+    updatedAt: DateTime
+    user: UserUpdateOneRequiredWithoutPostsNestedInput
 }
 
 input PostUpdateWithoutReactionsInput {
-  comments: CommentUpdateManyWithoutPostNestedInput
-  content: String
-  createdAt: DateTime
-  deletedAt: DateTime
-  updatedAt: DateTime
-  user: UserUpdateOneRequiredWithoutPostsNestedInput
+    comments: CommentUpdateManyWithoutPostNestedInput
+    content: String
+    createdAt: DateTime
+    deletedAt: DateTime
+    updatedAt: DateTime
+    user: UserUpdateOneRequiredWithoutPostsNestedInput
 }
 
 input PostUpdateWithoutUserInput {
-  comments: CommentUpdateManyWithoutPostNestedInput
-  content: String
-  createdAt: DateTime
-  deletedAt: DateTime
-  reactions: ReactionUpdateManyWithoutPostNestedInput
-  updatedAt: DateTime
+    comments: CommentUpdateManyWithoutPostNestedInput
+    content: String
+    createdAt: DateTime
+    deletedAt: DateTime
+    reactions: ReactionUpdateManyWithoutPostNestedInput
+    updatedAt: DateTime
 }
 
 input PostUpsertWithWhereUniqueWithoutUserInput {
-  create: PostCreateWithoutUserInput!
-  update: PostUpdateWithoutUserInput!
-  where: PostWhereUniqueInput!
+    create: PostCreateWithoutUserInput!
+    update: PostUpdateWithoutUserInput!
+    where: PostWhereUniqueInput!
 }
 
 input PostUpsertWithoutCommentsInput {
-  create: PostCreateWithoutCommentsInput!
-  update: PostUpdateWithoutCommentsInput!
-  where: PostWhereInput
+    create: PostCreateWithoutCommentsInput!
+    update: PostUpdateWithoutCommentsInput!
+    where: PostWhereInput
 }
 
 input PostUpsertWithoutReactionsInput {
-  create: PostCreateWithoutReactionsInput!
-  update: PostUpdateWithoutReactionsInput!
-  where: PostWhereInput
+    create: PostCreateWithoutReactionsInput!
+    update: PostUpdateWithoutReactionsInput!
+    where: PostWhereInput
 }
 
 input PostWhereInput {
-  AND: [PostWhereInput!]
-  NOT: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  comments: CommentListRelationFilter
-  content: StringFilter
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  reactions: ReactionListRelationFilter
-  updatedAt: DateTimeNullableFilter
-  user: UserWhereInput
-  userId: StringFilter
+    AND: [PostWhereInput!]
+    NOT: [PostWhereInput!]
+    OR: [PostWhereInput!]
+    comments: CommentListRelationFilter
+    content: StringFilter
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    id: StringFilter
+    reactions: ReactionListRelationFilter
+    updatedAt: DateTimeNullableFilter
+    user: UserWhereInput
+    userId: StringFilter
 }
 
 input PostWhereUniqueInput {
-  AND: [PostWhereInput!]
-  NOT: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  comments: CommentListRelationFilter
-  content: StringFilter
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  id: String
-  reactions: ReactionListRelationFilter
-  updatedAt: DateTimeNullableFilter
-  user: UserRelationFilter
-  userId: StringFilter
+    AND: [PostWhereInput!]
+    NOT: [PostWhereInput!]
+    OR: [PostWhereInput!]
+    comments: CommentListRelationFilter
+    content: StringFilter
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    id: String
+    reactions: ReactionListRelationFilter
+    updatedAt: DateTimeNullableFilter
+    user: UserRelationFilter
+    userId: StringFilter
 }
 
 type Provider {
-  id: String
-  type: String!
+    id: String
+    type: String!
 }
 
 input ProviderCreateInput {
-  id: String
-  type: String
+    id: String
+    type: String
 }
 
 input ProviderNullableCompositeFilter {
-  equals: ProviderObjectEqualityInput
-  is: ProviderWhereInput
-  isNot: ProviderWhereInput
-  isSet: Boolean
+    equals: ProviderObjectEqualityInput
+    is: ProviderWhereInput
+    isNot: ProviderWhereInput
+    isSet: Boolean
 }
 
 input ProviderNullableCreateEnvelopeInput {
-  set: ProviderCreateInput
+    set: ProviderCreateInput
 }
 
 input ProviderNullableUpdateEnvelopeInput {
-  set: ProviderCreateInput
-  unset: Boolean
-  upsert: ProviderUpsertInput
+    set: ProviderCreateInput
+    unset: Boolean
+    upsert: ProviderUpsertInput
 }
 
 input ProviderObjectEqualityInput {
-  id: String
-  type: String!
+    id: String
+    type: String!
 }
 
 input ProviderUpdateInput {
-  id: String
-  type: String
+    id: String
+    type: String
 }
 
 input ProviderUpsertInput {
-  set: ProviderCreateInput!
-  update: ProviderUpdateInput!
+    set: ProviderCreateInput!
+    update: ProviderUpdateInput!
 }
 
 input ProviderWhereInput {
-  AND: [ProviderWhereInput!]
-  NOT: [ProviderWhereInput!]
-  OR: [ProviderWhereInput!]
-  id: StringNullableFilter
-  type: StringFilter
+    AND: [ProviderWhereInput!]
+    NOT: [ProviderWhereInput!]
+    OR: [ProviderWhereInput!]
+    id: StringNullableFilter
+    type: StringFilter
 }
 
 type Query {
-  comment(id: ID!): Comment!
-  comments(after: String, take: Float!): CommentConnection!
-  post(id: ID!): Post!
-  posts(after: String, take: Float!): PostConnection!
-  reaction(id: ID!): Reaction!
-  reactions(after: String, take: Float!): ReactionConnection!
-  user(id: ID!): User!
-  users(after: String, take: Float!): UserConnection!
+    comment(id: ID!): Comment!
+    comments(after: String, take: Float!): CommentConnection!
+    post(id: ID!): Post!
+    posts(after: String, take: Float!): PostConnection!
+    reaction(id: ID!): Reaction!
+    reactions(after: String, take: Float!): ReactionConnection!
+    user(id: ID!): User!
+    users(after: String, take: Float!): UserConnection!
 }
 
 enum QueryMode {
-  default
-  insensitive
+    default
+    insensitive
 }
 
 type Reaction {
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: ID!
-  post: Post!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: ID!
+    post: Post!
 
-  # HideField()
-  postId: String!
-  posts(after: String, take: Float!): PostConnection!
-  type: ReactionEnum!
-  updatedAt: DateTime
-  user: User!
+    # HideField()
+    postId: String!
+    posts(after: String, take: Float!): PostConnection!
+    type: ReactionEnum!
+    updatedAt: DateTime
+    user: User!
 
-  # HideField()
-  userId: String!
-  users(after: String, take: Float!): UserConnection!
+    # HideField()
+    userId: String!
+    users(after: String, take: Float!): UserConnection!
 }
 
 type ReactionConnection {
-  edges: [ReactionEdge!]!
-  pageInfo: PageInfo!
+    edges: [ReactionEdge!]!
+    pageInfo: PageInfo!
 }
 
 input ReactionCreateManyPostInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  type: ReactionEnum!
-  updatedAt: DateTime
-  userId: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    type: ReactionEnum!
+    updatedAt: DateTime
+    userId: String!
 }
 
 input ReactionCreateManyPostInputEnvelope {
-  data: [ReactionCreateManyPostInput!]!
+    data: [ReactionCreateManyPostInput!]!
 }
 
 input ReactionCreateManyUserInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  postId: String!
-  type: ReactionEnum!
-  updatedAt: DateTime
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    postId: String!
+    type: ReactionEnum!
+    updatedAt: DateTime
 }
 
 input ReactionCreateManyUserInputEnvelope {
-  data: [ReactionCreateManyUserInput!]!
+    data: [ReactionCreateManyUserInput!]!
 }
 
 input ReactionCreateNestedManyWithoutPostInput {
-  connect: [ReactionWhereUniqueInput!]
-  connectOrCreate: [ReactionCreateOrConnectWithoutPostInput!]
-  create: [ReactionCreateWithoutPostInput!]
-  createMany: ReactionCreateManyPostInputEnvelope
+    connect: [ReactionWhereUniqueInput!]
+    connectOrCreate: [ReactionCreateOrConnectWithoutPostInput!]
+    create: [ReactionCreateWithoutPostInput!]
+    createMany: ReactionCreateManyPostInputEnvelope
 }
 
 input ReactionCreateNestedManyWithoutUserInput {
-  connect: [ReactionWhereUniqueInput!]
-  connectOrCreate: [ReactionCreateOrConnectWithoutUserInput!]
-  create: [ReactionCreateWithoutUserInput!]
-  createMany: ReactionCreateManyUserInputEnvelope
+    connect: [ReactionWhereUniqueInput!]
+    connectOrCreate: [ReactionCreateOrConnectWithoutUserInput!]
+    create: [ReactionCreateWithoutUserInput!]
+    createMany: ReactionCreateManyUserInputEnvelope
 }
 
 input ReactionCreateOrConnectWithoutPostInput {
-  create: ReactionCreateWithoutPostInput!
-  where: ReactionWhereUniqueInput!
+    create: ReactionCreateWithoutPostInput!
+    where: ReactionWhereUniqueInput!
 }
 
 input ReactionCreateOrConnectWithoutUserInput {
-  create: ReactionCreateWithoutUserInput!
-  where: ReactionWhereUniqueInput!
+    create: ReactionCreateWithoutUserInput!
+    where: ReactionWhereUniqueInput!
 }
 
 input ReactionCreateWithoutPostInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  type: ReactionEnum!
-  updatedAt: DateTime
-  user: UserCreateNestedOneWithoutReactionsInput!
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    type: ReactionEnum!
+    updatedAt: DateTime
+    user: UserCreateNestedOneWithoutReactionsInput!
 }
 
 input ReactionCreateWithoutUserInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  post: PostCreateNestedOneWithoutReactionsInput!
-  type: ReactionEnum!
-  updatedAt: DateTime
+    createdAt: DateTime
+    deletedAt: DateTime
+    id: String
+    post: PostCreateNestedOneWithoutReactionsInput!
+    type: ReactionEnum!
+    updatedAt: DateTime
 }
 
 type ReactionEdge {
-  cursor: String!
-  node: Reaction!
+    cursor: String!
+    node: Reaction!
 }
 
 enum ReactionEnum {
-  ANGRY
-  HAHA
-  LIKE
-  LOVE
-  WOW
+    ANGRY
+    HAHA
+    LIKE
+    LOVE
+    WOW
 }
 
 input ReactionListRelationFilter {
-  every: ReactionWhereInput
-  none: ReactionWhereInput
-  some: ReactionWhereInput
+    every: ReactionWhereInput
+    none: ReactionWhereInput
+    some: ReactionWhereInput
 }
 
 input ReactionScalarWhereInput {
-  AND: [ReactionScalarWhereInput!]
-  NOT: [ReactionScalarWhereInput!]
-  OR: [ReactionScalarWhereInput!]
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  postId: StringFilter
-  type: EnumReactionEnumFilter
-  updatedAt: DateTimeNullableFilter
-  userId: StringFilter
+    AND: [ReactionScalarWhereInput!]
+    NOT: [ReactionScalarWhereInput!]
+    OR: [ReactionScalarWhereInput!]
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    id: StringFilter
+    postId: StringFilter
+    type: EnumReactionEnumFilter
+    updatedAt: DateTimeNullableFilter
+    userId: StringFilter
 }
 
 input ReactionUpdateManyMutationInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  type: ReactionEnum
-  updatedAt: DateTime
+    createdAt: DateTime
+    deletedAt: DateTime
+    type: ReactionEnum
+    updatedAt: DateTime
 }
 
 input ReactionUpdateManyWithWhereWithoutPostInput {
-  data: ReactionUpdateManyMutationInput!
-  where: ReactionScalarWhereInput!
+    data: ReactionUpdateManyMutationInput!
+    where: ReactionScalarWhereInput!
 }
 
 input ReactionUpdateManyWithWhereWithoutUserInput {
-  data: ReactionUpdateManyMutationInput!
-  where: ReactionScalarWhereInput!
+    data: ReactionUpdateManyMutationInput!
+    where: ReactionScalarWhereInput!
 }
 
 input ReactionUpdateManyWithoutPostNestedInput {
-  connect: [ReactionWhereUniqueInput!]
-  connectOrCreate: [ReactionCreateOrConnectWithoutPostInput!]
-  create: [ReactionCreateWithoutPostInput!]
-  createMany: ReactionCreateManyPostInputEnvelope
-  delete: [ReactionWhereUniqueInput!]
-  deleteMany: [ReactionScalarWhereInput!]
-  disconnect: [ReactionWhereUniqueInput!]
-  set: [ReactionWhereUniqueInput!]
-  update: [ReactionUpdateWithWhereUniqueWithoutPostInput!]
-  updateMany: [ReactionUpdateManyWithWhereWithoutPostInput!]
-  upsert: [ReactionUpsertWithWhereUniqueWithoutPostInput!]
+    connect: [ReactionWhereUniqueInput!]
+    connectOrCreate: [ReactionCreateOrConnectWithoutPostInput!]
+    create: [ReactionCreateWithoutPostInput!]
+    createMany: ReactionCreateManyPostInputEnvelope
+    delete: [ReactionWhereUniqueInput!]
+    deleteMany: [ReactionScalarWhereInput!]
+    disconnect: [ReactionWhereUniqueInput!]
+    set: [ReactionWhereUniqueInput!]
+    update: [ReactionUpdateWithWhereUniqueWithoutPostInput!]
+    updateMany: [ReactionUpdateManyWithWhereWithoutPostInput!]
+    upsert: [ReactionUpsertWithWhereUniqueWithoutPostInput!]
 }
 
 input ReactionUpdateManyWithoutUserNestedInput {
-  connect: [ReactionWhereUniqueInput!]
-  connectOrCreate: [ReactionCreateOrConnectWithoutUserInput!]
-  create: [ReactionCreateWithoutUserInput!]
-  createMany: ReactionCreateManyUserInputEnvelope
-  delete: [ReactionWhereUniqueInput!]
-  deleteMany: [ReactionScalarWhereInput!]
-  disconnect: [ReactionWhereUniqueInput!]
-  set: [ReactionWhereUniqueInput!]
-  update: [ReactionUpdateWithWhereUniqueWithoutUserInput!]
-  updateMany: [ReactionUpdateManyWithWhereWithoutUserInput!]
-  upsert: [ReactionUpsertWithWhereUniqueWithoutUserInput!]
+    connect: [ReactionWhereUniqueInput!]
+    connectOrCreate: [ReactionCreateOrConnectWithoutUserInput!]
+    create: [ReactionCreateWithoutUserInput!]
+    createMany: ReactionCreateManyUserInputEnvelope
+    delete: [ReactionWhereUniqueInput!]
+    deleteMany: [ReactionScalarWhereInput!]
+    disconnect: [ReactionWhereUniqueInput!]
+    set: [ReactionWhereUniqueInput!]
+    update: [ReactionUpdateWithWhereUniqueWithoutUserInput!]
+    updateMany: [ReactionUpdateManyWithWhereWithoutUserInput!]
+    upsert: [ReactionUpsertWithWhereUniqueWithoutUserInput!]
 }
 
 input ReactionUpdateWithWhereUniqueWithoutPostInput {
-  data: ReactionUpdateWithoutPostInput!
-  where: ReactionWhereUniqueInput!
+    data: ReactionUpdateWithoutPostInput!
+    where: ReactionWhereUniqueInput!
 }
 
 input ReactionUpdateWithWhereUniqueWithoutUserInput {
-  data: ReactionUpdateWithoutUserInput!
-  where: ReactionWhereUniqueInput!
+    data: ReactionUpdateWithoutUserInput!
+    where: ReactionWhereUniqueInput!
 }
 
 input ReactionUpdateWithoutPostInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  type: ReactionEnum
-  updatedAt: DateTime
-  user: UserUpdateOneRequiredWithoutReactionsNestedInput
+    createdAt: DateTime
+    deletedAt: DateTime
+    type: ReactionEnum
+    updatedAt: DateTime
+    user: UserUpdateOneRequiredWithoutReactionsNestedInput
 }
 
 input ReactionUpdateWithoutUserInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  post: PostUpdateOneRequiredWithoutReactionsNestedInput
-  type: ReactionEnum
-  updatedAt: DateTime
+    createdAt: DateTime
+    deletedAt: DateTime
+    post: PostUpdateOneRequiredWithoutReactionsNestedInput
+    type: ReactionEnum
+    updatedAt: DateTime
 }
 
 input ReactionUpsertWithWhereUniqueWithoutPostInput {
-  create: ReactionCreateWithoutPostInput!
-  update: ReactionUpdateWithoutPostInput!
-  where: ReactionWhereUniqueInput!
+    create: ReactionCreateWithoutPostInput!
+    update: ReactionUpdateWithoutPostInput!
+    where: ReactionWhereUniqueInput!
 }
 
 input ReactionUpsertWithWhereUniqueWithoutUserInput {
-  create: ReactionCreateWithoutUserInput!
-  update: ReactionUpdateWithoutUserInput!
-  where: ReactionWhereUniqueInput!
+    create: ReactionCreateWithoutUserInput!
+    update: ReactionUpdateWithoutUserInput!
+    where: ReactionWhereUniqueInput!
 }
 
 input ReactionWhereInput {
-  AND: [ReactionWhereInput!]
-  NOT: [ReactionWhereInput!]
-  OR: [ReactionWhereInput!]
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  post: PostWhereInput
-  postId: StringFilter
-  type: EnumReactionEnumFilter
-  updatedAt: DateTimeNullableFilter
-  user: UserWhereInput
-  userId: StringFilter
+    AND: [ReactionWhereInput!]
+    NOT: [ReactionWhereInput!]
+    OR: [ReactionWhereInput!]
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    id: StringFilter
+    post: PostWhereInput
+    postId: StringFilter
+    type: EnumReactionEnumFilter
+    updatedAt: DateTimeNullableFilter
+    user: UserWhereInput
+    userId: StringFilter
 }
 
 input ReactionWhereUniqueInput {
-  AND: [ReactionWhereInput!]
-  NOT: [ReactionWhereInput!]
-  OR: [ReactionWhereInput!]
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  id: String
-  post: PostRelationFilter
-  postId: StringFilter
-  type: EnumReactionEnumFilter
-  updatedAt: DateTimeNullableFilter
-  user: UserRelationFilter
-  userId: StringFilter
+    AND: [ReactionWhereInput!]
+    NOT: [ReactionWhereInput!]
+    OR: [ReactionWhereInput!]
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    id: String
+    post: PostRelationFilter
+    postId: StringFilter
+    type: EnumReactionEnumFilter
+    updatedAt: DateTimeNullableFilter
+    user: UserRelationFilter
+    userId: StringFilter
 }
 
 input StringFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  mode: QueryMode
-  not: NestedStringFilter
-  notIn: [String!]
-  startsWith: String
+    contains: String
+    endsWith: String
+    equals: String
+    gt: String
+    gte: String
+    in: [String!]
+    lt: String
+    lte: String
+    mode: QueryMode
+    not: NestedStringFilter
+    notIn: [String!]
+    startsWith: String
 }
 
 input StringNullableFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  isSet: Boolean
-  lt: String
-  lte: String
-  mode: QueryMode
-  not: NestedStringNullableFilter
-  notIn: [String!]
-  startsWith: String
+    contains: String
+    endsWith: String
+    equals: String
+    gt: String
+    gte: String
+    in: [String!]
+    isSet: Boolean
+    lt: String
+    lte: String
+    mode: QueryMode
+    not: NestedStringNullableFilter
+    notIn: [String!]
+    startsWith: String
 }
 
 type Subscription {
-  comment_added(post_id: ID): Comment!
+    comment_added(post_id: ID): Comment!
 }
 
 type User {
-  comments: [Comment!]
-  createdAt: DateTime
-  deletedAt: DateTime
-  email: String!
-  id: ID!
-  posts(after: String, take: Float!): PostConnection!
-  provider: Provider
-  reactions: [Reaction!]
-  updatedAt: DateTime
-  username: String!
+    comments: [Comment!]
+    createdAt: DateTime
+    deletedAt: DateTime
+    email: String!
+    id: ID!
+    posts(after: String, take: Float!): PostConnection!
+    provider: Provider
+    reactions: [Reaction!]
+    updatedAt: DateTime
+    username: String!
+    fullname: String!
 }
 
 type UserConnection {
-  edges: [UserEdge!]!
-  pageInfo: PageInfo!
+    edges: [UserEdge!]!
+    pageInfo: PageInfo!
 }
 
 input UserCreateInput {
-  comments: CommentCreateNestedManyWithoutUserInput
-  createdAt: DateTime
-  deletedAt: DateTime
-  email: String!
-  id: String
-  password: String!
-  posts: PostCreateNestedManyWithoutUserInput
-  provider: ProviderNullableCreateEnvelopeInput
-  reactions: ReactionCreateNestedManyWithoutUserInput
-  updatedAt: DateTime
-  username: String!
+    comments: CommentCreateNestedManyWithoutUserInput
+    createdAt: DateTime
+    deletedAt: DateTime
+    email: String!
+    id: String
+    password: String!
+    posts: PostCreateNestedManyWithoutUserInput
+    provider: ProviderNullableCreateEnvelopeInput
+    reactions: ReactionCreateNestedManyWithoutUserInput
+    updatedAt: DateTime
+    username: String!
+    fullname: String!
 }
 
 input UserCreateNestedOneWithoutCommentsInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutCommentsInput
-  create: UserCreateWithoutCommentsInput
+    connect: UserWhereUniqueInput
+    connectOrCreate: UserCreateOrConnectWithoutCommentsInput
+    create: UserCreateWithoutCommentsInput
 }
 
 input UserCreateNestedOneWithoutPostsInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutPostsInput
-  create: UserCreateWithoutPostsInput
+    connect: UserWhereUniqueInput
+    connectOrCreate: UserCreateOrConnectWithoutPostsInput
+    create: UserCreateWithoutPostsInput
 }
 
 input UserCreateNestedOneWithoutReactionsInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutReactionsInput
-  create: UserCreateWithoutReactionsInput
+    connect: UserWhereUniqueInput
+    connectOrCreate: UserCreateOrConnectWithoutReactionsInput
+    create: UserCreateWithoutReactionsInput
 }
 
 input UserCreateOrConnectWithoutCommentsInput {
-  create: UserCreateWithoutCommentsInput!
-  where: UserWhereUniqueInput!
+    create: UserCreateWithoutCommentsInput!
+    where: UserWhereUniqueInput!
 }
 
 input UserCreateOrConnectWithoutPostsInput {
-  create: UserCreateWithoutPostsInput!
-  where: UserWhereUniqueInput!
+    create: UserCreateWithoutPostsInput!
+    where: UserWhereUniqueInput!
 }
 
 input UserCreateOrConnectWithoutReactionsInput {
-  create: UserCreateWithoutReactionsInput!
-  where: UserWhereUniqueInput!
+    create: UserCreateWithoutReactionsInput!
+    where: UserWhereUniqueInput!
 }
 
 input UserCreateWithoutCommentsInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  email: String!
-  id: String
-  password: String!
-  posts: PostCreateNestedManyWithoutUserInput
-  provider: ProviderNullableCreateEnvelopeInput
-  reactions: ReactionCreateNestedManyWithoutUserInput
-  updatedAt: DateTime
-  username: String!
+    createdAt: DateTime
+    deletedAt: DateTime
+    email: String!
+    id: String
+    password: String!
+    posts: PostCreateNestedManyWithoutUserInput
+    provider: ProviderNullableCreateEnvelopeInput
+    reactions: ReactionCreateNestedManyWithoutUserInput
+    updatedAt: DateTime
+    username: String!
 }
 
 input UserCreateWithoutPostsInput {
-  comments: CommentCreateNestedManyWithoutUserInput
-  createdAt: DateTime
-  deletedAt: DateTime
-  email: String!
-  id: String
-  password: String!
-  provider: ProviderNullableCreateEnvelopeInput
-  reactions: ReactionCreateNestedManyWithoutUserInput
-  updatedAt: DateTime
-  username: String!
+    comments: CommentCreateNestedManyWithoutUserInput
+    createdAt: DateTime
+    deletedAt: DateTime
+    email: String!
+    id: String
+    password: String!
+    provider: ProviderNullableCreateEnvelopeInput
+    reactions: ReactionCreateNestedManyWithoutUserInput
+    updatedAt: DateTime
+    username: String!
 }
 
 input UserCreateWithoutReactionsInput {
-  comments: CommentCreateNestedManyWithoutUserInput
-  createdAt: DateTime
-  deletedAt: DateTime
-  email: String!
-  id: String
-  password: String!
-  posts: PostCreateNestedManyWithoutUserInput
-  provider: ProviderNullableCreateEnvelopeInput
-  updatedAt: DateTime
-  username: String!
+    comments: CommentCreateNestedManyWithoutUserInput
+    createdAt: DateTime
+    deletedAt: DateTime
+    email: String!
+    id: String
+    password: String!
+    posts: PostCreateNestedManyWithoutUserInput
+    provider: ProviderNullableCreateEnvelopeInput
+    updatedAt: DateTime
+    username: String!
 }
 
 type UserEdge {
-  cursor: String!
-  node: User!
+    cursor: String!
+    node: User!
 }
 
 input UserRelationFilter {
-  is: UserWhereInput
-  isNot: UserWhereInput
+    is: UserWhereInput
+    isNot: UserWhereInput
 }
 
 input UserUpdateInput {
-  comments: CommentUpdateManyWithoutUserNestedInput
-  createdAt: DateTime
-  deletedAt: DateTime
-  email: String
-  password: String
-  posts: PostUpdateManyWithoutUserNestedInput
-  provider: ProviderNullableUpdateEnvelopeInput
-  reactions: ReactionUpdateManyWithoutUserNestedInput
-  updatedAt: DateTime
-  username: String
+    comments: CommentUpdateManyWithoutUserNestedInput
+    createdAt: DateTime
+    deletedAt: DateTime
+    email: String
+    password: String
+    posts: PostUpdateManyWithoutUserNestedInput
+    provider: ProviderNullableUpdateEnvelopeInput
+    reactions: ReactionUpdateManyWithoutUserNestedInput
+    updatedAt: DateTime
+    username: String
 }
 
 input UserUpdateOneRequiredWithoutCommentsNestedInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutCommentsInput
-  create: UserCreateWithoutCommentsInput
-  update: UserUpdateToOneWithWhereWithoutCommentsInput
-  upsert: UserUpsertWithoutCommentsInput
+    connect: UserWhereUniqueInput
+    connectOrCreate: UserCreateOrConnectWithoutCommentsInput
+    create: UserCreateWithoutCommentsInput
+    update: UserUpdateToOneWithWhereWithoutCommentsInput
+    upsert: UserUpsertWithoutCommentsInput
 }
 
 input UserUpdateOneRequiredWithoutPostsNestedInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutPostsInput
-  create: UserCreateWithoutPostsInput
-  update: UserUpdateToOneWithWhereWithoutPostsInput
-  upsert: UserUpsertWithoutPostsInput
+    connect: UserWhereUniqueInput
+    connectOrCreate: UserCreateOrConnectWithoutPostsInput
+    create: UserCreateWithoutPostsInput
+    update: UserUpdateToOneWithWhereWithoutPostsInput
+    upsert: UserUpsertWithoutPostsInput
 }
 
 input UserUpdateOneRequiredWithoutReactionsNestedInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutReactionsInput
-  create: UserCreateWithoutReactionsInput
-  update: UserUpdateToOneWithWhereWithoutReactionsInput
-  upsert: UserUpsertWithoutReactionsInput
+    connect: UserWhereUniqueInput
+    connectOrCreate: UserCreateOrConnectWithoutReactionsInput
+    create: UserCreateWithoutReactionsInput
+    update: UserUpdateToOneWithWhereWithoutReactionsInput
+    upsert: UserUpsertWithoutReactionsInput
 }
 
 input UserUpdateToOneWithWhereWithoutCommentsInput {
-  data: UserUpdateWithoutCommentsInput!
-  where: UserWhereInput
+    data: UserUpdateWithoutCommentsInput!
+    where: UserWhereInput
 }
 
 input UserUpdateToOneWithWhereWithoutPostsInput {
-  data: UserUpdateWithoutPostsInput!
-  where: UserWhereInput
+    data: UserUpdateWithoutPostsInput!
+    where: UserWhereInput
 }
 
 input UserUpdateToOneWithWhereWithoutReactionsInput {
-  data: UserUpdateWithoutReactionsInput!
-  where: UserWhereInput
+    data: UserUpdateWithoutReactionsInput!
+    where: UserWhereInput
 }
 
 input UserUpdateWithoutCommentsInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  email: String
-  password: String
-  posts: PostUpdateManyWithoutUserNestedInput
-  provider: ProviderNullableUpdateEnvelopeInput
-  reactions: ReactionUpdateManyWithoutUserNestedInput
-  updatedAt: DateTime
-  username: String
+    createdAt: DateTime
+    deletedAt: DateTime
+    email: String
+    password: String
+    posts: PostUpdateManyWithoutUserNestedInput
+    provider: ProviderNullableUpdateEnvelopeInput
+    reactions: ReactionUpdateManyWithoutUserNestedInput
+    updatedAt: DateTime
+    username: String
 }
 
 input UserUpdateWithoutPostsInput {
-  comments: CommentUpdateManyWithoutUserNestedInput
-  createdAt: DateTime
-  deletedAt: DateTime
-  email: String
-  password: String
-  provider: ProviderNullableUpdateEnvelopeInput
-  reactions: ReactionUpdateManyWithoutUserNestedInput
-  updatedAt: DateTime
-  username: String
+    comments: CommentUpdateManyWithoutUserNestedInput
+    createdAt: DateTime
+    deletedAt: DateTime
+    email: String
+    password: String
+    provider: ProviderNullableUpdateEnvelopeInput
+    reactions: ReactionUpdateManyWithoutUserNestedInput
+    updatedAt: DateTime
+    username: String
 }
 
 input UserUpdateWithoutReactionsInput {
-  comments: CommentUpdateManyWithoutUserNestedInput
-  createdAt: DateTime
-  deletedAt: DateTime
-  email: String
-  password: String
-  posts: PostUpdateManyWithoutUserNestedInput
-  provider: ProviderNullableUpdateEnvelopeInput
-  updatedAt: DateTime
-  username: String
+    comments: CommentUpdateManyWithoutUserNestedInput
+    createdAt: DateTime
+    deletedAt: DateTime
+    email: String
+    password: String
+    posts: PostUpdateManyWithoutUserNestedInput
+    provider: ProviderNullableUpdateEnvelopeInput
+    updatedAt: DateTime
+    username: String
 }
 
 input UserUpsertWithoutCommentsInput {
-  create: UserCreateWithoutCommentsInput!
-  update: UserUpdateWithoutCommentsInput!
-  where: UserWhereInput
+    create: UserCreateWithoutCommentsInput!
+    update: UserUpdateWithoutCommentsInput!
+    where: UserWhereInput
 }
 
 input UserUpsertWithoutPostsInput {
-  create: UserCreateWithoutPostsInput!
-  update: UserUpdateWithoutPostsInput!
-  where: UserWhereInput
+    create: UserCreateWithoutPostsInput!
+    update: UserUpdateWithoutPostsInput!
+    where: UserWhereInput
 }
 
 input UserUpsertWithoutReactionsInput {
-  create: UserCreateWithoutReactionsInput!
-  update: UserUpdateWithoutReactionsInput!
-  where: UserWhereInput
+    create: UserCreateWithoutReactionsInput!
+    update: UserUpdateWithoutReactionsInput!
+    where: UserWhereInput
 }
 
 input UserWhereInput {
-  AND: [UserWhereInput!]
-  NOT: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  comments: CommentListRelationFilter
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  email: StringFilter
-  id: StringFilter
-  password: StringFilter
-  posts: PostListRelationFilter
-  provider: ProviderNullableCompositeFilter
-  reactions: ReactionListRelationFilter
-  updatedAt: DateTimeNullableFilter
-  username: StringFilter
+    AND: [UserWhereInput!]
+    NOT: [UserWhereInput!]
+    OR: [UserWhereInput!]
+    comments: CommentListRelationFilter
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    email: StringFilter
+    id: StringFilter
+    password: StringFilter
+    posts: PostListRelationFilter
+    provider: ProviderNullableCompositeFilter
+    reactions: ReactionListRelationFilter
+    updatedAt: DateTimeNullableFilter
+    username: StringFilter
 }
 
 input UserWhereUniqueInput {
-  AND: [UserWhereInput!]
-  NOT: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  comments: CommentListRelationFilter
-  createdAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  email: String
-  id: String
-  password: StringFilter
-  posts: PostListRelationFilter
-  provider: ProviderNullableCompositeFilter
-  reactions: ReactionListRelationFilter
-  updatedAt: DateTimeNullableFilter
-  username: String
+    AND: [UserWhereInput!]
+    NOT: [UserWhereInput!]
+    OR: [UserWhereInput!]
+    comments: CommentListRelationFilter
+    createdAt: DateTimeNullableFilter
+    deletedAt: DateTimeNullableFilter
+    email: String
+    id: String
+    password: StringFilter
+    posts: PostListRelationFilter
+    provider: ProviderNullableCompositeFilter
+    reactions: ReactionListRelationFilter
+    updatedAt: DateTimeNullableFilter
+    username: String
 }

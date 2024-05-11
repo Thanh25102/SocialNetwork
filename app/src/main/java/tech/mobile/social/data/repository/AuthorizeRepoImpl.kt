@@ -1,6 +1,7 @@
 package tech.mobile.social.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.exception.ApolloException
 import tech.mobile.social.AuthorizeMutation
@@ -21,10 +22,20 @@ class AuthorizeRepoImpl(
     private val pref: SharedPreferences
 ) : AuthorizeRepo {
 
-    override suspend fun getAuthorize(username: String, password: String): Result<Auth, DataError.ServerErrors> {
+    override suspend fun getAuthorize(
+        username: String,
+        password: String
+    ): Result<Auth, DataError.ServerErrors> {
         return try {
             val result = apolloClient
-                .mutation(AuthorizeMutation(AuthorizeInput(password = username, username = password)))
+                .mutation(
+                    AuthorizeMutation(
+                        AuthorizeInput(
+                            password = username,
+                            username = password
+                        )
+                    )
+                )
                 .execute()
 
             result.data?.authorize?.accessToken.also { token ->
@@ -41,23 +52,28 @@ class AuthorizeRepoImpl(
     }
 
     override suspend fun authorize(
-        username: String,
+        fullname: String,
         password: String,
         email: String
     ): Result<User, DataError.ServerErrors> {
         val result = apolloClient.mutation(
             RegisterMutation(
                 UserCreateInput(
-                    username = username,
+                    fullname = fullname,
                     password = password,
-                    email = email
+                    email = email,
+                    username = email
                 )
             )
         ).execute()
 
-        return result.errors?.let { errors ->
-            Result.Error(DataError.ServerErrors(errors.map { it.message }))
-        } ?: Result.Success(result.data?.toUser() ?: User(id = "", null, null))
+        if (result.errors != null) {
+            val serverErrors = result.errors!!.map { it.message }
+            return Result.Error(DataError.ServerErrors(serverErrors))
+        }
 
+        val user = result.data!!.toUser()
+        
+        return Result.Success(user)
     }
 }

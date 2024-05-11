@@ -3,5 +3,6 @@ mutation register($userCreateInput: UserCreateInput!) {
         id
         username
         email
+        fullname
     }
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "559644752773",
+    "project_id": "wibu-social",
+    "storage_bucket": "wibu-social.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:559644752773:android:b8eb72e8d3734b85c862ec",
+        "android_client_info": {
+          "package_name": "tech.mobile.social"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "559644752773-gqjejuo3u7shv48446u9lgh0rudc5b62.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tech.mobile.social",
+            "certificate_hash": "dc293c39fee46efc5ff2846ce1a62eed0159ebb3"
+          }
+        },
+        {
+          "client_id": "559644752773-db0m172v6lvaf0qjc6i030seisoesffq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA92JKECPHg0lU6TAtpJnWJ9dBNqVr0Is"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "559644752773-db0m172v6lvaf0qjc6i030seisoesffq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

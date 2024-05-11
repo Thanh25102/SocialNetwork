@@ -25,12 +25,19 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 val dateTimeAdapter = object : Adapter<LocalDateTime> {
-    override fun fromJson(reader: JsonReader, customScalarAdapters: CustomScalarAdapters): LocalDateTime {
+    override fun fromJson(
+        reader: JsonReader,
+        customScalarAdapters: CustomScalarAdapters
+    ): LocalDateTime {
         val stringDate = reader.nextString()
         return LocalDateTime.parse(stringDate, DateTimeFormatter.ISO_DATE_TIME)
     }
 
-    override fun toJson(writer: JsonWriter, customScalarAdapters: CustomScalarAdapters, value: LocalDateTime) {
+    override fun toJson(
+        writer: JsonWriter,
+        customScalarAdapters: CustomScalarAdapters,
+        value: LocalDateTime
+    ) {
         val stringDate = value.format(DateTimeFormatter.ISO_DATE_TIME)
         writer.value(stringDate)
     }
@@ -57,7 +64,7 @@ object AppModule {
 
 
         return ApolloClient.Builder()
-            .serverUrl("http://171.239.147.144:8334/graphql")
+            .serverUrl("http://171.239.144.144:8334/graphql")
             .okHttpClient(
                 OkHttpClient.Builder()
                     .addInterceptor(AuthorizationInterceptor(pref))

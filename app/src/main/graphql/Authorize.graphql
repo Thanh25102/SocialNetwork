@@ -5,6 +5,7 @@ mutation authorize($input: AuthorizeInput!) {
             id
             email
             username
+            fullname
         }
     }
 }

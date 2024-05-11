@@ -1,15 +1,16 @@
 <resources>
-	<string name="app_name">social</string>
-	<string name="title_home">Home</string>
-	<string name="title_dashboard">Dashboard</string>
-	<string name="title_notifications">Notifications</string>
+    <string name="app_name">social</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
-	<string name="hello_world">Hello world!</string>
-	<string name="logo">Social Rocket</string>
-	<string name="login_google">Đăng nhập với Google</string>
-	<string name="login_facebook">Đăng nhập với Facebook</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="logo">Social Rocket</string>
+    <string name="login_google">Đăng nhập với Google</string>
+    <string name="login_facebook">Đăng nhập với Facebook</string>
 
-	<string name="regexPassword">^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&amp;])[A-Za-z\d@$!%*?&amp;]{8,16}$</string>
-	<string name="errPasswordMsg">Tối thiểu 8 và tối đa 10 ký tự, ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt</string>
-	<string name="errPasswordRepeated">Mật khẩu không khớp</string>
+    <string name="regexPassword">^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&amp;])[A-Za-z\d@$!%*?&amp;]{8,16}$</string>
+    <string name="errPasswordMsg">Tối thiểu 8 và tối đa 10 ký tự, ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt</string>
+    <string name="errPasswordRepeated">Mật khẩu không khớp</string>
+    <string name="web_client_id">559644752773-db0m172v6lvaf0qjc6i030seisoesffq.apps.googleusercontent.com</string>
 </resources>

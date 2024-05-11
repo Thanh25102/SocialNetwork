@@ -5,6 +5,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("com.apollographql.apollo3").version("3.8.2")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -24,7 +25,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -84,6 +88,11 @@ dependencies {
 
     implementation("com.airbnb.android:lottie-compose:6.4.0")
 
+    // FIRE BASE
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
+    implementation("com.google.android.gms:play-services-auth:20.4.1")
+    implementation("com.google.firebase:firebase-messaging:23.4.1")
 }
 
 // Allow references to generated code
@@ -95,7 +104,11 @@ apollo {
     service("service") {
         packageName.set("tech.mobile.social")
 //        mapScalar("DateTime", "java.util.Date", "com.apollographql.apollo3.adapter.DateAdapter")
-        mapScalar("DateTime", "java.time.LocalDateTime", "com.apollographql.apollo3.adapter.JavaLocalDateTimeAdapter")
+        mapScalar(
+            "DateTime",
+            "java.time.LocalDateTime",
+            "com.apollographql.apollo3.adapter.JavaLocalDateTimeAdapter"
+        )
 //        introspection {
 //            endpointUrl.set("https://example.com/graphql")
 //            headers.put("api-key", "1234567890abcdef")

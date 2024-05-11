@@ -16,33 +16,32 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val authUseCase: AuthUseCase,
-
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _stateFlow: MutableStateFlow<RegisterState> = MutableStateFlow(RegisterState())
+    private val _stateFlow = MutableStateFlow(RegisterState())
 
     val stateFlow: StateFlow<RegisterState> = _stateFlow.asStateFlow()
 
 
     fun doRegister() {
-        val (name, email, password) = stateFlow.value
+        val (fullname, email, password) = stateFlow.value
         viewModelScope.launch {
-            when (val result = authUseCase.register(name, password, email)) {
+            when (val result = authUseCase.register(fullname, password, email)) {
                 is Result.Error -> {
-                    Log.e("user", result.error.message.toString())
+                    _stateFlow.value = _stateFlow.value.copy(isError = true, isSuccess = false)
                 }
 
                 is Result.Success -> {
-                    Log.d("user", result.data.toString())
+                    _stateFlow.value = _stateFlow.value.copy(isError = false, isSuccess = true)
                 }
             }
         }
 
     }
 
-    fun doNameChange(name: String) {
-        _stateFlow.value = _stateFlow.value.copy(name = name)
+    fun doNameChange(fullname: String) {
+        _stateFlow.value = _stateFlow.value.copy(fullname = fullname)
     }
 
     fun doEmailChange(email: String) {
