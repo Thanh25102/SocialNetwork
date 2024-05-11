@@ -1,6 +1,7 @@
 package tech.mobile.social.presentation.app.profile
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -19,16 +20,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import tech.mobile.social.R
 import tech.mobile.social.presentation.app.home.post.PostRoute
 import tech.mobile.social.presentation.app.home.post.PostState
-import java.time.LocalDateTime
+import java.util.Date
 
 @Composable
 fun ProfilesScreen(
     state: ProfilesState,
     actions: ProfilesActions,
+
 ) {
+    val viewModel:ProfilesViewModel= viewModel()
     Column {
         Row(
             modifier = Modifier
@@ -63,7 +67,10 @@ fun ProfilesScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(text = "Bạn bè")
-            Text(text = "100 người bạn")
+            Text(text = "100 người bạn",
+                modifier = Modifier.clickable { actions.onClick() }
+
+                )
         }
 
         LazyVerticalGrid(
@@ -107,7 +114,7 @@ private fun ProfilesScreenPreview() {
                     sheetState = false,
                     imageResource = R.drawable.img,
                     authorName = "Thành",
-                    postTime = LocalDateTime.now()
+                    postTime = Date()
                 ),
                 PostState(
                     avatarResource = R.drawable.manhthanh_3x4,
@@ -115,7 +122,7 @@ private fun ProfilesScreenPreview() {
                     sheetState = false,
                     imageResource = R.drawable.img,
                     authorName = "Thành",
-                    postTime = LocalDateTime.now()
+                    postTime = Date()
                 ),
                 PostState(
                     avatarResource = R.drawable.manhthanh_3x4,
@@ -123,7 +130,7 @@ private fun ProfilesScreenPreview() {
                     sheetState = false,
                     imageResource = R.drawable.img,
                     authorName = "Thành",
-                    postTime = LocalDateTime.now()
+                    postTime = Date()
                 ),
                 PostState(
                     avatarResource = R.drawable.manhthanh_3x4,
@@ -131,7 +138,7 @@ private fun ProfilesScreenPreview() {
                     sheetState = false,
                     imageResource = R.drawable.img,
                     authorName = "Thành",
-                    postTime = LocalDateTime.now()
+                    postTime = Date()
                 )
             )
         ),

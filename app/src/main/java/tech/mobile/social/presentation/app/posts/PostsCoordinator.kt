@@ -3,6 +3,10 @@ package tech.mobile.social.presentation.app.posts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.ai.client.generativeai.common.shared.Content
+
+import tech.mobile.social.domain.model.post.User
+import java.time.LocalDateTime
 
 /**
  * Screen's coordinator which is responsible for handling actions from the UI layer
@@ -14,8 +18,11 @@ class PostsCoordinator(
     val screenStateFlow = viewModel.stateFlow
 
     fun doStuff() {
-        // TODO Handle UI Action
+        viewModel.createPost()
+
     }
+
+
 }
 
 @Composable

@@ -43,8 +43,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import okhttp3.internal.wait
 import tech.mobile.social.Screens
+import tech.mobile.social.navigation.app.friend.FriendNavBar
 import tech.mobile.social.navigation.app.home.HomeNavBar
-import tech.mobile.social.presentation.app.friend.FriendRoute
 import tech.mobile.social.presentation.app.notifications.NotificationsRoute
 import tech.mobile.social.presentation.app.posts.PostsRoute
 import tech.mobile.social.presentation.app.profile.ProfilesRoute
@@ -144,16 +144,19 @@ fun BottomNavigationBar(rootNavController: NavController) {
                 HomeNavBar(navController)
             }
             composable(Screens.Friends.route) {
-                FriendRoute()
+
+//                FriendsScreen(navController)
+//                FriendRoute()
+                FriendNavBar(navController)
             }
-//            composable(Screens.Post.route) {
-//                PostsRoute()
-//            }
+            composable(Screens.Post.route) {
+                PostsRoute()
+            }
             composable(Screens.Notification.route) {
                 NotificationsRoute()
             }
             composable(Screens.Profile.route) {
-                ProfilesRoute()
+                ProfilesRoute(navController)
             }
         }
     }

@@ -1,0 +1,45 @@
+fragment RecipientNotification on Notification {
+    recipients {
+          id
+          user {
+            id
+          }
+          read
+        }
+}
+
+fragment SenderNotification on Notification {
+    sender {
+        id
+        username
+    }
+}
+fragment PostNotification on Notification {
+    post {
+      id
+    }
+}
+
+fragment RequestNotification on Notification {
+  request {
+    id
+  }
+}
+
+fragment CommentFragment on Comment {
+  id
+  content
+  user {
+    id
+    username
+    email
+    createdAt
+  }
+    createdAt
+}
+
+fragment CommentNotification on Notification {
+  comment {
+    ...CommentFragment
+  }
+}

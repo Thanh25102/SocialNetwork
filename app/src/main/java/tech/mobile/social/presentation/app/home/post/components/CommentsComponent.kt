@@ -12,13 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import tech.mobile.social.CommentsQuery
 import tech.mobile.social.R
-import tech.mobile.social.presentation.app.home.post.Comment
+import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommentsComponent(
-    comments: List<Comment> = emptyList(),
+    comments: List<CommentsQuery.Node> = emptyList(),
     closeBottomSheet: () -> Unit = {}
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -54,9 +55,9 @@ fun CommentsComponent(
             ) {
                 items(comments.size) {
                     CommentComponent(
-                        avatarResource = comments[it].avatarResource ?: R.drawable.manhthanh_3x4,
-                        name = comments[it].author,
-                        time = comments[it].time,
+                        avatarResource = R.drawable.manhthanh_3x4,
+                        name = comments[it].user.username,
+                        time = LocalDateTime.now(),
                         content = comments[it].content
                     )
                     Spacer(modifier = Modifier.padding(4.dp))

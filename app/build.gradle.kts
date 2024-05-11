@@ -49,6 +49,9 @@ android {
 
 dependencies {
     implementation("com.google.dagger:hilt-android:2.49")
+    implementation("com.google.ai.client.generativeai:common:0.2.0")
+    implementation("com.google.ai.client.generativeai:generativeai:0.3.0")
+
     kapt("com.google.dagger:hilt-android-compiler:2.49")
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -85,7 +88,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
-
+    implementation("com.google.accompanist:accompanist-coil:0.15.0")
     implementation("com.airbnb.android:lottie-compose:6.4.0")
 
     // FIRE BASE
@@ -104,11 +107,7 @@ apollo {
     service("service") {
         packageName.set("tech.mobile.social")
 //        mapScalar("DateTime", "java.util.Date", "com.apollographql.apollo3.adapter.DateAdapter")
-        mapScalar(
-            "DateTime",
-            "java.time.LocalDateTime",
-            "com.apollographql.apollo3.adapter.JavaLocalDateTimeAdapter"
-        )
+//        mapScalar("DateTime", "java.time.LocalDateTime", "com.apollographql.apollo3.adapter.JavaLocalDateTimeAdapter")
 //        introspection {
 //            endpointUrl.set("https://example.com/graphql")
 //            headers.put("api-key", "1234567890abcdef")

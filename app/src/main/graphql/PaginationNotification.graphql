@@ -1,0 +1,16 @@
+query notifications($take: Int, $after: String) {
+  notifications: _notifications(take: $take, after: $after) {
+    edges {
+      node {
+        id
+        ...CommentNotification
+        ...PostNotification
+        ...RequestNotification
+        ...SenderNotification,
+        ... RecipientNotification
+        type
+        createdAt
+      }
+    }
+  }
+}

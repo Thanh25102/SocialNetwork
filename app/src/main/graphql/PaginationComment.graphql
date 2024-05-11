@@ -1,0 +1,23 @@
+query comments($take: Int, $after: String,$filter: CommentWhereInput) {
+    comments(take: $take,after: $after, filter: $filter) {
+        edges {
+            node {
+                id,
+                user {
+                    id
+                    username,
+                    email,
+                    createdAt
+                }
+                post {
+                    id
+                    content,
+                    createdAt
+                }
+                createdAt
+                content
+            }
+            cursor
+        }
+    }
+}

@@ -19,7 +19,7 @@ import tech.mobile.social.presentation.app.home.foryou.components.ScrollButton
 import tech.mobile.social.presentation.app.home.post.PostRoute
 import tech.mobile.social.presentation.app.home.post.PostState
 import tech.mobile.social.shared.UserState
-import java.time.LocalDateTime
+import java.util.Date
 
 @Composable
 fun ForYouScreen(
@@ -102,7 +102,7 @@ private fun ForYouScreenPreview() {
                         sheetState = false,
                         imageResource = R.drawable.img,
                         authorName = "Thành",
-                        postTime = LocalDateTime.now()
+                        postTime = Date()
                     ),
                     PostState(
                         avatarResource = R.drawable.manhthanh_3x4,
@@ -110,7 +110,7 @@ private fun ForYouScreenPreview() {
                         sheetState = false,
                         imageResource = R.drawable.img,
                         authorName = "Thành",
-                        postTime = LocalDateTime.now()
+                        postTime = Date()
                     ),
                     PostState(
                         avatarResource = R.drawable.manhthanh_3x4,
@@ -118,7 +118,7 @@ private fun ForYouScreenPreview() {
                         sheetState = false,
                         imageResource = R.drawable.img,
                         authorName = "Thành",
-                        postTime = LocalDateTime.now()
+                        postTime = Date()
                     ),
                     PostState(
                         avatarResource = R.drawable.manhthanh_3x4,
@@ -126,7 +126,7 @@ private fun ForYouScreenPreview() {
                         sheetState = false,
                         imageResource = R.drawable.img,
                         authorName = "Thành",
-                        postTime = LocalDateTime.now()
+                        postTime = Date()
                     )
                 )
             ),
