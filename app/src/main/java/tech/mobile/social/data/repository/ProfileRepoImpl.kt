@@ -7,6 +7,7 @@ import com.apollographql.apollo3.api.Optional
 import com.apollographql.apollo3.exception.ApolloException
 import tech.mobile.social.FriendSuggestQuery
 import tech.mobile.social.UserQuery
+import tech.mobile.social.UserprofileQuery
 import tech.mobile.social.domain.DataError
 import tech.mobile.social.domain.Result
 import tech.mobile.social.domain.model.post.PageInfo
@@ -20,18 +21,18 @@ class ProfileRepoImpl(
     private val apolloClient: ApolloClient,
     pref: SharedPreferences
 ) : ProfileRepo {
-    override suspend fun GetAllPost(id: Optional<String?>,  take: Optional<Int?>, after: Optional<String?>) : ApolloResponse<UserQuery.Data>? {
+    override suspend fun GetAllPost() : ApolloResponse<UserprofileQuery.Data>? {
         try {
-            val result = apolloClient.query(UserQuery(id.toString(), take = Optional.Present(10)))
+            val result = apolloClient.query(UserprofileQuery())
                 .execute()
             if(result.hasErrors()) {
                 val error = result.errors?.firstOrNull()
-                Log.e("FriendSuggestRepoImpl", "getFriendRequests: ${error?.message}")
+                Log.e("RepoImpl", "Requests: ${error?.message}")
                 return null;
             }
             return result;
         } catch (e: ApolloException) {
-            Log.e("FriendSuggestRepoImpl", "getFriendRequests: ${e.message}")
+            Log.e("RepoImpl", "Requests: ${e.message}")
             return null;
         }
 
