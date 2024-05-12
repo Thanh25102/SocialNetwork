@@ -1,0 +1,51 @@
+query userprofile {
+  user {
+    id
+    username
+    avatar {
+      type
+      path
+    }
+    fullname
+    posts {
+      edges {
+        node {
+          id
+          content
+          createdAt
+          file {
+            type
+            path
+          }
+          comments {
+            edges {
+              node {
+                id
+                user {
+                  fullname
+                }
+                content
+              }
+            }
+          }
+        }
+      }
+    }
+    friends {
+      edges {
+        node {
+          id
+          user {
+            id
+            username
+            fullname
+            avatar {
+              type
+              path
+            }
+          }
+        }
+      }
+    }
+  }
+}
