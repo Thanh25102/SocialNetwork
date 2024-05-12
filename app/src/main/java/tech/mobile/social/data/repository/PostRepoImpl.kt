@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
-
+import tech.mobile.social.CreatePostMutation
 import tech.mobile.social.NewsfeedQuery
 import tech.mobile.social.PostQuery
 import tech.mobile.social.domain.DataError
@@ -14,7 +14,7 @@ import tech.mobile.social.domain.model.post.Post
 import tech.mobile.social.domain.model.post.Posts
 import tech.mobile.social.domain.model.post.User
 import tech.mobile.social.domain.repository.PostRepo
-
+import java.time.LocalDateTime
 import java.util.*
 
 class PostRepoImpl(
@@ -45,21 +45,19 @@ class PostRepoImpl(
 
     }
 
-//    override suspend fun CreatePost(
-//        id: Optional<String?>,
-//        content: String,
-//        createdAt: LocalDateTime,
-//    ): ApolloResponse<Create_postMutation.Data> {
-//        val result = apolloClient.mutation(
-//            Create_postMutation(
-//                PostCreateInput(
-//                    content = content
-//                )
-//            )
-//        ).execute()
-//
-//        return result;
-//    }
+    override suspend fun CreatePost(
+        id: Optional<String?>,
+        content: String,
+        createdAt: LocalDateTime,
+    ): ApolloResponse<CreatePostMutation.Data> {
+        val result = apolloClient.mutation(
+            CreatePostMutation(
+                Optional.present(content)
+            )
+        ).execute()
+
+        return result;
+    }
 
     override suspend fun NewsFeed(
         take: Optional<Int?>,
@@ -73,6 +71,5 @@ class PostRepoImpl(
         ).execute()
         return result;
     }
-
 
 }
