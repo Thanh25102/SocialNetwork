@@ -48,17 +48,20 @@ class ProfilesViewModel @Inject constructor(
                 is ApolloResponse<UserprofileQuery.Data> -> {
                     username = result.data?.user?.username.toString()
                     _stateFlow.value =
-                        ProfilesState(posts = result.data?.user?.posts?.edges?.map { {
-                            PostState(
-                                avatarResource = R.drawable.manhthanh_3x4,
-                                content = it.node.content,
-                                sheetState = false,
-                                imageResource = R.drawable.img,
-                                authorName = username,
-                                postTime = "",
-                                image = it.node.file?.path
-                            )
-                        }})
+                        result.data?.user?.posts?.edges?.map {
+                            it.node.content?.let { it1 ->
+                                PostState(
+                                    avatarResource = R.drawable.manhthanh_3x4,
+                                    content = it1,
+                                    sheetState = false,
+                                    imageResource = R.drawable.img,
+                                    authorName = username,
+                                    postTime = "",
+                                    comments = null,
+                                    image = it.node.file?.path
+                                )
+                            }
+                        }?.let { ProfilesState(posts = it) }!!
                 }
                 null -> {
 
