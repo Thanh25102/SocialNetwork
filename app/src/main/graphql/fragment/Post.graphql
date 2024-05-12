@@ -12,6 +12,27 @@ fragment Posts on User {
                 file {
                     path
                 }
+                reactions {
+                    edges {
+                        node {
+                            id
+                            user {
+                                username
+                            }
+                        }
+                    }
+                }
+                comments {
+                    edges {
+                        node {
+                            id
+                            user {
+                                username
+                            }
+                            content
+                        }
+                    }
+                }
             }
         }
     }

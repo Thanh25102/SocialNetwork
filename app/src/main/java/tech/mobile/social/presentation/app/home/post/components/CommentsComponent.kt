@@ -14,12 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tech.mobile.social.CommentsQuery
 import tech.mobile.social.R
+import tech.mobile.social.fragment.Posts
 import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommentsComponent(
-    comments: List<CommentsQuery.Node> = emptyList(),
+    comments: Posts.Comments?,
     closeBottomSheet: () -> Unit = {}
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -46,19 +47,19 @@ fun CommentsComponent(
             }
         }
     ) {
-        if (comments.isNotEmpty())
+        if (comments != null && comments.edges.isNotEmpty())
             LazyColumn(
                 modifier = Modifier
                     .fillMaxHeight()
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.background)
             ) {
-                items(comments.size) {
+                items(comments.edges.size) {
                     CommentComponent(
                         avatarResource = R.drawable.manhthanh_3x4,
-                        name = comments[it].user.username,
+                        name = comments.edges[it].node.user.username,
                         time = LocalDateTime.now(),
-                        content = comments[it].content
+                        content = comments.edges[it].node.content
                     )
                     Spacer(modifier = Modifier.padding(4.dp))
                 }
@@ -73,5 +74,5 @@ fun CommentsComponent(
 @Preview(name = "CommentsComponent")
 @Composable
 private fun PreviewCommentsComponent() {
-    CommentsComponent()
+//    CommentsComponent()
 }

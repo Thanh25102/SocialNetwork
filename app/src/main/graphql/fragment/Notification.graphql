@@ -26,6 +26,12 @@ fragment RequestNotification on Notification {
   }
 }
 
+fragment ReactionNotification on Notification {
+    reaction {
+        id
+    }
+}
+
 fragment CommentFragment on Comment {
   id
   content
@@ -38,8 +44,22 @@ fragment CommentFragment on Comment {
     createdAt
 }
 
+fragment ReactionFragment on Reaction {
+    id
+    post {
+        id
+    }
+    user {
+        id
+        username
+        email
+        createdAt
+    }
+}
+
 fragment CommentNotification on Notification {
   comment {
     ...CommentFragment
   }
 }
+
