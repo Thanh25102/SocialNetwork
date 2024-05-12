@@ -11,6 +11,7 @@ data class RegisterState(
     val passwordConfirm: String = "",
     val isSuccess: Boolean = false,
     val isError: Boolean = false,
+    val erMess: String = ""
 )
 
 /**

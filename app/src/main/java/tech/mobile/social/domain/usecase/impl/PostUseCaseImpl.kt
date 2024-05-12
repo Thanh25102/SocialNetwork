@@ -15,7 +15,7 @@ import tech.mobile.social.domain.usecase.interfaces.PostUseCase
 import tech.mobile.social.type.UserCreateNestedOneWithoutPostsInput
 import java.time.LocalDateTime
 
-class PostUseCaseImpl(private val postRepo : PostRepo) : PostUseCase {
+class PostUseCaseImpl(private val postRepo: PostRepo) : PostUseCase {
     override suspend fun Getpost(): Result<Posts, DataError.ServerErrors> {
         return postRepo.GetPosts()
     }

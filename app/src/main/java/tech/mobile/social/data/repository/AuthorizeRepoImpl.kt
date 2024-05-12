@@ -5,7 +5,9 @@ import android.util.Log
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.exception.ApolloException
 import tech.mobile.social.AuthorizeMutation
+import tech.mobile.social.Forgot_passwordMutation
 import tech.mobile.social.RegisterMutation
+import tech.mobile.social.ResetPasswordMutation
 import tech.mobile.social.data.mapper.toAuth
 import tech.mobile.social.data.mapper.toUser
 import tech.mobile.social.domain.DataError
@@ -21,45 +23,112 @@ class AuthorizeRepoImpl(
     private val apolloClient: ApolloClient, private val pref: SharedPreferences
 ) : AuthorizeRepo {
 
-    override suspend fun getAuthorize(username: String , password: String): Result<Auth, DataError.ServerErrors> {
-        return try {
+    override suspend fun login(
+        email: String,
+        password: String
+    ): Result<Auth, DataError.ServerErrors> {
+        try {
             val result =
-                apolloClient.mutation(AuthorizeMutation(AuthorizeInput(password = "sliverdz2604", username = "3kidp2h")))
-                    .execute()
+                apolloClient.mutation(
+                    AuthorizeMutation(
+                        AuthorizeInput(
+                            password = password,
+                            username = email
+                        )
+                    )
+                ).execute()
 
             result.data?.authorize?.accessToken.also { token ->
                 pref.edit().putString("token", token).apply()
             }
-            if (!result.hasErrors()) Result.Success(result.data!!.toAuth())
-            else Result.Error(DataError.ServerErrors(handleException(result.errors!!)))
+
+            if (!result.hasErrors()) {
+                return Result.Success(result.data!!.toAuth())
+            } else {
+                return Result.Error(DataError.ServerErrors(handleException(result.errors!!)))
+            }
         } catch (e: ApolloException) {
-            Result.Error(DataError.ServerErrors(listOf("Đã có lỗi xảy ra")))
+            return Result.Error(DataError.ServerErrors(listOf("Đã có lỗi xảy ra")))
         }
     }
 
-    override suspend fun authorize(
+    override suspend fun register(
         fullname: String,
         password: String,
         email: String
     ): Result<User, DataError.ServerErrors> {
-        val result = apolloClient.mutation(
-            RegisterMutation(
-                UserCreateInput(
-                    fullname = fullname,
-                    password = password,
-                    email = email,
-                    username = email
+        try {
+            val result = apolloClient.mutation(
+                RegisterMutation(
+                    UserCreateInput(
+                        fullname = fullname,
+                        password = password,
+                        email = email,
+                        username = email
+                    )
                 )
-            )
-        ).execute()
+            ).execute()
 
-        if (result.errors != null) {
-            val serverErrors = result.errors!!.map { it.message }
-            return Result.Error(DataError.ServerErrors(serverErrors))
+            if (result.errors != null) {
+                Log.e("register", result.errors.toString())
+                val serverErrors = result.errors!!.map { it.message }
+                return Result.Error(DataError.ServerErrors(serverErrors))
+            }
+
+            val user = result.data!!.toUser()
+
+            return Result.Success(user)
+        } catch (e: ApolloException) {
+            return Result.Error(DataError.ServerErrors(listOf("Đã có lỗi xảy ra")))
         }
-
-        val user = result.data!!.toUser()
-
-        return Result.Success(user)
     }
+
+    override suspend fun forgot(email: String): Result<Boolean, DataError.ServerErrors> {
+        try {
+            val result = apolloClient.mutation(
+                Forgot_passwordMutation(
+                    email
+                )
+            ).execute()
+
+            if (result.errors != null) {
+                Log.e("register", result.errors.toString())
+                val serverErrors = result.errors!!.map { it.message }
+                return Result.Error(DataError.ServerErrors(serverErrors))
+            }
+
+            return Result.Success(true)
+
+        } catch (e: ApolloException) {
+            return Result.Error(DataError.ServerErrors(listOf("Đã có lỗi xảy ra")))
+        }
+    }
+
+    override suspend fun resetPassword(
+        email: String,
+        otp: String,
+        password: String
+    ): Result<Boolean, DataError.ServerErrors> {
+        try {
+            val result = apolloClient.mutation(
+                ResetPasswordMutation(
+                    email,
+                    otp,
+                    password
+                )
+            ).execute()
+
+            if (result.errors != null) {
+                Log.e("register", result.errors.toString())
+                val serverErrors = result.errors!!.map { it.message }
+                return Result.Error(DataError.ServerErrors(serverErrors))
+            }
+
+            return Result.Success(true)
+
+        } catch (e: ApolloException) {
+            return Result.Error(DataError.ServerErrors(listOf("Đã có lỗi xảy ra")))
+        }
+    }
+
 }

@@ -53,7 +53,7 @@ fun RegisterScreen(
             )
             if(state.isError) {
                 Text(
-                    text = "Email đã được đăng ký!",
+                    text = state.erMess,
                     color = Color.Red
                 )
             }

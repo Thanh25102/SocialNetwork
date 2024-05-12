@@ -18,6 +18,9 @@ interface PostUseCase {
 
     suspend fun Createpost(id: Optional<String?>, content: String, createdAt: LocalDateTime) : ApolloResponse<CreatePostMutation.Data>
 
-    suspend fun NewsFeed(take: Optional<Int?>, after: Optional<String?>): ApolloResponse<NewsfeedQuery.Data>?
+    suspend fun NewsFeed(
+        take: Optional<Int?>,
+        after: Optional<String?>
+    ): ApolloResponse<NewsfeedQuery.Data>?
 
 }

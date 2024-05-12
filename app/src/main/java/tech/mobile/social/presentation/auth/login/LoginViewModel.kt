@@ -12,10 +12,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import tech.mobile.social.domain.Result
+import tech.mobile.social.domain.usecase.interfaces.AuthUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+    private val authUseCase: AuthUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -26,12 +30,10 @@ class LoginViewModel @Inject constructor(
     val stateFlow: StateFlow<LoginState> = _stateFlow.asStateFlow()
 
     fun updateEmail(email: String) {
-        Log.d("Login", "updateEmail: $email")
         _stateFlow.value = _stateFlow.value.copy(email = email)
     }
 
     fun updatePassword(password: String) {
-        Log.d("Login", "updatePassword: $password")
         _stateFlow.value = _stateFlow.value.copy(password = password)
     }
 

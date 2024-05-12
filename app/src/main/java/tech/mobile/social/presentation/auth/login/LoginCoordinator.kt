@@ -21,18 +21,31 @@ class LoginCoordinator(
     val loginStateFlow = loginViewModel.stateFlow
     val userStateFlow = userViewModel.stateFlow
     fun doLogin() {
-        // call api login
         userViewModel.doLogin(loginStateFlow.value.email, loginStateFlow.value.password)
     }
 
 
-    fun doLoginGoogle(googleAuthUiClient: GoogleAuthUiClient) {
+    fun doLoginGoogle(fullname: String, email: String) {
+        userViewModel.doLoginGoogle(fullname, email)
+    }
 
+    fun loading() {
+        userViewModel.loading()
     }
 
     fun navRegister() {
         navController.navigate(Screens.Register.route)
     }
+
+    fun navApp() {
+        navController.navigate(Screens.AppRoot.route)
+    }
+
+    fun navForgotPassword() {
+        navController.navigate(Screens.ForgotPassword.route)
+    }
+
+
 }
 
 @Composable
