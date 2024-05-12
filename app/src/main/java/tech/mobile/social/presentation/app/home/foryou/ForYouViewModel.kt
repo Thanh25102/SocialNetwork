@@ -169,7 +169,7 @@ class ForYouViewModel @Inject constructor(
             _isRefresh.update { true }
             _paginationState.update { it.copy(skip = 0) }
             _stateFlow.update { it.copy(posts = emptyList()) }
-            _getPosts()
+//            _getPosts()
             _isRefresh.update { false }
         }
 

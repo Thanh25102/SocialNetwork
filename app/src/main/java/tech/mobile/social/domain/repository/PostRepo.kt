@@ -9,7 +9,6 @@ import tech.mobile.social.domain.Result
 import tech.mobile.social.domain.model.post.Post
 import tech.mobile.social.domain.model.post.Posts
 import tech.mobile.social.domain.model.post.User
-import tech.mobile.social.type.UserCreateNestedOneWithoutPostsInput
 import java.time.LocalDateTime
 
 interface PostRepo {

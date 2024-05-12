@@ -7,11 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tech.mobile.social.FriendRequestQuery
 import tech.mobile.social.HandleRequestMutation
 import tech.mobile.social.R
@@ -50,8 +52,38 @@ class FriendRequestViewModel @Inject constructor(
 
     val stateFlow: StateFlow<FriendRequestState> = _stateFlow.asStateFlow()
 
+    private val paginator = DefaultPaginator(
+        initialKey = stateFlow.value.after,
+        onLoadUpdated = {
+            _stateFlow.value = _stateFlow.value.copy(isLoading = it)
+        },
+        onRequest = {nextKey -> this.getFriendRequests(Optional.present(18), nextKey, Optional.Absent) },
+        getNextKey = {
+            if(it.isNotEmpty()) {
+                Optional.present(it[it.size - 1].requestFragment.id)
+            } else {
+                Optional.Absent
+            }
+        },
+        onError = {
+            _stateFlow.value = _stateFlow.value.copy(error = it?.localizedMessage)
+        },
+        onSuccess = { items, newKey  ->
+            _stateFlow.value = _stateFlow.value.copy(
+                friendRequests = _stateFlow.value.friendRequests?.plus(items),
+                after = newKey,
+                endReached = items.isEmpty(),
+            )
+
+            Log.d("newKey",
+                newKey.toString()
+            )
+        },
+    )
+
     init {
-       val request = getFriendRequests(Optional.present(10), Optional.Present(null), Optional.Absent); // Gọi ở đây
+        loadNextItems();
+//       val request = getFriendRequests(Optional.present(10), Optional.Present(null), Optional.Absent); // Gọi ở đây
         viewModelScope.launch {
             friendRequestUseCase.requestAdded()?.collect{ it.data?.request?.let { _it ->
                 Log.d("it",
@@ -65,24 +97,38 @@ class FriendRequestViewModel @Inject constructor(
         }
     }
 
-    fun getFriendRequests(take: Optional<Int?>, after: Optional<String?>, filter: Optional<RequestWhereInput?>) { viewModelScope.launch {
-//            commentRepo.handleCommentAdded("662f6e4bb4ec3d607efc7d21")
-            _stateFlow.value.isLoading = true
-            when (val result = friendRequestUseCase.getFriendRequests(take, after, filter)) {
-                is ApolloResponse<FriendRequestQuery.Data> -> {
-                    _stateFlow.value =
-                        FriendRequestState( friendRequests = result.data?.requests?.edges?.map { it.node })
-                }
-                null -> {
-
-                }
-            }
+    fun loadNextItems() {
+        viewModelScope.launch {
+            paginator.loadNextItems()
         }
+        Log.d("Gọi query", "haha");
     }
 
+//    fun getFriendRequests(take: Optional<Int?>, after: Optional<String?>, filter: Optional<RequestWhereInput?>) { viewModelScope.launch {
+//            _stateFlow.value.isLoading = true
+//            when (val result = friendRequestUseCase.getFriendRequests(take, after, filter)) {
+//                is ApolloResponse<FriendRequestQuery.Data> -> {
+//                    _stateFlow.value =
+//                        FriendRequestState( friendRequests = result.data?.requests?.edges?.map { it.node })
+//                }
+//                null -> {
+//
+//                }
+//            }
+//        }
+//    }
+
+    private suspend fun getFriendRequests(take: Optional<Int?>, after: Optional<String?>, filter: Optional<RequestWhereInput?>): kotlin.Result<List<FriendRequestQuery.Node>> =
+        withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
+            try {
+                val response = friendRequestUseCase.getFriendRequests(take, after, filter)
+                kotlin.Result.success(response?.data?.requests?.edges?.map { it.node } ?: emptyList())
+            } catch (e: Exception) {
+                kotlin.Result.failure(e)
+            }
+        }
+
     fun acceptFriendRequest(request: FriendRequestQuery.Node) {
-
-
         val currentList = _stateFlow.value.friendRequests?.toMutableList();
         currentList?.remove(request)
         _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList)

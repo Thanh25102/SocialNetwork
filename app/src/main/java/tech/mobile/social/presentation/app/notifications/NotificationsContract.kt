@@ -7,6 +7,7 @@ import tech.mobile.social.FriendRequestQuery
 import tech.mobile.social.NotificationsQuery
 import tech.mobile.social.fragment.CommentNotification
 import tech.mobile.social.fragment.PostNotification
+import tech.mobile.social.fragment.ReactionNotification
 import tech.mobile.social.fragment.RecipientNotification
 import tech.mobile.social.fragment.RequestNotification
 import tech.mobile.social.fragment.SenderNotification
@@ -33,7 +34,7 @@ class Notification(
     val recipientsNotification: RecipientNotification? = null,
     val requestNotification: RequestNotification? = null,
     val postNotification: PostNotification? = null,
-
+    val reactionNotification: ReactionNotification? = null,
 
     )
 

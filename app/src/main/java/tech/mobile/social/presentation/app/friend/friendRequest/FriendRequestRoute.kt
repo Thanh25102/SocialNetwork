@@ -26,7 +26,8 @@ fun rememberFriendActions(coordinator: FriendRequestCoordinator): FriendRequestA
         FriendRequestActions(
             onClick = coordinator::doStuff,
             onDeleteRequest = coordinator::deleteFriendRequest,
-            onAcceptFriendRequest = coordinator::acceptFriendRequest
+            onAcceptFriendRequest = coordinator::acceptFriendRequest,
+            onScroll = coordinator.viewModel::loadNextItems
         )
     }
 }

@@ -1,5 +1,6 @@
 package tech.mobile.social.presentation.app.friend.friendRequest
 
+import com.apollographql.apollo3.api.Optional
 import tech.mobile.social.FriendRequestQuery
 
 
@@ -14,7 +15,9 @@ data class FriendRequestState(
 //    val friendRequests: FriendRequests = FriendRequests::class.java.getConstructor().newInstance(),
     val friendRequests: List<FriendRequestQuery.Node>? = null,
     var isLoading: Boolean = false,
-    val error: String = "",
+    val error: String? = null,
+    val after: Optional<String?> = Optional.Absent,
+    val endReached: Boolean = false
 )
 
 
@@ -25,5 +28,6 @@ data class FriendRequestState(
 data class FriendRequestActions(
     val onClick: () -> Unit = {},
     val onDeleteRequest: (FriendRequestQuery.Node) -> Unit = {},
-    val onAcceptFriendRequest: (FriendRequestQuery.Node) -> Unit = {}
+    val onAcceptFriendRequest: (FriendRequestQuery.Node) -> Unit = {},
+    val onScroll: () -> Unit = {}
 )

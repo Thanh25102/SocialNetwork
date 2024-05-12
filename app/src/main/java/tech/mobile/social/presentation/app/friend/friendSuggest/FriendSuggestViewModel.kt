@@ -50,7 +50,7 @@ class FriendSuggestViewModel @Inject constructor(
 
     val stateFlow: StateFlow<FriendSuggestState> = _stateFlow.asStateFlow()
 
-    val paginator = DefaultPaginator(
+    private val paginator = DefaultPaginator(
         initialKey = stateFlow.value.after,
         onLoadUpdated = {
             _stateFlow.value = _stateFlow.value.copy(isLoading = it)
@@ -81,6 +81,12 @@ class FriendSuggestViewModel @Inject constructor(
 
     init {
         loadNextItems()
+        viewModelScope.launch {
+            friendRequestUseCase.requestAdded()?.collect{
+                paginator.reset();
+                paginator.loadNextItems();
+            }
+        }
     }
 
     fun loadNextItems() {
@@ -111,7 +117,7 @@ class FriendSuggestViewModel @Inject constructor(
 //        return Result.success(resultList)
 //    }
 
-    suspend fun getFriendSuggests(take: Optional<Int?>, after: Optional<String?>): Result<List<FriendSuggestQuery.Node>> =
+    private suspend fun getFriendSuggests(take: Optional<Int?>, after: Optional<String?>): Result<List<FriendSuggestQuery.Node>> =
         withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
             try {
                 val response = friendSuggestUseCase.getFriendSuggests(take, after)
