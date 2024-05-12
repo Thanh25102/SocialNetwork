@@ -3,6 +3,7 @@ package tech.mobile.social.presentation.app.friend.friendRequest
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
@@ -11,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.apollographql.apollo3.api.Optional
 import tech.mobile.social.R
 import tech.mobile.social.presentation.app.friend.friendRequest.components.FriendRequestItemComponent
 import java.time.LocalDateTime
@@ -61,6 +63,9 @@ fun FriendRequestScreen(
         LazyColumn {
             state.friendRequests?.let { it ->
                 items(it.size, key = { it }) { it ->
+                    if(state.after != Optional.Absent && it >= state.friendRequests.size - 1 && !state.endReached && !state.isLoading){
+                        actions.onScroll();
+                    }
                     FriendRequestItemComponent(
                         friendRequest = state.friendRequests[it],
                         onDelete = actions.onDeleteRequest,
@@ -70,7 +75,16 @@ fun FriendRequestScreen(
                 }
             }
             item {
-
+                if(state.isLoading) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
             }
         }
     }

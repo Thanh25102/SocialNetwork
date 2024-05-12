@@ -1,0 +1,19 @@
+fragment ReactionFragment on Reaction {
+    id
+    post {
+        id
+    }
+    user {
+        id
+        username
+        email
+        createdAt
+    }
+    createdAt
+}
+
+fragment ReactionNotification on Notification {
+    reaction {
+        id
+    }
+}

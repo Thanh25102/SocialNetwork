@@ -1,6 +1,4 @@
 package tech.mobile.social.domain.repository;
-
-
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import kotlinx.coroutines.flow.Flow

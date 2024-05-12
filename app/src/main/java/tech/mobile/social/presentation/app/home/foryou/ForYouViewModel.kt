@@ -95,4 +95,5 @@ class ForYouViewModel @Inject constructor(
                 Result.failure(e)
             }
         }
+
 }

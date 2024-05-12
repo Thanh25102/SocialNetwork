@@ -15,18 +15,22 @@ import kotlinx.coroutines.launch
 import tech.mobile.social.CommentAddedSubscription
 import tech.mobile.social.FriendRequestQuery
 import tech.mobile.social.NotificationsQuery
+import tech.mobile.social.ReactionAddedSubscription
 import tech.mobile.social.RequestAddedSubscription
 import tech.mobile.social.RequestHandledSubscription
 import tech.mobile.social.domain.usecase.interfaces.CommentUseCase
 import tech.mobile.social.domain.usecase.interfaces.FriendRequestUseCase
 import tech.mobile.social.domain.usecase.interfaces.NotificationUseCase
+import tech.mobile.social.domain.usecase.interfaces.ReactionUseCase
 import tech.mobile.social.fragment.CommentFragment
 import tech.mobile.social.fragment.CommentNotification
+import tech.mobile.social.fragment.ReactionNotification
 import tech.mobile.social.fragment.RequestFragment
 import tech.mobile.social.fragment.RequestNotification
 import tech.mobile.social.fragment.SenderNotification
 import tech.mobile.social.presentation.app.friend.friendRequest.FriendRequestState
 import tech.mobile.social.type.NotificationType
+import tech.mobile.social.type.Reaction
 import tech.mobile.social.type.RequestWhereInput
 
 @HiltViewModel
@@ -34,6 +38,7 @@ class NotificationsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val notificationUseCase: NotificationUseCase,
     private val commentUseCase: CommentUseCase,
+    private val reactionUseCase: ReactionUseCase,
     private val friendRequestUseCase: FriendRequestUseCase
 ) : ViewModel() {
 
@@ -42,6 +47,38 @@ class NotificationsViewModel @Inject constructor(
 
     init {
         getNotifications(Optional.present(10), Optional.Present(null));
+
+        viewModelScope.launch {
+            reactionUseCase.handlerReactionAdded()?.collect{ it.data?.reaction?.let { _it ->
+//                Log.d("it",
+//                    _it.content
+//                )
+
+
+                val currentList = _stateFlow.value.notifications?.toMutableList()
+
+                when(_it) {
+                    is ReactionAddedSubscription.Reaction -> {
+//                        Log.d("it",
+//                            _it.commentFragment.content
+//                        )
+                        currentList?.add(0,
+                            Notification(
+                                id = _it.reactionFragment.id,
+                                type = NotificationType.LIKE,
+                                senderNotification = SenderNotification(sender = SenderNotification.Sender(_it.reactionFragment.user.id, _it.reactionFragment.user.username)),
+                                createdAt = _it.reactionFragment.createdAt,
+                                reactionNotification = ReactionNotification(ReactionNotification.Reaction(_it.reactionFragment.id))
+
+                            ))
+                        _stateFlow.value = _stateFlow.value.copy(notifications = currentList)
+                        //NotificationsQuery.Node("",type = NotificationType.COMMENT, senderNotification = Optional.Absent, commentNotification = CommentNotification(CommentNotification.Comment(CommentFragment(_it.commentFragment.id,_it.commentFragment.content, _it.commentFragment.user)))
+                    }
+                }
+
+
+            } }
+        }
 
         viewModelScope.launch {
             commentUseCase.handleCommentAdded()?.collect{ it.data?.comment?.let { _it ->
@@ -73,8 +110,6 @@ class NotificationsViewModel @Inject constructor(
 
 
             } }
-
-
         }
 
         viewModelScope.launch {
@@ -122,6 +157,7 @@ class NotificationsViewModel @Inject constructor(
                 }
             }
         }
+
         viewModelScope.launch {
             friendRequestUseCase.requestHandled()?.collect{ it.data?.request?.let { _it ->
 //                Log.d("it",

@@ -32,10 +32,12 @@ import tech.mobile.social.data.repository.NotificationRepoImpl
 import tech.mobile.social.domain.repository.FriendRequestRepo
 
 import tech.mobile.social.data.repository.PostRepoImpl
+import tech.mobile.social.data.repository.ReactionRepoImpl
 import tech.mobile.social.domain.repository.CommentRepo
 import tech.mobile.social.domain.repository.FriendSuggestRepo
 import tech.mobile.social.domain.repository.NotificationRepo
 import tech.mobile.social.domain.repository.PostRepo
+import tech.mobile.social.domain.repository.ReactionRepo
 import tech.mobile.social.domain.usecase.impl.*
 import tech.mobile.social.domain.usecase.interfaces.*
 
@@ -170,7 +172,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesPostUseCase(postRepo: PostRepo): PostUseCase {
+    fun providesReactionRepo(apolloClient: ApolloClient, pref: SharedPreferences): ReactionRepo {
+        return ReactionRepoImpl(apolloClient, pref)
+    }
+
+    @Provides
+    @Singleton
+    fun providesReactionUseCase(reactionRepo: ReactionRepo): ReactionUseCase {
+        return ReactionUseCaseImpl(reactionRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun providesPostUseCase(postRepo : PostRepo) : PostUseCase{
         return PostUseCaseImpl(postRepo)
     }
 
