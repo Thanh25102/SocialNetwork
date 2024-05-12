@@ -125,14 +125,6 @@ type CommentConnection {
   pageInfo: PageInfo!
 }
 
-input CommentCreateInput {
-  content: String!
-
-  file: Upload
-
-  post: PostCreateNestedOneWithoutCommentsInput!
-}
-
 input CommentCreateManyPostInput {
   content: String!
 
@@ -620,10 +612,6 @@ input EnumRequestStatusFilter {
   notIn: [RequestStatus!]
 }
 
-input ForgotPasswordInput {
-  email: String!
-}
-
 type ForgotResponse {
   email: String!
 
@@ -955,7 +943,7 @@ The `Int` scalar type represents non-fractional signed whole numeric values. Int
 scalar Int
 
 type Mutation {
-  add_comment(input: CommentCreateInput!): Comment
+  add_comment(content: String!, postId: String!): Comment
 
   authorize(input: AuthorizeInput!): AuthResponse!
 
@@ -973,15 +961,17 @@ type Mutation {
 
   delete_user(id: String!): [User!]!
 
-  forgot_password(input: ForgotPasswordInput!): ForgotResponse
+  forgot_password(email: String!): ForgotResponse
 
   handle_request(request_id: ID!, status: RequestStatus!): Request
 
-  reaction_post(input: ReactionCreateInput!): Reaction!
+  reaction_post(postId: String!): Reaction!
 
   register(input: UserCreateInput!): User
 
   request_friend(user_id: ID!): Request
+
+  reset_password(email: String!, otp: String!, password: String!): ForgotResponse
 
   self_reject_request(receiver_id: ID!): Request
 
@@ -2634,14 +2624,6 @@ type ReactionConnection {
   pageInfo: PageInfo!
 }
 
-input ReactionCreateInput {
-  post: PostCreateNestedOneWithoutReactionsInput!
-
-  type: ReactionEnum! = LOVE
-
-  user: UserCreateNestedOneWithoutReactionsInput!
-}
-
 input ReactionCreateManyPostInput {
   createdAt: DateTime
 
@@ -3470,6 +3452,8 @@ input StringNullableFilter {
 type Subscription {
   comment_added: Comment!
 
+  reaction_added: Reaction!
+
   request_added: Request!
 
   request_handled: Request!
@@ -3500,6 +3484,8 @@ type User {
 
   }
   , take: Int! = 999999999): FriendConnection
+
+  fullname: String!
 
   id: ID!
 
@@ -3553,6 +3539,8 @@ input UserCreateInput {
   friendOf: FriendCreateNestedManyWithoutFriendInput
 
   friends: FriendCreateNestedManyWithoutUserInput
+
+  fullname: String!
 
   id: String
 
@@ -3714,6 +3702,8 @@ input UserCreateWithoutCommentsInput {
 
   friends: FriendCreateNestedManyWithoutUserInput
 
+  fullname: String!
+
   id: String
 
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
@@ -3748,6 +3738,8 @@ input UserCreateWithoutFriendOfInput {
 
   friends: FriendCreateNestedManyWithoutUserInput
 
+  fullname: String!
+
   id: String
 
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
@@ -3781,6 +3773,8 @@ input UserCreateWithoutFriendsInput {
   email: String!
 
   friendOf: FriendCreateNestedManyWithoutFriendInput
+
+  fullname: String!
 
   id: String
 
@@ -3818,6 +3812,8 @@ input UserCreateWithoutNotificationsReceivedInput {
 
   friends: FriendCreateNestedManyWithoutUserInput
 
+  fullname: String!
+
   id: String
 
   notificationsSent: NotificationCreateNestedManyWithoutSenderInput
@@ -3851,6 +3847,8 @@ input UserCreateWithoutNotificationsSentInput {
   friendOf: FriendCreateNestedManyWithoutFriendInput
 
   friends: FriendCreateNestedManyWithoutUserInput
+
+  fullname: String!
 
   id: String
 
@@ -3886,6 +3884,8 @@ input UserCreateWithoutPostsInput {
 
   friends: FriendCreateNestedManyWithoutUserInput
 
+  fullname: String!
+
   id: String
 
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
@@ -3919,6 +3919,8 @@ input UserCreateWithoutReactionsInput {
   friendOf: FriendCreateNestedManyWithoutFriendInput
 
   friends: FriendCreateNestedManyWithoutUserInput
+
+  fullname: String!
 
   id: String
 
@@ -3954,6 +3956,8 @@ input UserCreateWithoutReceived_requestInput {
 
   friends: FriendCreateNestedManyWithoutUserInput
 
+  fullname: String!
+
   id: String
 
   notificationsReceived: NotificationRecipientCreateNestedManyWithoutUserInput
@@ -3987,6 +3991,8 @@ input UserCreateWithoutSent_requestInput {
   friendOf: FriendCreateNestedManyWithoutFriendInput
 
   friends: FriendCreateNestedManyWithoutUserInput
+
+  fullname: String!
 
   id: String
 
@@ -4033,6 +4039,8 @@ input UserUpdateInput {
   friendOf: FriendUpdateManyWithoutFriendNestedInput
 
   friends: FriendUpdateManyWithoutUserNestedInput
+
+  fullname: String
 
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
 
@@ -4228,6 +4236,8 @@ input UserUpdateWithoutCommentsInput {
 
   friends: FriendUpdateManyWithoutUserNestedInput
 
+  fullname: String
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
 
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
@@ -4260,6 +4270,8 @@ input UserUpdateWithoutFriendOfInput {
 
   friends: FriendUpdateManyWithoutUserNestedInput
 
+  fullname: String
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
 
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
@@ -4291,6 +4303,8 @@ input UserUpdateWithoutFriendsInput {
   email: String
 
   friendOf: FriendUpdateManyWithoutFriendNestedInput
+
+  fullname: String
 
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
 
@@ -4326,6 +4340,8 @@ input UserUpdateWithoutNotificationsReceivedInput {
 
   friends: FriendUpdateManyWithoutUserNestedInput
 
+  fullname: String
+
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
 
   password: String
@@ -4357,6 +4373,8 @@ input UserUpdateWithoutNotificationsSentInput {
   friendOf: FriendUpdateManyWithoutFriendNestedInput
 
   friends: FriendUpdateManyWithoutUserNestedInput
+
+  fullname: String
 
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
 
@@ -4390,6 +4408,8 @@ input UserUpdateWithoutPostsInput {
 
   friends: FriendUpdateManyWithoutUserNestedInput
 
+  fullname: String
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
 
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
@@ -4421,6 +4441,8 @@ input UserUpdateWithoutReactionsInput {
   friendOf: FriendUpdateManyWithoutFriendNestedInput
 
   friends: FriendUpdateManyWithoutUserNestedInput
+
+  fullname: String
 
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
 
@@ -4454,6 +4476,8 @@ input UserUpdateWithoutReceived_requestInput {
 
   friends: FriendUpdateManyWithoutUserNestedInput
 
+  fullname: String
+
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
 
   notificationsSent: NotificationUpdateManyWithoutSenderNestedInput
@@ -4485,6 +4509,8 @@ input UserUpdateWithoutSent_requestInput {
   friendOf: FriendUpdateManyWithoutFriendNestedInput
 
   friends: FriendUpdateManyWithoutUserNestedInput
+
+  fullname: String
 
   notificationsReceived: NotificationRecipientUpdateManyWithoutUserNestedInput
 
@@ -4596,6 +4622,8 @@ input UserWhereInput {
 
   friends: FriendListRelationFilter
 
+  fullname: StringFilter
+
   id: StringFilter
 
   notificationsReceived: NotificationRecipientListRelationFilter
@@ -4637,6 +4665,8 @@ input UserWhereUniqueInput {
   friendOf: FriendListRelationFilter
 
   friends: FriendListRelationFilter
+
+  fullname: StringFilter
 
   id: String
 

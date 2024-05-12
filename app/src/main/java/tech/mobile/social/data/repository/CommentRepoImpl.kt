@@ -7,8 +7,10 @@ import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import com.apollographql.apollo3.exception.ApolloException
 import kotlinx.coroutines.flow.Flow
+import tech.mobile.social.AddCommentMutation
 import tech.mobile.social.CommentAddedSubscription
 import tech.mobile.social.CommentsQuery
+import tech.mobile.social.HandleRequestMutation
 import tech.mobile.social.domain.repository.CommentRepo
 import tech.mobile.social.type.CommentWhereInput
 
@@ -41,6 +43,20 @@ class CommentRepoImpl(
             return result;
         } catch (e: ApolloException) {
             Log.d("real time error", e.stackTraceToString())
+            return null;
+        }
+    }
+
+    override suspend fun addComment(postId: String, content: String): ApolloResponse<AddCommentMutation.Data>? {
+        try {
+            val result = apolloClient
+                .mutation(AddCommentMutation(postId, content))
+                .execute()
+            if(result.hasErrors()) {
+                return null;
+            }
+            return result;
+        } catch (e: ApolloException) {
             return null;
         }
     }

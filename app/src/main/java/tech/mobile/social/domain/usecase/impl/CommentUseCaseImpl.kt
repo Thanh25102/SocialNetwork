@@ -3,6 +3,7 @@ package tech.mobile.social.domain.usecase.impl
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import kotlinx.coroutines.flow.Flow
+import tech.mobile.social.AddCommentMutation
 import tech.mobile.social.CommentAddedSubscription
 import tech.mobile.social.CommentsQuery
 import tech.mobile.social.domain.repository.CommentRepo
@@ -19,5 +20,9 @@ class CommentUseCaseImpl(private val commentRepo: CommentRepo) : CommentUseCase 
     }
     override suspend fun handleCommentAdded(): Flow<ApolloResponse<CommentAddedSubscription.Data>>? {
         return commentRepo.handleCommentAdded()
+    }
+
+    override suspend fun addComment(postId: String, content: String): ApolloResponse<AddCommentMutation.Data>? {
+        return commentRepo.addComment(postId, content)
     }
 }
