@@ -92,8 +92,7 @@ class ForYouViewModel @Inject constructor(
                         onRequestSuccess(it.node.friend.posts.posts.edges.map {
                             PostState(
                                 avatarResource = R.drawable.manhthanh_3x4,
-                                content = it.node.content,
-                                sheetState = false,
+                                content = it.node.content ?: "",
                                 imageResource = R.drawable.img,
                                 authorName = it.node.user.username,
                                 postTime = it.node.createdAt,

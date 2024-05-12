@@ -7,9 +7,10 @@ sealed class Screens(val route: String) {
     data object Notification : Screens("notification")
     data object Profile : Screens("profile")
 
-    data object Login : Screens("login?email={email}")
+    data object Login : Screens("login")
     data object Register : Screens("register")
     data object ForgotPassword : Screens("forgot-password")
+    data object Otp : Screens("otp/{email}")
 
     data object Auth : Screens("auth")
     data object AppRoot : Screens("app")

@@ -13,8 +13,24 @@ class OtpCoordinator(
 ) {
     val screenStateFlow = viewModel.stateFlow
 
-    fun doStuff() {
-        // TODO Handle UI Action
+    fun doUpdateOtp(otp: String) {
+        viewModel.updateOtp(otp)
+    }
+
+    fun doUpdatePassword(password: String) {
+        viewModel.updatePassword(password)
+    }
+
+    fun doUpdatePasswordConfirm(passwordConfirm: String) {
+        viewModel.updatePasswordConfirm(passwordConfirm)
+    }
+
+    fun doUpdateEmail(email: String) {
+        viewModel.updateEmail(email)
+    }
+
+    fun resetPassword() {
+        viewModel.resetPassword()
     }
 }
 

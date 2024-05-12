@@ -25,11 +25,56 @@ class RegisterViewModel @Inject constructor(
 
 
     fun doRegister() {
-        val (fullname, email, password) = stateFlow.value
+        val (fullname, email, password, passwordConfirm) = stateFlow.value
+        if (fullname == "") {
+            _stateFlow.value =
+                _stateFlow.value.copy(
+                    isError = true,
+                    isSuccess = false,
+                    erMess = "Họ và tên bắt buộc nhập!"
+                )
+            return
+        }
+
+        if (email == "") {
+            _stateFlow.value =
+                _stateFlow.value.copy(
+                    isError = true,
+                    isSuccess = false,
+                    erMess = "Email bắt buộc nhập!"
+                )
+            return
+        }
+
+        if (password == "") {
+            _stateFlow.value =
+                _stateFlow.value.copy(
+                    isError = true,
+                    isSuccess = false,
+                    erMess = "Mật khẩu bắt buộc nhập!"
+                )
+            return
+        }
+
+        if (passwordConfirm == "" || passwordConfirm != password) {
+            _stateFlow.value =
+                _stateFlow.value.copy(
+                    isError = true,
+                    isSuccess = false,
+                    erMess = "Mật khẩu nhập lại không khớp!"
+                )
+            return
+        }
+
         viewModelScope.launch {
             when (val result = authUseCase.register(fullname, password, email)) {
                 is Result.Error -> {
-                    _stateFlow.value = _stateFlow.value.copy(isError = true, isSuccess = false)
+                    _stateFlow.value =
+                        _stateFlow.value.copy(
+                            isError = true,
+                            isSuccess = false,
+                            erMess = "Email đã tồn tại!"
+                        )
                 }
 
                 is Result.Success -> {

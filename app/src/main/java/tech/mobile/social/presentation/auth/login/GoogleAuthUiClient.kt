@@ -15,10 +15,18 @@ import kotlinx.coroutines.tasks.await
 import tech.mobile.social.R
 
 class GoogleAuthUiClient(
-    private val context: Context,
-    private val oneTapClient: SignInClient
+    private var context: Context,
+    private var oneTapClient: SignInClient
 ) {
     private val auth = Firebase.auth
+
+    fun setContext(context: Context) {
+        this.context = context
+    }
+
+    fun setOneTapClient(oneTapClient: SignInClient) {
+        this.oneTapClient = oneTapClient
+    }
 
     suspend fun signIn(): IntentSender? {
         val result = try {
@@ -44,7 +52,8 @@ class GoogleAuthUiClient(
                     email?.let {
                         UserData(
                             email = it,
-                            username = displayName,
+                            googleIdToken = googleIdToken,
+                            fullName = displayName,
                             profilePictureUrl = photoUrl?.toString()
                         )
                     }
@@ -75,7 +84,8 @@ class GoogleAuthUiClient(
         email?.let {
             UserData(
                 email = it,
-                username = displayName,
+                googleIdToken = "",
+                fullName = displayName,
                 profilePictureUrl = photoUrl?.toString()
             )
         }

@@ -1,5 +1,9 @@
 package tech.mobile.social.presentation.auth.login
 
+import android.app.Activity
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -24,7 +28,9 @@ import tech.mobile.social.ui.theme.BtnColor
 import tech.mobile.social.ui.theme.PrimaryColor
 
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 import tech.mobile.social.presentation.utils.components.DividerWithText
+import tech.mobile.social.presentation.utils.components.LoadingDialog
 
 @Composable
 fun LoginScreen(
@@ -34,11 +40,21 @@ fun LoginScreen(
     email: String = ""
 ) {
 
+
     LaunchedEffect(key1 = Unit) {
         if (email != "") {
             actions.onEmailChange(email)
         }
     }
+
+    LaunchedEffect(key1 = state.userState.isLogin) {
+        if (state.userState.isLogin) {
+            actions.navApp()
+        }
+    }
+
+
+    LoadingDialog(isLoading = state.userState.isLoading)
 
     Surface(
         color = Color.White,
@@ -59,10 +75,15 @@ fun LoginScreen(
                 contentDescription = stringResource(id = R.string.logo),
                 modifier = Modifier.padding(vertical = 30.dp, horizontal = 50.dp)
             )
+
+            if (state.userState.errMsg != null) {
+                Text(state.userState.errMsg!!, color = Color.Red)
+            }
+
             EmailApp(text = email, onValueChange = { actions.onEmailChange(it) })
             PasswordApp(
                 onValueChange = { actions.onPasswordChange(it) },
-                modifier = Modifier.padding(top = 10.dp)
+                modifier = Modifier.padding(top = 10.dp), errMsg = "hello"
             )
             Button(
                 onClick = { actions.onLogin() },
@@ -89,8 +110,8 @@ fun LoginScreen(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextButton(onClick = { actions.navRegister() }) {
-                    Text(text = "Quên mật khẩu", color = PrimaryColor)
+                TextButton(onClick = { actions.navForgotPassword() }) {
+                    Text(text = "Quên mật khẩu!", color = PrimaryColor)
                 }
             }
 
@@ -114,6 +135,7 @@ fun LoginScreen(
                     contentDescription = stringResource(id = R.string.logo),
                     modifier = Modifier.padding(vertical = 5.dp, horizontal = 5.dp)
                 )
+
 
             }
 

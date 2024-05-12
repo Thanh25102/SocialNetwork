@@ -24,8 +24,10 @@ import tech.mobile.social.navigation.app.BottomNavigationBar
 import tech.mobile.social.presentation.auth.login.GoogleAuthUiClient
 import tech.mobile.social.presentation.auth.login.LoginRoute
 import tech.mobile.social.presentation.auth.register.RegisterRoute
+import tech.mobile.social.presentation.auth.forgot.ForgotRoute
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import tech.mobile.social.presentation.auth.otp.OtpRoute
 
 @Composable
 fun RootNavigation(
@@ -33,29 +35,8 @@ fun RootNavigation(
     googleAuthUiClient: GoogleAuthUiClient
 ) {
     val navController = rememberNavController()
-    /**
-     * Kiểm tra xem người dùng đã đăng nhập bằng gg chưa
-     */
-    LaunchedEffect(key1 = Unit) {
-        if (googleAuthUiClient.getSignedInUser() != null) {
-//            navController.navigate("profile")
-            Log.e("Login Google", "Success")
-        }
-    }
 
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartIntentSenderForResult(),
-        onResult = { result ->
-            if (result.resultCode == RESULT_OK) {
-                lifecycleScope.launch {
-                    val signInResult = googleAuthUiClient.signInWithIntent(
-                        intent = result.data ?: return@launch
-                    )
-                    Log.e("Result login google", signInResult.toString())
-                }
-            }
-        }
-    )
+
 
     Scaffold() { paddingValues ->
         NavHost(
@@ -68,22 +49,16 @@ fun RootNavigation(
                 startDestination = Screens.Login.route, route = Screens.Auth.route
             ) {
                 composable(route = Screens.Login.route) {
-                    LoginRoute(navController, onLoginGoogle = {
-                        lifecycleScope.launch {
-                            val signInIntentSender = googleAuthUiClient.signIn()
-                            launcher.launch(
-                                IntentSenderRequest.Builder(
-                                    signInIntentSender ?: return@launch
-                                ).build()
-                            )
-                        }
-                    })
+                    LoginRoute(navController, lifecycleScope, googleAuthUiClient)
                 }
                 composable(route = Screens.Register.route) {
                     RegisterRoute(navController = navController)
                 }
                 composable(route = Screens.ForgotPassword.route) {
-
+                    ForgotRoute(navController)
+                }
+                composable(route = Screens.Otp.route) {
+                    OtpRoute(navController)
                 }
             }
 
