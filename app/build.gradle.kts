@@ -5,6 +5,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("com.apollographql.apollo3").version("3.8.2")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -24,7 +25,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -47,7 +51,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.49")
     implementation("com.google.ai.client.generativeai:common:0.2.0")
     implementation("com.google.ai.client.generativeai:generativeai:0.3.0")
-    implementation("com.google.firebase:firebase-vertexai:16.0.0-alpha02")
+
     kapt("com.google.dagger:hilt-android-compiler:2.49")
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -84,9 +88,14 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
-    implementation ("com.google.accompanist:accompanist-coil:0.15.0")
+    implementation("com.google.accompanist:accompanist-coil:0.15.0")
     implementation("com.airbnb.android:lottie-compose:6.4.0")
 
+    // FIRE BASE
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
+    implementation("com.google.android.gms:play-services-auth:20.4.1")
+    implementation("com.google.firebase:firebase-messaging:23.4.1")
 }
 
 // Allow references to generated code

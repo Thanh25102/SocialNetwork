@@ -4,9 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.navigation.NavController
 
 @Composable
 fun OtpRoute(
+    navController: NavController,
     coordinator: OtpCoordinator = rememberOtpCoordinator()
 ) {
     // State observing and declarations
@@ -24,7 +26,11 @@ fun OtpRoute(
 fun rememberOtpActions(coordinator: OtpCoordinator): OtpActions {
     return remember(coordinator) {
         OtpActions(
-            onClick = coordinator::doStuff
+            updateOtp = coordinator::doUpdateOtp,
+            updatePassword = coordinator::doUpdatePassword,
+            updatePasswordConfirm = coordinator::doUpdatePasswordConfirm,
+            updateEmail = coordinator::doUpdateEmail,
+            onResetPassword = coordinator::resetPassword
         )
     }
 }

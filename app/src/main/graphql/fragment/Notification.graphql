@@ -38,8 +38,10 @@ fragment CommentFragment on Comment {
     createdAt
 }
 
+
 fragment CommentNotification on Notification {
   comment {
     ...CommentFragment
   }
 }
+

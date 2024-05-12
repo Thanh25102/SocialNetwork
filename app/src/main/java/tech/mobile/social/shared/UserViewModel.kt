@@ -13,31 +13,105 @@ import kotlinx.coroutines.launch
 import tech.mobile.social.domain.Result
 import tech.mobile.social.domain.model.auth.User
 import tech.mobile.social.domain.repository.AuthorizeRepo
+import tech.mobile.social.domain.usecase.interfaces.AuthUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val authorizeRepo: AuthorizeRepo
+    private val authUseCase: AuthUseCase,
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<UserState> = MutableStateFlow(UserState())
 
     val stateFlow: StateFlow<UserState> = _stateFlow.asStateFlow()
 
+    fun loading() {
+        _stateFlow.value.isLoading = true
+    }
+
     fun doLogin(username: String, password: String) {
+        _stateFlow.value.isLoading = true
+
+        if (username == "" || password == "") {
+            _stateFlow.value = _stateFlow.value.copy(
+                errMsg = "Tài khoản và mật khẩu bắt buộc nhập!",
+                isLoading = false
+            )
+            return
+        }
+
         viewModelScope.launch {
-            _stateFlow.value.isLoading = true
-            when (val access = authorizeRepo.getAuthorize(username, password)) {
+            when (val access = authUseCase.login(username, password)) {
                 is Result.Success -> {
                     _stateFlow.value =
-                        UserState(user = access.data.user, isLogin = true, isLoading = false, errMsg = null)
+                        UserState(
+                            user = access.data.user,
+                            isLogin = true,
+                            isLoading = false,
+                            errMsg = null
+                        )
                 }
 
                 is Result.Error -> {
-                    Log.i("STATE", "err msg" + access.error.message[0])
-                    _stateFlow.value.isLoading = false
-                    _stateFlow.value = _stateFlow.value.copy(errMsg = access.error.message[0])
+                    _stateFlow.value = _stateFlow.value.copy(
+                        errMsg = "Tài khoản hoặc mật khẩu sai!",
+                        isLoading = false
+                    )
+                }
+            }
+        }
+    }
+
+    fun doLoginGoogle(fullname: String, email: String) {
+        viewModelScope.launch {
+            when (
+                val result = authUseCase.register(
+                    fullname = fullname,
+                    email = email,
+                    password = email
+                )
+            ) {
+                is Result.Error -> {
+                    when (val access = authUseCase.login(email, email)) {
+                        is Result.Success -> {
+                            _stateFlow.value =
+                                UserState(
+                                    user = access.data.user,
+                                    isLogin = true,
+                                    isLoading = false,
+                                    errMsg = null
+                                )
+                        }
+
+                        is Result.Error -> {
+                            _stateFlow.value = _stateFlow.value.copy(
+                                errMsg = "Tài khoản hoặc mật khẩu sai!",
+                                isLoading = false
+                            )
+                        }
+                    }
+                }
+
+                is Result.Success -> {
+                    when (val access = authUseCase.login(email, email)) {
+                        is Result.Success -> {
+                            _stateFlow.value =
+                                UserState(
+                                    user = access.data.user,
+                                    isLogin = true,
+                                    isLoading = false,
+                                    errMsg = null
+                                )
+                        }
+
+                        is Result.Error -> {
+                            _stateFlow.value = _stateFlow.value.copy(
+                                errMsg = "Tài khoản hoặc mật khẩu sai!",
+                                isLoading = false
+                            )
+                        }
+                    }
                 }
             }
         }

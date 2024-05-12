@@ -1,0 +1,5 @@
+subscription reactionAdded {
+    reaction: reaction_added {
+        ...ReactionFragment,
+    }
+}

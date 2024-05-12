@@ -5,10 +5,13 @@ package tech.mobile.social.presentation.auth.register
  * UI State that represents RegisterScreen
  **/
 data class RegisterState(
-    val name: String = "",
+    val fullname: String = "",
     val email: String = "",
     val password: String = "",
-    val passwordConfirm: String = ""
+    val passwordConfirm: String = "",
+    val isSuccess: Boolean = false,
+    val isError: Boolean = false,
+    val erMess: String = ""
 )
 
 /**

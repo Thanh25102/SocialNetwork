@@ -107,6 +107,5 @@ fun ProfilesScreen(
 @Composable
 @Preview(name = "Profiles")
 private fun ProfilesScreenPreview() {
-
 }
 
