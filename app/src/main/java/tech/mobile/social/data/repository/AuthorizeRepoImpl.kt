@@ -38,20 +38,28 @@ class AuthorizeRepoImpl(
     }
 
     override suspend fun authorize(
-        username: String, password: String, email: String
+        fullname: String,
+        password: String,
+        email: String
     ): Result<User, DataError.ServerErrors> {
         val result = apolloClient.mutation(
             RegisterMutation(
                 UserCreateInput(
-                    username = username, password = password, email = email, fullname = ""
+                    fullname = fullname,
+                    password = password,
+                    email = email,
+                    username = email
                 )
             )
         ).execute()
 
-        return result.errors?.let { errors ->
-            Result.Error(DataError.ServerErrors(errors.map { it.message }))
-        } ?: Result.Success(result.data?.toUser() ?: User(id = "", null, null))
+        if (result.errors != null) {
+            val serverErrors = result.errors!!.map { it.message }
+            return Result.Error(DataError.ServerErrors(serverErrors))
+        }
 
+        val user = result.data!!.toUser()
+
+        return Result.Success(user)
     }
-
 }

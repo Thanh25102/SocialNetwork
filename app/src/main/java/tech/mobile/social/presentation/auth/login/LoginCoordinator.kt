@@ -11,6 +11,8 @@ import tech.mobile.social.shared.UserViewModel
  * Screen's coordinator which is responsible for handling actions from the UI layer
  * and one-shot actions based on the new UI state
  */
+import com.google.android.gms.auth.api.identity.Identity
+
 class LoginCoordinator(
     val loginViewModel: LoginViewModel,
     val userViewModel: UserViewModel,
@@ -18,12 +20,13 @@ class LoginCoordinator(
 ) {
     val loginStateFlow = loginViewModel.stateFlow
     val userStateFlow = userViewModel.stateFlow
-
     fun doLogin() {
         // call api login
         userViewModel.doLogin(loginStateFlow.value.email, loginStateFlow.value.password)
-//        if (userStateFlow.value.isLogin)
-        navController.navigate(Screens.Home.route)
+    }
+
+
+    fun doLoginGoogle(googleAuthUiClient: GoogleAuthUiClient) {
 
     }
 

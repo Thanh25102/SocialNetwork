@@ -18,12 +18,20 @@ class RegisterCoordinator(
 
     fun onRegister() {
         viewModel.doRegister()
-        navController.navigate(Screens.Login.route)
-        // TODO Handle UI Action
     }
 
+
     fun goBack() {
-        navController.navigateUp()
+        if (screenStateFlow.value.isSuccess) {
+            /**
+             * Truyền dữ liệu về cho màn hình login nếu đăng khi đăng ký thành công
+             */
+            navController.previousBackStackEntry?.savedStateHandle?.set(
+                "email",
+                viewModel.stateFlow.value.email
+            )
+        }
+        navController.popBackStack()
     }
 }
 

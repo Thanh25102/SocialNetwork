@@ -65,6 +65,9 @@ class ForYouViewModel @Inject constructor(
             paginator.loadNextItems()
         }
     }
+    private fun _getPosts(take: Optional<Int?>, after: Optional<String?>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            onRequestLoading()
 
     suspend fun _getPosts(take: Optional<Int?>, after: Optional<String?>): Result<List<PostState>> =
         withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
@@ -88,9 +91,85 @@ class ForYouViewModel @Inject constructor(
                             )
                         }
                     }?.flatten() ?: emptyList()
+                        })
+                    }
+                }
+
+                null -> {
+
+                }
+
+            }
+        }
+    }
+
+
+    private fun onRequestLoading() {
+        if (_stateFlow.value.posts.isEmpty()) {
+            _stateFlow.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
+        }
+
+        if (_stateFlow.value.posts.isNotEmpty()) {
+            _paginationState.update {
+                it.copy(
+                    isLoading = true
                 )
             } catch (e: Exception) {
                 Result.failure(e)
             }
         }
+    }
+
+    fun getPostsPaginated() {
+        if (_stateFlow.value.posts.isEmpty()) {
+            return
+        }
+
+        if (_paginationState.value.endReached) {
+            return
+        }
+
+//        _getPosts(_paginationState.value.skip)
+    }
+
+    private fun onRequestSuccess(
+        data: List<PostState>
+    ) {
+        val posts = _stateFlow.value.posts + data
+        _stateFlow.update {
+            it.copy(
+                posts = posts.toImmutableList(),
+                isLoading = false,
+                error = ""
+            )
+        }
+
+        val listSize = _stateFlow.value.posts.size
+        _paginationState.update {
+            it.copy(
+                skip = it.skip + 1,
+                endReached = data.isEmpty() || listSize >= POSTS_LIMIT,
+                isLoading = false
+            )
+        }
+    }
+
+    fun refresh() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _isRefresh.update { true }
+            _paginationState.update { it.copy(skip = 0) }
+            _stateFlow.update { it.copy(posts = emptyList()) }
+//            _getPosts()
+            _isRefresh.update { false }
+        }
+
+    }
+
+    companion object {
+        const val POSTS_LIMIT = 400
+    }
 }
