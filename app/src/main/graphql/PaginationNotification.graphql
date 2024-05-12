@@ -7,7 +7,7 @@ query notifications($take: Int, $after: String) {
         ...PostNotification
         ...RequestNotification
         ...SenderNotification,
-        ... RecipientNotification
+        ...RecipientNotification
         ...ReactionNotification
         type
         createdAt

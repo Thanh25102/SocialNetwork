@@ -4,10 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.navigation.NavController
 
 @Composable
 fun ForgotRoute(
-    coordinator: ForgotCoordinator = rememberForgotCoordinator()
+    navController: NavController,
+    coordinator: ForgotCoordinator = rememberForgotCoordinator(navController = navController),
 ) {
     // State observing and declarations
     val uiState by coordinator.screenStateFlow.collectAsState(ForgotState())
@@ -24,7 +26,9 @@ fun ForgotRoute(
 fun rememberForgotActions(coordinator: ForgotCoordinator): ForgotActions {
     return remember(coordinator) {
         ForgotActions(
-            onClick = coordinator::doStuff
+            onForgotPassword = coordinator::doForgotPassword,
+            updateEmail = coordinator::doUpdateEmail,
+            navResetPassword = coordinator::navResetPassword,
         )
     }
 }

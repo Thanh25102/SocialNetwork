@@ -947,7 +947,7 @@ type Mutation {
 
   authorize(input: AuthorizeInput!): AuthResponse!
 
-  create_post(input: PostCreateInput!): Post
+  create_post(content: String, file: Upload, postId: String): Post
 
   delete_comment(id: String!): [Comment!]!
 
@@ -2178,7 +2178,7 @@ type Post {
   }
   , take: Int! = 999999999): CommentConnection!
 
-  content: String!
+  content: String
 
   createdAt: DateTime
 
@@ -2189,6 +2189,12 @@ type Post {
   id: ID!
 
   notifications: [Notification!]
+
+  post: Post
+
+  postId: String
+
+  posts: [Post!]
 
   reactions(after: String, filter: ReactionWhereInput! = {
 
@@ -2206,14 +2212,8 @@ type PostConnection {
   pageInfo: PageInfo!
 }
 
-input PostCreateInput {
-  content: String!
-
-  file: Upload
-}
-
-input PostCreateManyUserInput {
-  content: String!
+input PostCreateManyPostInput {
+  content: String
 
   createdAt: DateTime
 
@@ -2224,10 +2224,42 @@ input PostCreateManyUserInput {
   id: String
 
   updatedAt: DateTime
+
+  userId: String!
+}
+
+input PostCreateManyPostInputEnvelope {
+  data: [PostCreateManyPostInput!]!
+}
+
+input PostCreateManyUserInput {
+  content: String
+
+  createdAt: DateTime
+
+  deletedAt: DateTime
+
+  file: AssetNullableCreateEnvelopeInput
+
+  id: String
+
+  postId: String
+
+  updatedAt: DateTime
 }
 
 input PostCreateManyUserInputEnvelope {
   data: [PostCreateManyUserInput!]!
+}
+
+input PostCreateNestedManyWithoutPostInput {
+  connect: [PostWhereUniqueInput!]
+
+  connectOrCreate: [PostCreateOrConnectWithoutPostInput!]
+
+  create: [PostCreateWithoutPostInput!]
+
+  createMany: PostCreateManyPostInputEnvelope
 }
 
 input PostCreateNestedManyWithoutUserInput {
@@ -2256,6 +2288,14 @@ input PostCreateNestedOneWithoutNotificationsInput {
   create: PostCreateWithoutNotificationsInput
 }
 
+input PostCreateNestedOneWithoutPostsInput {
+  connect: PostWhereUniqueInput
+
+  connectOrCreate: PostCreateOrConnectWithoutPostsInput
+
+  create: PostCreateWithoutPostsInput
+}
+
 input PostCreateNestedOneWithoutReactionsInput {
   connect: PostWhereUniqueInput
 
@@ -2276,6 +2316,18 @@ input PostCreateOrConnectWithoutNotificationsInput {
   where: PostWhereUniqueInput!
 }
 
+input PostCreateOrConnectWithoutPostInput {
+  create: PostCreateWithoutPostInput!
+
+  where: PostWhereUniqueInput!
+}
+
+input PostCreateOrConnectWithoutPostsInput {
+  create: PostCreateWithoutPostsInput!
+
+  where: PostWhereUniqueInput!
+}
+
 input PostCreateOrConnectWithoutReactionsInput {
   create: PostCreateWithoutReactionsInput!
 
@@ -2289,7 +2341,7 @@ input PostCreateOrConnectWithoutUserInput {
 }
 
 input PostCreateWithoutCommentsInput {
-  content: String!
+  content: String
 
   createdAt: DateTime
 
@@ -2300,6 +2352,10 @@ input PostCreateWithoutCommentsInput {
   id: String
 
   notifications: NotificationCreateNestedManyWithoutPostInput
+
+  post: PostCreateNestedOneWithoutPostsInput
+
+  posts: PostCreateNestedManyWithoutPostInput
 
   reactions: ReactionCreateNestedManyWithoutPostInput
 
@@ -2311,7 +2367,7 @@ input PostCreateWithoutCommentsInput {
 input PostCreateWithoutNotificationsInput {
   comments: CommentCreateNestedManyWithoutPostInput
 
-  content: String!
+  content: String
 
   createdAt: DateTime
 
@@ -2320,6 +2376,58 @@ input PostCreateWithoutNotificationsInput {
   file: AssetNullableCreateEnvelopeInput
 
   id: String
+
+  post: PostCreateNestedOneWithoutPostsInput
+
+  posts: PostCreateNestedManyWithoutPostInput
+
+  reactions: ReactionCreateNestedManyWithoutPostInput
+
+  updatedAt: DateTime
+
+  user: UserCreateNestedOneWithoutPostsInput!
+}
+
+input PostCreateWithoutPostInput {
+  comments: CommentCreateNestedManyWithoutPostInput
+
+  content: String
+
+  createdAt: DateTime
+
+  deletedAt: DateTime
+
+  file: AssetNullableCreateEnvelopeInput
+
+  id: String
+
+  notifications: NotificationCreateNestedManyWithoutPostInput
+
+  posts: PostCreateNestedManyWithoutPostInput
+
+  reactions: ReactionCreateNestedManyWithoutPostInput
+
+  updatedAt: DateTime
+
+  user: UserCreateNestedOneWithoutPostsInput!
+}
+
+input PostCreateWithoutPostsInput {
+  comments: CommentCreateNestedManyWithoutPostInput
+
+  content: String
+
+  createdAt: DateTime
+
+  deletedAt: DateTime
+
+  file: AssetNullableCreateEnvelopeInput
+
+  id: String
+
+  notifications: NotificationCreateNestedManyWithoutPostInput
+
+  post: PostCreateNestedOneWithoutPostsInput
 
   reactions: ReactionCreateNestedManyWithoutPostInput
 
@@ -2331,7 +2439,7 @@ input PostCreateWithoutNotificationsInput {
 input PostCreateWithoutReactionsInput {
   comments: CommentCreateNestedManyWithoutPostInput
 
-  content: String!
+  content: String
 
   createdAt: DateTime
 
@@ -2342,6 +2450,10 @@ input PostCreateWithoutReactionsInput {
   id: String
 
   notifications: NotificationCreateNestedManyWithoutPostInput
+
+  post: PostCreateNestedOneWithoutPostsInput
+
+  posts: PostCreateNestedManyWithoutPostInput
 
   updatedAt: DateTime
 
@@ -2351,7 +2463,7 @@ input PostCreateWithoutReactionsInput {
 input PostCreateWithoutUserInput {
   comments: CommentCreateNestedManyWithoutPostInput
 
-  content: String!
+  content: String
 
   createdAt: DateTime
 
@@ -2362,6 +2474,10 @@ input PostCreateWithoutUserInput {
   id: String
 
   notifications: NotificationCreateNestedManyWithoutPostInput
+
+  post: PostCreateNestedOneWithoutPostsInput
+
+  posts: PostCreateNestedManyWithoutPostInput
 
   reactions: ReactionCreateNestedManyWithoutPostInput
 
@@ -2401,13 +2517,15 @@ input PostScalarWhereInput {
 
   OR: [PostScalarWhereInput!]
 
-  content: StringFilter
+  content: StringNullableFilter
 
   createdAt: DateTimeNullableFilter
 
   deletedAt: DateTimeNullableFilter
 
   id: StringFilter
+
+  postId: StringNullableFilter
 
   updatedAt: DateTimeNullableFilter
 
@@ -2426,10 +2544,40 @@ input PostUpdateManyMutationInput {
   updatedAt: DateTime
 }
 
+input PostUpdateManyWithWhereWithoutPostInput {
+  data: PostUpdateManyMutationInput!
+
+  where: PostScalarWhereInput!
+}
+
 input PostUpdateManyWithWhereWithoutUserInput {
   data: PostUpdateManyMutationInput!
 
   where: PostScalarWhereInput!
+}
+
+input PostUpdateManyWithoutPostNestedInput {
+  connect: [PostWhereUniqueInput!]
+
+  connectOrCreate: [PostCreateOrConnectWithoutPostInput!]
+
+  create: [PostCreateWithoutPostInput!]
+
+  createMany: PostCreateManyPostInputEnvelope
+
+  delete: [PostWhereUniqueInput!]
+
+  deleteMany: [PostScalarWhereInput!]
+
+  disconnect: [PostWhereUniqueInput!]
+
+  set: [PostWhereUniqueInput!]
+
+  update: [PostUpdateWithWhereUniqueWithoutPostInput!]
+
+  updateMany: [PostUpdateManyWithWhereWithoutPostInput!]
+
+  upsert: [PostUpsertWithWhereUniqueWithoutPostInput!]
 }
 
 input PostUpdateManyWithoutUserNestedInput {
@@ -2496,6 +2644,22 @@ input PostUpdateOneWithoutNotificationsNestedInput {
   upsert: PostUpsertWithoutNotificationsInput
 }
 
+input PostUpdateOneWithoutPostsNestedInput {
+  connect: PostWhereUniqueInput
+
+  connectOrCreate: PostCreateOrConnectWithoutPostsInput
+
+  create: PostCreateWithoutPostsInput
+
+  delete: PostWhereInput
+
+  disconnect: Boolean
+
+  update: PostUpdateToOneWithWhereWithoutPostsInput
+
+  upsert: PostUpsertWithoutPostsInput
+}
+
 input PostUpdateToOneWithWhereWithoutCommentsInput {
   data: PostUpdateWithoutCommentsInput!
 
@@ -2508,10 +2672,22 @@ input PostUpdateToOneWithWhereWithoutNotificationsInput {
   where: PostWhereInput
 }
 
+input PostUpdateToOneWithWhereWithoutPostsInput {
+  data: PostUpdateWithoutPostsInput!
+
+  where: PostWhereInput
+}
+
 input PostUpdateToOneWithWhereWithoutReactionsInput {
   data: PostUpdateWithoutReactionsInput!
 
   where: PostWhereInput
+}
+
+input PostUpdateWithWhereUniqueWithoutPostInput {
+  data: PostUpdateWithoutPostInput!
+
+  where: PostWhereUniqueInput!
 }
 
 input PostUpdateWithWhereUniqueWithoutUserInput {
@@ -2531,6 +2707,10 @@ input PostUpdateWithoutCommentsInput {
 
   notifications: NotificationUpdateManyWithoutPostNestedInput
 
+  post: PostUpdateOneWithoutPostsNestedInput
+
+  posts: PostUpdateManyWithoutPostNestedInput
+
   reactions: ReactionUpdateManyWithoutPostNestedInput
 
   updatedAt: DateTime
@@ -2548,6 +2728,54 @@ input PostUpdateWithoutNotificationsInput {
   deletedAt: DateTime
 
   file: AssetNullableUpdateEnvelopeInput
+
+  post: PostUpdateOneWithoutPostsNestedInput
+
+  posts: PostUpdateManyWithoutPostNestedInput
+
+  reactions: ReactionUpdateManyWithoutPostNestedInput
+
+  updatedAt: DateTime
+
+  user: UserUpdateOneRequiredWithoutPostsNestedInput
+}
+
+input PostUpdateWithoutPostInput {
+  comments: CommentUpdateManyWithoutPostNestedInput
+
+  content: String
+
+  createdAt: DateTime
+
+  deletedAt: DateTime
+
+  file: AssetNullableUpdateEnvelopeInput
+
+  notifications: NotificationUpdateManyWithoutPostNestedInput
+
+  posts: PostUpdateManyWithoutPostNestedInput
+
+  reactions: ReactionUpdateManyWithoutPostNestedInput
+
+  updatedAt: DateTime
+
+  user: UserUpdateOneRequiredWithoutPostsNestedInput
+}
+
+input PostUpdateWithoutPostsInput {
+  comments: CommentUpdateManyWithoutPostNestedInput
+
+  content: String
+
+  createdAt: DateTime
+
+  deletedAt: DateTime
+
+  file: AssetNullableUpdateEnvelopeInput
+
+  notifications: NotificationUpdateManyWithoutPostNestedInput
+
+  post: PostUpdateOneWithoutPostsNestedInput
 
   reactions: ReactionUpdateManyWithoutPostNestedInput
 
@@ -2569,6 +2797,10 @@ input PostUpdateWithoutReactionsInput {
 
   notifications: NotificationUpdateManyWithoutPostNestedInput
 
+  post: PostUpdateOneWithoutPostsNestedInput
+
+  posts: PostUpdateManyWithoutPostNestedInput
+
   updatedAt: DateTime
 
   user: UserUpdateOneRequiredWithoutPostsNestedInput
@@ -2587,9 +2819,21 @@ input PostUpdateWithoutUserInput {
 
   notifications: NotificationUpdateManyWithoutPostNestedInput
 
+  post: PostUpdateOneWithoutPostsNestedInput
+
+  posts: PostUpdateManyWithoutPostNestedInput
+
   reactions: ReactionUpdateManyWithoutPostNestedInput
 
   updatedAt: DateTime
+}
+
+input PostUpsertWithWhereUniqueWithoutPostInput {
+  create: PostCreateWithoutPostInput!
+
+  update: PostUpdateWithoutPostInput!
+
+  where: PostWhereUniqueInput!
 }
 
 input PostUpsertWithWhereUniqueWithoutUserInput {
@@ -2616,6 +2860,14 @@ input PostUpsertWithoutNotificationsInput {
   where: PostWhereInput
 }
 
+input PostUpsertWithoutPostsInput {
+  create: PostCreateWithoutPostsInput!
+
+  update: PostUpdateWithoutPostsInput!
+
+  where: PostWhereInput
+}
+
 input PostUpsertWithoutReactionsInput {
   create: PostCreateWithoutReactionsInput!
 
@@ -2633,7 +2885,7 @@ input PostWhereInput {
 
   comments: CommentListRelationFilter
 
-  content: StringFilter
+  content: StringNullableFilter
 
   createdAt: DateTimeNullableFilter
 
@@ -2644,6 +2896,12 @@ input PostWhereInput {
   id: StringFilter
 
   notifications: NotificationListRelationFilter
+
+  post: PostNullableRelationFilter
+
+  postId: StringNullableFilter
+
+  posts: PostListRelationFilter
 
   reactions: ReactionListRelationFilter
 
@@ -2663,7 +2921,7 @@ input PostWhereUniqueInput {
 
   comments: CommentListRelationFilter
 
-  content: StringFilter
+  content: StringNullableFilter
 
   createdAt: DateTimeNullableFilter
 
@@ -2674,6 +2932,12 @@ input PostWhereUniqueInput {
   id: String
 
   notifications: NotificationListRelationFilter
+
+  post: PostNullableRelationFilter
+
+  postId: StringNullableFilter
+
+  posts: PostListRelationFilter
 
   reactions: ReactionListRelationFilter
 

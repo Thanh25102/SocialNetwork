@@ -6,6 +6,27 @@ import tech.mobile.social.domain.model.auth.Auth
 import tech.mobile.social.domain.model.auth.User
 
 interface AuthorizeRepo {
-    suspend fun getAuthorize(username: String, password: String): Result<Auth, DataError.ServerErrors>
-    suspend fun authorize(username: String, password: String, email: String): Result<User, DataError.ServerErrors>
+//    suspend fun getUserCurrent(
+//    ): Result<Auth, DataError.ServerErrors>
+
+    suspend fun login(
+        email: String,
+        password: String
+    ): Result<Auth, DataError.ServerErrors>
+
+    suspend fun register(
+        fullname: String,
+        password: String,
+        email: String
+    ): Result<User, DataError.ServerErrors>
+
+    suspend fun forgot(
+        email: String
+    ): Result<Boolean, DataError.ServerErrors>
+
+    suspend fun resetPassword(
+        email: String,
+        otp: String,
+        password: String
+    ): Result<Boolean, DataError.ServerErrors>
 }

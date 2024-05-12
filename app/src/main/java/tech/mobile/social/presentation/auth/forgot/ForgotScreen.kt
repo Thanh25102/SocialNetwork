@@ -23,12 +23,19 @@ import tech.mobile.social.presentation.utils.components.PasswordApp
 import tech.mobile.social.ui.theme.BtnColor
 import tech.mobile.social.ui.theme.PrimaryColor
 import androidx.compose.material.icons.filled.*
+import androidx.compose.runtime.LaunchedEffect
 
 @Composable
 fun ForgotScreen(
     state: ForgotState,
     actions: ForgotActions,
 ) {
+
+    LaunchedEffect(key1 = state.isSuccess) {
+        if (state.isSuccess) {
+            actions.navResetPassword()
+        }
+    }
 
     Surface(
         color = Color.White,
@@ -50,57 +57,30 @@ fun ForgotScreen(
                 modifier = Modifier.padding(vertical = 30.dp, horizontal = 50.dp)
             )
 
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-//                OutlinedTextField(
-//                    label = { Text(text = "Email") },
-//                    singleLine = true,
-//                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-//                )
-                Button(
-                    onClick = { },
-//                    colors = ButtonDefaults.buttonColors(BtnColor),
-//                    contentPadding = PaddingValues(horizontal = 20.dp, vertical = 20.dp),
-//                    modifier = Modifier.padding(top = 10.dp, bottom = 10.dp),
-//                    shape = RoundedCornerShape(10.dp)
-                ) {
-                    Text("Xác nhận")
-                }
+            if (state.isError) {
+                Text(
+                    text = state.erMess,
+                    color = Color.Red
+                )
             }
 
-            InputApp(
-                onValueChange = { },
-                imageVector = Icons.Filled.Key,
-                label = "Mã OTP",
+            EmailApp(
+                text = state.email,
+                onValueChange = { actions.updateEmail(it) },
+                modifier = Modifier.padding(top = 10.dp)
             )
 
-            InputApp(
-                onValueChange = { },
-                imageVector = Icons.Filled.Password,
-                label = "Mật khẩu mới",
-            )
 
             Button(
-                onClick = { },
+                onClick = { actions.onForgotPassword() },
                 colors = ButtonDefaults.buttonColors(BtnColor),
                 contentPadding = PaddingValues(horizontal = 50.dp, vertical = 20.dp),
                 modifier = Modifier.padding(top = 30.dp, bottom = 10.dp),
                 shape = RoundedCornerShape(10.dp)
             ) {
-                Text("Xác nhận")
+                Text("Gửi mã xác nhận")
             }
 
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = "Bạn chưa có tài khoản ?")
-                TextButton(onClick = { }) {
-                    Text(text = "Đăng ký", color = PrimaryColor)
-                }
-            }
 
         }
     }

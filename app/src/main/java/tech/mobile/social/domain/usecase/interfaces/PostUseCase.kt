@@ -2,7 +2,7 @@ package tech.mobile.social.domain.usecase.interfaces
 
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
-import tech.mobile.social.Create_postMutation
+import tech.mobile.social.CreatePostMutation
 import tech.mobile.social.NewsfeedQuery
 import tech.mobile.social.domain.DataError
 import tech.mobile.social.domain.Result
@@ -16,8 +16,11 @@ import java.time.LocalDateTime
 interface PostUseCase {
     suspend fun Getpost(): Result<Posts, DataError.ServerErrors>
 
-    suspend fun Createpost(id: Optional<String?>, content: String, createdAt: LocalDateTime) : ApolloResponse<Create_postMutation.Data>
+    suspend fun Createpost(id: Optional<String?>, content: String, createdAt: LocalDateTime) : ApolloResponse<CreatePostMutation.Data>
 
-    suspend fun NewsFeed(take: Optional<Int?>, after: Optional<String?>): ApolloResponse<NewsfeedQuery.Data>?
+    suspend fun NewsFeed(
+        take: Optional<Int?>,
+        after: Optional<String?>
+    ): ApolloResponse<NewsfeedQuery.Data>?
 
 }

@@ -40,19 +40,26 @@ import tech.mobile.social.domain.repository.PostRepo
 import tech.mobile.social.domain.repository.ReactionRepo
 import tech.mobile.social.domain.usecase.impl.*
 import tech.mobile.social.domain.usecase.interfaces.*
-import tech.mobile.social.type.Comment
+
 
 import tech.mobile.social.type.DateTime
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 val dateTimeAdapter = object : Adapter<LocalDateTime> {
-    override fun fromJson(reader: JsonReader, customScalarAdapters: CustomScalarAdapters): LocalDateTime {
+    override fun fromJson(
+        reader: JsonReader,
+        customScalarAdapters: CustomScalarAdapters
+    ): LocalDateTime {
         val stringDate = reader.nextString()
         return LocalDateTime.parse(stringDate, DateTimeFormatter.ISO_DATE_TIME)
     }
 
-    override fun toJson(writer: JsonWriter, customScalarAdapters: CustomScalarAdapters, value: LocalDateTime) {
+    override fun toJson(
+        writer: JsonWriter,
+        customScalarAdapters: CustomScalarAdapters,
+        value: LocalDateTime
+    ) {
         val stringDate = value.format(DateTimeFormatter.ISO_DATE_TIME)
         writer.value(stringDate)
     }
@@ -63,6 +70,7 @@ val dateTimeAdapter = object : Adapter<LocalDateTime> {
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+
     @Provides
     @Singleton
     fun provideSharedPref(app: Application): SharedPreferences {
@@ -72,7 +80,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideApolloClient(pref: SharedPreferences): ApolloClient {
-        val accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MmQ1NjYwZWU1ZWUyZTY1NjBmMzg1NSIsInVzZXJuYW1lIjoia2lkcDJoIiwiZW1haWwiOiJraWRwMmhAZ21haWwuY29tIiwiaWF0IjoxNzE0NjQ2OTAxLCJleHAiOjE3MjM2NDY5MDF9.yQxz419tB3FJBC9enlr4dbivaY3XgWjTAZyWGipWkdc";
+        val accessToken =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MmQ1NjYwZWU1ZWUyZTY1NjBmMzg1NSIsInVzZXJuYW1lIjoia2lkcDJoIiwiZW1haWwiOiJraWRwMmhAZ21haWwuY29tIiwiaWF0IjoxNzE0NjQ2OTAxLCJleHAiOjE3MjM2NDY5MDF9.yQxz419tB3FJBC9enlr4dbivaY3XgWjTAZyWGipWkdc";
         val customScalarAdapters = CustomScalarAdapters.Builder()
             .add(DateTime.type, dateTimeAdapter)
             .build()
@@ -112,13 +121,16 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesCommentRepo(apolloClient: ApolloClient,pref: SharedPreferences) : CommentRepo {
-        return CommentRepoImpl(apolloClient,pref)
+    fun providesCommentRepo(apolloClient: ApolloClient, pref: SharedPreferences): CommentRepo {
+        return CommentRepoImpl(apolloClient, pref)
     }
 
     @Provides
     @Singleton
-    fun providesFriendRequestRepo(apolloClient: ApolloClient, pref: SharedPreferences): FriendRequestRepo {
+    fun providesFriendRequestRepo(
+        apolloClient: ApolloClient,
+        pref: SharedPreferences
+    ): FriendRequestRepo {
         return FriendRequestRepoImpl(apolloClient, pref)
     }
 
@@ -130,7 +142,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesFriendSuggestRepo(apolloClient: ApolloClient, pref: SharedPreferences): FriendSuggestRepo {
+    fun providesFriendSuggestRepo(
+        apolloClient: ApolloClient,
+        pref: SharedPreferences
+    ): FriendSuggestRepo {
         return FriendSuggestRepoImpl(apolloClient, pref)
     }
 
@@ -142,7 +157,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesNotificationRepo(apolloClient: ApolloClient, pref: SharedPreferences): NotificationRepo {
+    fun providesNotificationRepo(
+        apolloClient: ApolloClient,
+        pref: SharedPreferences
+    ): NotificationRepo {
         return NotificationRepoImpl(apolloClient, pref)
     }
 
@@ -172,15 +190,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesRepo(apolloClient: ApolloClient,pref: SharedPreferences) : PostRepo{
-        return PostRepoImpl(apolloClient,pref)
+    fun providesRepo(apolloClient: ApolloClient, pref: SharedPreferences): PostRepo {
+        return PostRepoImpl(apolloClient, pref)
     }
-
 
 
     @Provides
     @Singleton
-    fun providesCommentUseCase(commentRepo: CommentRepo) : CommentUseCase{
+    fun providesCommentUseCase(commentRepo: CommentRepo): CommentUseCase {
         return CommentUseCaseImpl(commentRepo)
     }
 

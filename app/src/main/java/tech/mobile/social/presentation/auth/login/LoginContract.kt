@@ -12,7 +12,11 @@ data class LoginState(val email: String = "", val password: String = "")
  **/
 data class LoginActions(
     val onLogin: () -> Unit = {},
+    val onLoginGoogle: (fullName: String, email: String) -> Unit,
     val onEmailChange: (String) -> Unit = {},
     val onPasswordChange: (String) -> Unit = {},
-    val navRegister: () -> Unit = {}
+    val navRegister: () -> Unit = {},
+    val navApp: () -> Unit = {},
+    val navForgotPassword: () -> Unit = {},
+    val loading: () -> Unit = {}
 )
