@@ -26,6 +26,8 @@ import tech.mobile.social.presentation.auth.login.LoginRoute
 import tech.mobile.social.presentation.auth.register.RegisterRoute
 import tech.mobile.social.presentation.auth.forgot.ForgotRoute
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import kotlinx.coroutines.launch
 import tech.mobile.social.presentation.auth.otp.OtpRoute
 
@@ -57,8 +59,16 @@ fun RootNavigation(
                 composable(route = Screens.ForgotPassword.route) {
                     ForgotRoute(navController)
                 }
-                composable(route = Screens.Otp.route) {
-                    OtpRoute(navController)
+                composable(
+                    route = Screens.Otp.route, arguments = listOf(
+                        navArgument(name = "email") {
+                            type = NavType.StringType
+                        }
+                    )
+                ) {
+                    val email = it.arguments?.getString("email")
+                    requireNotNull(email)
+                    OtpRoute(email, navController)
                 }
             }
 
