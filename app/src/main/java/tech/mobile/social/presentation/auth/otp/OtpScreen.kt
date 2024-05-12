@@ -40,7 +40,7 @@ fun OtpScreen(
 
     LaunchedEffect(key1 = state.isSuccess) {
         if (state.isSuccess) {
-//            actions.navLogin()
+            actions.navLogin()
         }
     }
 
