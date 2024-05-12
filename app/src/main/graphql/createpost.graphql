@@ -1,10 +1,17 @@
-mutation create_post($input: PostCreateInput!) {
-    create_post(input: $input) {
+mutation createPost($content: String, $file: Upload, $postId: String) {
+    post: create_post(content: $content, file: $file, postId: $postId) {
         id,
         user {
             id,
             username
             email
+        }
+        post {
+            id,
+            user {
+                id
+                username
+            }
         }
         content
     }
