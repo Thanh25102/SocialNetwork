@@ -1,6 +1,5 @@
 package tech.mobile.social.presentation.app.home.post
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,13 +11,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import tech.mobile.social.CommentsQuery
-import tech.mobile.social.FriendRequestQuery
-import tech.mobile.social.R
 import tech.mobile.social.domain.usecase.interfaces.CommentUseCase
-import tech.mobile.social.presentation.app.friend.friendRequest.FriendRequestState
 import tech.mobile.social.type.CommentWhereInput
-import tech.mobile.social.type.RequestWhereInput
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,32 +23,7 @@ class PostViewModel @Inject constructor(
     private val _stateFlow = MutableStateFlow(
         State(
             52, false, false, listOf("Phương Nghi", "Phương Uyên"), 50,
-            listOf(
-//                Comment(
-//                    avatarResource = R.drawable.manhthanh_3x4,
-//                    author = "Đại Lộc",
-//                    time = LocalDateTime.now(),
-//                    content = "Mày bị ngu à ?"
-//                ),
-//                Comment(
-//                    avatarResource = R.drawable.manhthanh_3x4,
-//                    author = "Tuấn Anh",
-//                    time = LocalDateTime.now(),
-//                    content = "Are u ỗn ?"
-//                ),
-//                Comment(
-//                    avatarResource = R.drawable.manhthanh_3x4,
-//                    author = "Minh Thông",
-//                    time = LocalDateTime.now(),
-//                    content = "Chị đẹp lắm"
-//                ),
-//                Comment(
-//                    avatarResource = R.drawable.manhthanh_3x4,
-//                    author = "Khánh Hiền",
-//                    time = LocalDateTime.now(),
-//                    content = "Ahihi"
-//                )
-            ),
+            listOf(),
             null
         )
     )
@@ -75,16 +44,18 @@ class PostViewModel @Inject constructor(
         }
     }
 
-    fun getComments(take: Optional<Int?>, after: Optional<String?>, filter: Optional<CommentWhereInput?>) { viewModelScope.launch {
-        when (val result = commentUseCase.getComments(take, after, filter)) {
-            is ApolloResponse<CommentsQuery.Data> -> {
-                _stateFlow.value.comments = result.data?.comments?.edges?.map { it.node }
-            }
-            null -> {
+    fun getComments(take: Optional<Int?>, after: Optional<String?>, filter: Optional<CommentWhereInput?>) {
+        viewModelScope.launch {
+            when (val result = commentUseCase.getComments(take, after, filter)) {
+                is ApolloResponse<CommentsQuery.Data> -> {
+                    _stateFlow.value.comments = result.data?.comments?.edges?.map { it.node }
+                }
 
+                null -> {
+
+                }
             }
         }
-    }
     }
 
     fun doCloseComments() {

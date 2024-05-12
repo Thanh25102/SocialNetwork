@@ -15,8 +15,6 @@ class ForYouCoordinator(
 ) {
     val forYouStateFlow = forYouViewModel.stateFlow
     val userStateFlow = userViewModel.stateFlow
-    val paginationStateFlow = forYouViewModel.paginationState
-    val isRefreshFlow = forYouViewModel.isRefresh
 
     fun doStuff() {
         // TODO Handle UI Action
