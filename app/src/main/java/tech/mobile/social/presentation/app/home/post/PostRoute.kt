@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 
 @Composable
 fun PostRoute(
-    state: PostState,
+    state: () -> PostState,
     coordinator: PostCoordinator = rememberPostCoordinator()
 ) {
     // State observing and declarations
