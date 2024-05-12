@@ -43,7 +43,7 @@ class AuthorizeRepoImpl(
         val result = apolloClient.mutation(
             RegisterMutation(
                 UserCreateInput(
-                    username = username, password = password, email = email
+                    username = username, password = password, email = email, fullname = ""
                 )
             )
         ).execute()
