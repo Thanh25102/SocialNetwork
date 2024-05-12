@@ -8,14 +8,17 @@ import androidx.navigation.NavController
 
 @Composable
 fun OtpRoute(
+    email: String,
     navController: NavController,
-    coordinator: OtpCoordinator = rememberOtpCoordinator()
+    coordinator: OtpCoordinator = rememberOtpCoordinator(navController = navController)
 ) {
     // State observing and declarations
     val uiState by coordinator.screenStateFlow.collectAsState(OtpState())
 
     // UI Actions
     val actions = rememberOtpActions(coordinator)
+
+    actions.updateEmail(email)
 
     // UI Rendering
     OtpScreen(uiState, actions)
@@ -30,7 +33,8 @@ fun rememberOtpActions(coordinator: OtpCoordinator): OtpActions {
             updatePassword = coordinator::doUpdatePassword,
             updatePasswordConfirm = coordinator::doUpdatePasswordConfirm,
             updateEmail = coordinator::doUpdateEmail,
-            onResetPassword = coordinator::resetPassword
+            onResetPassword = coordinator::resetPassword,
+            navLogin = coordinator::navLogin
         )
     }
 }

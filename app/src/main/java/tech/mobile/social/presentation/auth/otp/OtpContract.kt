@@ -27,5 +27,6 @@ data class OtpActions(
     val updateOtp: (String) -> Unit = {},
     val updateEmail: (String) -> Unit = {},
     val updatePassword: (String) -> Unit = {},
-    val updatePasswordConfirm: (String) -> Unit = {}
+    val updatePasswordConfirm: (String) -> Unit = {},
+    val navLogin: () -> Unit = {}
 )
