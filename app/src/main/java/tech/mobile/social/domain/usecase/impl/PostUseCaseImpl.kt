@@ -12,7 +12,6 @@ import tech.mobile.social.domain.model.post.Posts
 import tech.mobile.social.domain.model.post.User
 import tech.mobile.social.domain.repository.PostRepo
 import tech.mobile.social.domain.usecase.interfaces.PostUseCase
-import tech.mobile.social.type.UserCreateNestedOneWithoutPostsInput
 import java.time.LocalDateTime
 
 class PostUseCaseImpl(private val postRepo: PostRepo) : PostUseCase {

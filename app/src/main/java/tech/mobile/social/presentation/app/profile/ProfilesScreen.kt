@@ -97,7 +97,7 @@ fun ProfilesScreen(
         LazyColumn {
             state.posts?.let {
                 items(count = it.size) {
-                    PostRoute(state = state.posts[it])
+                    state.posts[it]?.let { it1 -> PostRoute(state = it1) }
                 }
             }
         }
