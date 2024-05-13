@@ -118,7 +118,8 @@ fun rememberLoginActions(coordinator: LoginCoordinator): LoginActions {
             navRegister = coordinator::navRegister,
             navApp = coordinator::navApp,
             navForgotPassword = coordinator::navForgotPassword,
-            loading = coordinator::loading
+            loading = coordinator::loading,
+            checkLogin = coordinator::checkLogin,
         )
     }
 }

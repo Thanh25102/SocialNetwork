@@ -4,24 +4,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.apollographql.apollo3.api.Optional
 import tech.mobile.social.R
-import tech.mobile.social.presentation.app.friend.friendRequest.components.FriendRequestItemComponent
 import tech.mobile.social.presentation.app.friend.friendRequest.components.FriendSuggestItemComponent
-import tech.mobile.social.presentation.app.home.foryou.components.InfiniteListHandler
 
 @Composable
 fun FriendRequestScreen(

@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.home.foryou.components
+package tech.mobile.social.presentation.app.home.components
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.*

@@ -18,5 +18,6 @@ data class LoginActions(
     val navRegister: () -> Unit = {},
     val navApp: () -> Unit = {},
     val navForgotPassword: () -> Unit = {},
-    val loading: () -> Unit = {}
+    val loading: () -> Unit = {},
+    val checkLogin: () -> Unit = {}
 )

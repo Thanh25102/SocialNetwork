@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.home.foryou
+package tech.mobile.social.presentation.app.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -9,26 +9,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.internal.toImmutableList
 import tech.mobile.social.R
 import tech.mobile.social.domain.usecase.interfaces.PostUseCase
-import tech.mobile.social.presentation.app.home.post.PostState
+import tech.mobile.social.presentation.app.post.PostState
 import tech.mobile.social.utils.DefaultPaginator
 import javax.inject.Inject
 
 @HiltViewModel
-class ForYouViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val postUseCase: PostUseCase
 ) : ViewModel() {
 
-    private val _stateFlow: MutableStateFlow<ForYouState> = MutableStateFlow(
-        ForYouState()
+    private val _stateFlow: MutableStateFlow<HomeState> = MutableStateFlow(
+        HomeState()
     )
-    val stateFlow: StateFlow<ForYouState> = _stateFlow.asStateFlow()
+    val stateFlow: StateFlow<HomeState> = _stateFlow.asStateFlow()
 
     val paginator = DefaultPaginator(
         initialKey = _stateFlow.value.after,

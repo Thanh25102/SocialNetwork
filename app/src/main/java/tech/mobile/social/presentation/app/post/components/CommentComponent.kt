@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.home.post.components
+package tech.mobile.social.presentation.app.post.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,7 +40,10 @@ fun CommentComponent(
             // make text bold
             Column(
                 modifier = Modifier
-                    .background(color = HiddenTextColor.copy(alpha = 0.1f), shape = RoundedCornerShape(8.dp))
+                    .background(
+                        color = HiddenTextColor.copy(alpha = 0.1f),
+                        shape = RoundedCornerShape(8.dp)
+                    )
                     .wrapContentWidth(Alignment.Start)
             ) {
                 Text(

@@ -1,6 +1,7 @@
 package tech.mobile.social.presentation.auth.login
 
 import android.app.Activity
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,9 +20,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+
     private val authUseCase: AuthUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
+
 
     private val _stateFlow: MutableStateFlow<LoginState> = MutableStateFlow(LoginState())
 

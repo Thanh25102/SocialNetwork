@@ -12,9 +12,7 @@ import kotlinx.coroutines.launch
 import tech.mobile.social.R
 import tech.mobile.social.UserprofileQuery
 import tech.mobile.social.domain.usecase.interfaces.ProfileUseCase
-import tech.mobile.social.presentation.app.friend.friendRequest.FriendRequestState
-import tech.mobile.social.presentation.app.home.post.PostState
-import java.util.Date
+import tech.mobile.social.presentation.app.post.PostState
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +22,7 @@ class ProfilesViewModel @Inject constructor(
 ) : ViewModel() {
     private val _stateFlow: MutableStateFlow<ProfilesState> = MutableStateFlow(ProfilesState())
     val stateFlow: StateFlow<ProfilesState> = _stateFlow.asStateFlow()
-    var username:String=""
+    var username: String = ""
     fun onopenFriend() {
 
     }
@@ -32,19 +30,19 @@ class ProfilesViewModel @Inject constructor(
 
     init {
         if (_stateFlow.value.posts?.isEmpty() == true) {
-            val respone =getProfile()
+            val respone = getProfile()
         }
 
     }
 
-  //  private fun ProfilesState(): ProfilesState {
+    //  private fun ProfilesState(): ProfilesState {
 
-  //  }
+    //  }
 
-    fun getProfile(){
+    fun getProfile() {
         viewModelScope.launch {
 //            commentRepo.handleCommentAdded("662f6e4bb4ec3d607efc7d21")
-            when (val result = profileUseCase.Getallpost()){
+            when (val result = profileUseCase.Getallpost()) {
                 is ApolloResponse<UserprofileQuery.Data> -> {
                     username = result.data?.user?.username.toString()
                     _stateFlow.value =
@@ -63,14 +61,13 @@ class ProfilesViewModel @Inject constructor(
                             }
                         }?.let { ProfilesState(posts = it) }!!
                 }
+
                 null -> {
 
                 }
             }
         }
     }
-
-
 
 
     /*    private val _stateFlow: MutableStateFlow<ProfilesState> = MutableStateFlow(

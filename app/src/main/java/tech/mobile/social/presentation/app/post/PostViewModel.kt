@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.home.post
+package tech.mobile.social.presentation.app.post
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -44,7 +44,11 @@ class PostViewModel @Inject constructor(
         }
     }
 
-    fun getComments(take: Optional<Int?>, after: Optional<String?>, filter: Optional<CommentWhereInput?>) {
+    fun getComments(
+        take: Optional<Int?>,
+        after: Optional<String?>,
+        filter: Optional<CommentWhereInput?>
+    ) {
         viewModelScope.launch {
             when (val result = commentUseCase.getComments(take, after, filter)) {
                 is ApolloResponse<CommentsQuery.Data> -> {

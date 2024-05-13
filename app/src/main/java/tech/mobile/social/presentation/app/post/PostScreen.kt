@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.home.post
+package tech.mobile.social.presentation.app.post
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -18,10 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.coil.rememberCoilPainter
 import tech.mobile.social.R.drawable
-import tech.mobile.social.presentation.app.home.post.components.CommentsComponent
+import tech.mobile.social.presentation.app.post.components.CommentsComponent
 import tech.mobile.social.presentation.utils.formatTimeAgo
 import java.time.LocalDateTime
-import java.util.*
 
 @Composable
 fun PostScreen(
@@ -92,7 +91,8 @@ fun PostScreen(
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
-                        painter = painterResource(id = drawable.favorite_24), contentDescription = "Favorite"
+                        painter = painterResource(id = drawable.favorite_24),
+                        contentDescription = "Favorite"
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(text = "${post.likes}")
@@ -104,7 +104,8 @@ fun PostScreen(
                         .weight(1f)
                         .clickable { actions.onOpenComments() }) {
                     Icon(
-                        painter = painterResource(id = drawable.comment_24), contentDescription = "Comment"
+                        painter = painterResource(id = drawable.comment_24),
+                        contentDescription = "Comment"
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(text = "${post.commentsCount} Bình luận")
@@ -116,7 +117,8 @@ fun PostScreen(
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
-                        painter = painterResource(id = drawable.share_24), contentDescription = "Share"
+                        painter = painterResource(id = drawable.share_24),
+                        contentDescription = "Share"
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(text = "Chia sẻ")

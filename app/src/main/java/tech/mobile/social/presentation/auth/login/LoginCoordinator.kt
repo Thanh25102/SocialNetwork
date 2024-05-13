@@ -45,6 +45,10 @@ class LoginCoordinator(
         navController.navigate(Screens.ForgotPassword.route)
     }
 
+    fun checkLogin() {
+        userViewModel.checkLogin()
+    }
+
 
 }
 
