@@ -1,4 +1,4 @@
-query userprofile {
+query userprofile($take: Int, $after: String) {
   user {
     id
     username
@@ -7,30 +7,7 @@ query userprofile {
       path
     }
     fullname
-    posts {
-      edges {
-        node {
-          id
-          content
-          createdAt
-          file {
-            type
-            path
-          }
-          comments {
-            edges {
-              node {
-                id
-                user {
-                  fullname
-                }
-                content
-              }
-            }
-          }
-        }
-      }
-    }
+    ...Posts
     friends {
       edges {
         node {

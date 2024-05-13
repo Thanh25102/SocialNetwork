@@ -12,7 +12,10 @@ import kotlinx.coroutines.launch
 import tech.mobile.social.R
 import tech.mobile.social.UserprofileQuery
 import tech.mobile.social.domain.usecase.interfaces.ProfileUseCase
+import tech.mobile.social.fragment.Posts
+import tech.mobile.social.presentation.app.friend.friendRequest.FriendRequestState
 import tech.mobile.social.presentation.app.post.PostState
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,12 +44,11 @@ class ProfilesViewModel @Inject constructor(
 
     fun getProfile() {
         viewModelScope.launch {
-//            commentRepo.handleCommentAdded("662f6e4bb4ec3d607efc7d21")
             when (val result = profileUseCase.Getallpost()) {
                 is ApolloResponse<UserprofileQuery.Data> -> {
                     username = result.data?.user?.username.toString()
                     _stateFlow.value =
-                        result.data?.user?.posts?.edges?.map {
+                        result.data?.user?.posts?.posts?.edges?.map {
                             it.node.content?.let { it1 ->
                                 PostState(
                                     avatarResource = R.drawable.manhthanh_3x4,
