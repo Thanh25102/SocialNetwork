@@ -57,7 +57,9 @@ class FriendRequestViewModel @Inject constructor(
         onLoadUpdated = {
             _stateFlow.value = _stateFlow.value.copy(isLoading = it)
         },
-        onRequest = {nextKey -> this.getFriendRequests(Optional.present(18), nextKey, Optional.Absent) },
+        onRequest = {nextKey ->
+            this.getFriendRequests(Optional.present(18), nextKey, Optional.Absent)
+                    },
         getNextKey = {
             if(it.isNotEmpty()) {
                 Optional.present(it[it.size - 1].requestFragment.id)

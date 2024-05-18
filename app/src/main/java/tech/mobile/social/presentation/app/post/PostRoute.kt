@@ -29,7 +29,8 @@ fun rememberPostActions(coordinator: PostCoordinator): PostActions {
         PostActions(
             onClick = coordinator::doStuff,
             onCloseComments = coordinator.viewModel::doCloseComments,
-            onOpenComments = coordinator.viewModel::doOpenComments
+            onOpenComments = coordinator.viewModel::doOpenComments,
+            onSharePost = coordinator.viewModel::sharePost
         )
     }
 }
