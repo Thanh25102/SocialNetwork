@@ -19,8 +19,8 @@ class PostUseCaseImpl(private val postRepo: PostRepo) : PostUseCase {
         return postRepo.GetPosts()
     }
 
-    override suspend fun Createpost(id: Optional<String?>, content: String, createdAt: LocalDateTime): ApolloResponse<CreatePostMutation.Data> {
-        return postRepo.CreatePost(id,content,createdAt)
+    override suspend fun Createpost(id: Optional<String?>, content: Optional<String?>, file: Optional<Any?>): ApolloResponse<CreatePostMutation.Data> {
+        return postRepo.CreatePost(id,content,file)
     }
 
     override suspend fun NewsFeed(

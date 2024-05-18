@@ -55,7 +55,8 @@ class FriendSuggestViewModel @Inject constructor(
         onLoadUpdated = {
             _stateFlow.value = _stateFlow.value.copy(isLoading = it)
         },
-        onRequest = {nextKey -> this.getFriendSuggests(Optional.present(18), nextKey) },
+        onRequest = {nextKey ->
+            this.getFriendSuggests(Optional.present(18), nextKey) },
         getNextKey = {
             if(it.isNotEmpty()) {
                 Optional.present(it[it.size - 1].id)
@@ -84,6 +85,7 @@ class FriendSuggestViewModel @Inject constructor(
         viewModelScope.launch {
             friendRequestUseCase.requestAdded()?.collect{
                 paginator.reset();
+                _stateFlow.value = _stateFlow.value.copy( friendSuggests = emptyList())
                 paginator.loadNextItems();
             }
         }

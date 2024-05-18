@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 interface PostUseCase {
     suspend fun Getpost(): Result<Posts, DataError.ServerErrors>
 
-    suspend fun Createpost(id: Optional<String?>, content: String, createdAt: LocalDateTime) : ApolloResponse<CreatePostMutation.Data>
+    suspend fun Createpost(id: Optional<String?>, content: Optional<String?>, file: Optional<Any?>) : ApolloResponse<CreatePostMutation.Data>
 
     suspend fun NewsFeed(
         take: Optional<Int?>,

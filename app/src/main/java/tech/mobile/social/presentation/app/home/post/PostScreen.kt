@@ -113,7 +113,9 @@ fun PostScreen(
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { actions.onSharePost(post.id) }
                 ) {
                     Icon(
                         painter = painterResource(id = drawable.share_24), contentDescription = "Share"
