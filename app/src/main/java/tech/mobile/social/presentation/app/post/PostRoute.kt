@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.home.post
+package tech.mobile.social.presentation.app.post
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState

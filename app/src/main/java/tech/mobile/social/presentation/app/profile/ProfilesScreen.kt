@@ -22,17 +22,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import tech.mobile.social.R
-import tech.mobile.social.presentation.app.home.post.PostRoute
-import tech.mobile.social.presentation.app.home.post.PostState
-import java.util.Date
+import tech.mobile.social.presentation.app.post.PostRoute
 
 @Composable
 fun ProfilesScreen(
     state: ProfilesState,
     actions: ProfilesActions,
 
-) {
-    val viewModel:ProfilesViewModel= viewModel()
+    ) {
+    val viewModel: ProfilesViewModel = viewModel()
     Column {
         Row(
             modifier = Modifier
@@ -53,7 +51,11 @@ fun ProfilesScreen(
             Column {
                 // make text bold
                 Text(text = viewModel.username, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                Text(text = "Chúng ta của tương lai", fontWeight = FontWeight.Normal, fontSize = 16.sp)
+                Text(
+                    text = "Chúng ta của tương lai",
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 16.sp
+                )
             }
         }
 
@@ -70,7 +72,7 @@ fun ProfilesScreen(
             Text(text = "100 người bạn",
                 modifier = Modifier.clickable { actions.onClick() }
 
-                )
+            )
         }
 
         LazyVerticalGrid(

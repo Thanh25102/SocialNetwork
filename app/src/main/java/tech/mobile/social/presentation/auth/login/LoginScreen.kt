@@ -40,6 +40,7 @@ fun LoginScreen(
     email: String = ""
 ) {
 
+    actions.checkLogin()
 
     LaunchedEffect(key1 = Unit) {
         if (email != "") {

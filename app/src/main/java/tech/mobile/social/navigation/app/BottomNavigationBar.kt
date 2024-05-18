@@ -45,6 +45,7 @@ import okhttp3.internal.wait
 import tech.mobile.social.Screens
 import tech.mobile.social.navigation.app.friend.FriendNavBar
 import tech.mobile.social.navigation.app.home.HomeNavBar
+import tech.mobile.social.presentation.app.home.HomeRoute
 import tech.mobile.social.presentation.app.notifications.NotificationsRoute
 import tech.mobile.social.presentation.app.posts.PostsRoute
 import tech.mobile.social.presentation.app.profile.ProfilesRoute
@@ -141,12 +142,9 @@ fun BottomNavigationBar(rootNavController: NavController) {
             }
         ) {
             composable(Screens.Home.route) {
-                HomeNavBar(navController)
+                HomeRoute()
             }
             composable(Screens.Friends.route) {
-
-//                FriendsScreen(navController)
-//                FriendRoute()
                 FriendNavBar(navController)
             }
             composable(Screens.Post.route) {

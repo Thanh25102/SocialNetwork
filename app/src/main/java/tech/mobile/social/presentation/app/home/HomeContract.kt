@@ -1,8 +1,7 @@
-package tech.mobile.social.presentation.app.home.foryou
+package tech.mobile.social.presentation.app.home
 
-import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import com.apollographql.apollo3.api.Optional
-import tech.mobile.social.presentation.app.home.post.PostState
+import tech.mobile.social.presentation.app.post.PostState
 import tech.mobile.social.shared.UserState
 
 
@@ -10,12 +9,12 @@ import tech.mobile.social.shared.UserState
  * UI State that represents ForYouScreen
  **/
 
-data class ForYouUiState(
-    val forYouState: ForYouState,
+data class HomeUiState(
+    val homeState: HomeState,
     val userState: UserState
 )
 
-data class ForYouState(
+data class HomeState(
     val posts: List<PostState> = emptyList(),
     val isLoading: Boolean = false,
     val error: String = "",
@@ -35,7 +34,7 @@ data class PagingState(
  * ForYou Actions emitted from the UI Layer
  * passed to the coordinator to handle
  **/
-data class ForYouActions(
+data class HomeActions(
     val onClick: () -> Unit = {},
     val onScroll: () -> Unit = {},
 )

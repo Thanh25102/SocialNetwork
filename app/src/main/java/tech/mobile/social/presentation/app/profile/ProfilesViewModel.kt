@@ -14,7 +14,7 @@ import tech.mobile.social.UserprofileQuery
 import tech.mobile.social.domain.usecase.interfaces.ProfileUseCase
 import tech.mobile.social.fragment.Posts
 import tech.mobile.social.presentation.app.friend.friendRequest.FriendRequestState
-import tech.mobile.social.presentation.app.home.post.PostState
+import tech.mobile.social.presentation.app.post.PostState
 import java.util.Date
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class ProfilesViewModel @Inject constructor(
 ) : ViewModel() {
     private val _stateFlow: MutableStateFlow<ProfilesState> = MutableStateFlow(ProfilesState())
     val stateFlow: StateFlow<ProfilesState> = _stateFlow.asStateFlow()
-    var username:String=""
+    var username: String = ""
     fun onopenFriend() {
 
     }
@@ -33,15 +33,18 @@ class ProfilesViewModel @Inject constructor(
 
     init {
         if (_stateFlow.value.posts?.isEmpty() == true) {
-            val respone =getProfile()
+            val respone = getProfile()
         }
 
     }
 
+    //  private fun ProfilesState(): ProfilesState {
 
-    fun getProfile(){
+    //  }
+
+    fun getProfile() {
         viewModelScope.launch {
-            when (val result = profileUseCase.Getallpost()){
+            when (val result = profileUseCase.Getallpost()) {
                 is ApolloResponse<UserprofileQuery.Data> -> {
                     username = result.data?.user?.username.toString()
                     _stateFlow.value =
@@ -54,21 +57,19 @@ class ProfilesViewModel @Inject constructor(
                                     imageResource = R.drawable.img,
                                     authorName = username,
                                     postTime = "",
-                                    commentsCount = it.node.comments.edges.size ,
-                                    comments = it.node.comments,
+                                    comments = null,
                                     image = it.node.file?.path
                                 )
                             }
                         }?.let { ProfilesState(posts = it) }!!
                 }
+
                 null -> {
 
                 }
             }
         }
     }
-
-
 
 
     /*    private val _stateFlow: MutableStateFlow<ProfilesState> = MutableStateFlow(

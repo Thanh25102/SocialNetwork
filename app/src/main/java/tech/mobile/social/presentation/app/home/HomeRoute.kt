@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.home.foryou
+package tech.mobile.social.presentation.app.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -9,39 +9,39 @@ import tech.mobile.social.shared.UserState
 
 
 @Composable
-fun ForYouRoute(
-    coordinator: ForYouCoordinator = rememberForYouCoordinator()
+fun HomeRoute(
+    coordinator: HomeCoordinator = rememberHomeCoordinator()
 ) {
     // State observing and declarations
     val uiState by combine(
         coordinator.forYouStateFlow,
         coordinator.userStateFlow,
-    ) { forYouState,  userState ->
-        ForYouUiState(
-            forYouState = forYouState,
+    ) { homeState, userState ->
+        HomeUiState(
+            homeState = homeState,
             userState = userState
         )
     }
         .collectAsState(
-            initial = ForYouUiState(
-                ForYouState(emptyList()),UserState(null, false)
+            initial = HomeUiState(
+                HomeState(emptyList()), UserState(null, false)
             )
         )
 
     // UI Actions
-    val actions = rememberForYouActions(coordinator)
+    val actions = rememberHomeActions(coordinator)
 
     // UI Rendering
-    ForYouScreen(uiState, actions)
+    HomeScreen(uiState, actions)
 }
 
 
 @Composable
-fun rememberForYouActions(coordinator: ForYouCoordinator): ForYouActions {
+fun rememberHomeActions(coordinator: HomeCoordinator): HomeActions {
     return remember(coordinator) {
-        ForYouActions(
+        HomeActions(
             onClick = coordinator::doStuff,
-            onScroll = coordinator.forYouViewModel::loadNextItems
+            onScroll = coordinator.homeViewModel::loadNextItems
         )
     }
 }

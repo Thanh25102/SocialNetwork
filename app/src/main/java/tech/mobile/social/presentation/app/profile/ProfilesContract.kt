@@ -1,6 +1,6 @@
 package tech.mobile.social.presentation.app.profile
 
-import tech.mobile.social.presentation.app.home.post.PostState
+import tech.mobile.social.presentation.app.post.PostState
 
 
 /**
@@ -14,5 +14,5 @@ data class ProfilesState(val posts: List<PostState?>? = emptyList())
  **/
 data class ProfilesActions(
     val onClick: () -> Unit = {},
-    val onopenFriend:()  ->  Unit={}
+    val onopenFriend: () -> Unit = {}
 )

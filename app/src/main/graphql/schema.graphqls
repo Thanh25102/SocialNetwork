@@ -965,6 +965,8 @@ type Mutation {
 
   handle_request(request_id: ID!, status: RequestStatus!): Request
 
+  pushNotification: Boolean
+
   reaction_post(postId: String!): Reaction!
 
   register(input: UserCreateInput!): User

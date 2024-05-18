@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.home.foryou
+package tech.mobile.social.presentation.app.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -9,11 +9,11 @@ import tech.mobile.social.shared.UserViewModel
  * Screen's coordinator which is responsible for handling actions from the UI layer
  * and one-shot actions based on the new UI state
  */
-class ForYouCoordinator(
-    val forYouViewModel: ForYouViewModel,
+class HomeCoordinator(
+    val homeViewModel: HomeViewModel,
     val userViewModel: UserViewModel
 ) {
-    val forYouStateFlow = forYouViewModel.stateFlow
+    val forYouStateFlow = homeViewModel.stateFlow
     val userStateFlow = userViewModel.stateFlow
 
     fun doStuff() {
@@ -22,13 +22,13 @@ class ForYouCoordinator(
 }
 
 @Composable
-fun rememberForYouCoordinator(
-    forYouViewModel: ForYouViewModel = hiltViewModel(),
+fun rememberHomeCoordinator(
+    homeViewModel: HomeViewModel = hiltViewModel(),
     userViewModel: UserViewModel = hiltViewModel()
-): ForYouCoordinator {
-    return remember(forYouViewModel) {
-        ForYouCoordinator(
-            forYouViewModel = forYouViewModel,
+): HomeCoordinator {
+    return remember(homeViewModel) {
+        HomeCoordinator(
+            homeViewModel = homeViewModel,
             userViewModel = userViewModel
         )
     }

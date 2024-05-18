@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.home.post.components
+package tech.mobile.social.presentation.app.post.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import tech.mobile.social.CommentsQuery
 import tech.mobile.social.R
 import tech.mobile.social.fragment.Posts
 import java.time.LocalDateTime

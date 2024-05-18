@@ -1,6 +1,7 @@
 package tech.mobile.social.shared
 
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    private val prefs: SharedPreferences,
     private val authUseCase: AuthUseCase,
 ) : ViewModel() {
 
@@ -114,6 +116,13 @@ class UserViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    fun checkLogin() {
+        val token = prefs.getString("token", null)
+        if (token != null) {
+            _stateFlow.value = _stateFlow.value.copy(isLogin = true)
         }
     }
 

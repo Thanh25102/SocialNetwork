@@ -1,4 +1,4 @@
-package tech.mobile.social.presentation.app.home.foryou.components
+package tech.mobile.social.presentation.app.home.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
@@ -50,6 +50,9 @@ fun ScrollButton(
                 visibility = if (firstVisibleItem.value <= 4) false else isScrollingUp
             ) {
                 scope.launch {
+                    /**
+                     * Scroll to first item in the list
+                     */
                     /**
                      * Scroll to first item in the list
                      */
