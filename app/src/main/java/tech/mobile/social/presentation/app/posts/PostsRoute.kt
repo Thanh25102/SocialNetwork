@@ -24,7 +24,8 @@ fun PostsRoute(
 fun rememberPostsActions(coordinator: PostsCoordinator): PostsActions {
     return remember(coordinator) {
         PostsActions(
-            onClick = coordinator::doStuff
+            onClick = coordinator::doCreatePost,
+            onContentChange = coordinator::doContentChange
         )
     }
 }
