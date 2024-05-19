@@ -41,18 +41,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import okhttp3.internal.wait
+
 import tech.mobile.social.Screens
 import tech.mobile.social.navigation.app.friend.FriendNavBar
-import tech.mobile.social.navigation.app.home.HomeNavBar
+
 import tech.mobile.social.presentation.app.home.HomeRoute
 import tech.mobile.social.presentation.app.notifications.NotificationsRoute
 import tech.mobile.social.presentation.app.posts.PostsRoute
 import tech.mobile.social.presentation.app.profile.ProfilesRoute
-import tech.mobile.social.ui.theme.NavigationBarTheme
+
 
 @Composable
-fun BottomNavigationBar(rootNavController: NavController) {
+fun BottomNavigationBar(onLogout: () -> Unit) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -154,7 +154,7 @@ fun BottomNavigationBar(rootNavController: NavController) {
                 NotificationsRoute()
             }
             composable(Screens.Profile.route) {
-                ProfilesRoute(navController)
+                ProfilesRoute(navController = navController, onLogout = onLogout)
             }
         }
     }

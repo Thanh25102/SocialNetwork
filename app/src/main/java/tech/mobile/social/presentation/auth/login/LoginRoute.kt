@@ -27,7 +27,9 @@ fun LoginRoute(
     navController: NavController,
     lifecycleScope: LifecycleCoroutineScope,
     googleAuthUiClient: GoogleAuthUiClient,
-    coordinator: LoginCoordinator = rememberLoginCoordinator(navController = navController)
+    onLogin: () -> Unit,
+    onLogout: () -> Unit,
+    coordinator: LoginCoordinator = rememberLoginCoordinator(navController = navController),
 ) {
 
 
@@ -46,6 +48,12 @@ fun LoginRoute(
             UserState()
         )
     )
+
+    LaunchedEffect(key1 = uiState.userState.isLogin) {
+        if (uiState.userState.isLogin) {
+            onLogin()
+        }
+    }
 
 
     // UI Actions

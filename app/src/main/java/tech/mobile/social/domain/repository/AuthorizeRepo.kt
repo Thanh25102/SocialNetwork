@@ -29,4 +29,6 @@ interface AuthorizeRepo {
         otp: String,
         password: String
     ): Result<Boolean, DataError.ServerErrors>
+
+    fun logout(): Unit
 }

@@ -38,7 +38,7 @@ class LoginCoordinator(
     }
 
     fun navApp() {
-        navController.navigate(Screens.AppRoot.route)
+        navController.navigate(Screens.Home.route)
     }
 
     fun navForgotPassword() {

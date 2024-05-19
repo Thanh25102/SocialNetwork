@@ -26,7 +26,7 @@ class ProfilesViewModel @Inject constructor(
     private val _stateFlow: MutableStateFlow<ProfilesState> = MutableStateFlow(ProfilesState())
     val stateFlow: StateFlow<ProfilesState> = _stateFlow.asStateFlow()
     var username: String = ""
-    fun onopenFriend() {
+    fun onOpenFriend() {
 
     }
 

@@ -82,8 +82,6 @@ object AppModule {
     @Provides
     @Singleton
     fun provideApolloClient(pref: SharedPreferences): ApolloClient {
-        val accessToken =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MmQ1NjYwZWU1ZWUyZTY1NjBmMzg1NSIsInVzZXJuYW1lIjoia2lkcDJoIiwiZW1haWwiOiJraWRwMmhAZ21haWwuY29tIiwiaWF0IjoxNzE0NjQ2OTAxLCJleHAiOjE3MjM2NDY5MDF9.yQxz419tB3FJBC9enlr4dbivaY3XgWjTAZyWGipWkdc";
         val customScalarAdapters = CustomScalarAdapters.Builder()
             .add(DateTime.type, dateTimeAdapter)
             .build()
@@ -92,7 +90,7 @@ object AppModule {
             .build()
 
         return ApolloClient.Builder()
-            .serverUrl("http://171.239.144.144:8334/graphql")
+            .serverUrl("http://171.239.136.117:8334/graphql")
             .httpEngine(
                 DefaultHttpEngine(httpEngine)
             )
@@ -100,8 +98,7 @@ object AppModule {
                 WebSocketNetworkTransport.Builder()
                     .protocol(GraphQLWsProtocol.Factory())
                     .okHttpClient(httpEngine)
-                    .serverUrl("ws://171.239.144.144:8334/graphql")
-
+                    .serverUrl("ws://171.239.136.117:8334/graphql")
                     .build()
             )
 
@@ -192,7 +189,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesPostUseCase(postRepo : PostRepo) : PostUseCase{
+    fun providesPostUseCase(postRepo: PostRepo): PostUseCase {
         return PostUseCaseImpl(postRepo)
     }
 
