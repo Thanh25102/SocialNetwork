@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -31,7 +32,7 @@ fun PostScreen(
         likes, isSheetOpen, isLiked, friends, commentsCount, comments, post
     ) = state
 
-    val painter = rememberCoilPainter("http://171.239.144.144:8334/" + post?.image)
+    val painter = rememberCoilPainter("http://171.239.136.117:8334/" + post?.image)
 
     if (post !== null) {
         Column(
@@ -90,12 +91,22 @@ fun PostScreen(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.weight(1f)
                 ) {
-                    Icon(
-                        painter = painterResource(id = drawable.favorite_24),
-                        contentDescription = "Favorite"
-                    )
+
+                    if (post.isLiked == true){
+                        Icon(
+                            painter = painterResource(id = drawable.favorite_liked_24 ),
+                            contentDescription = "Favorite",
+                            modifier = Modifier.clickable { actions.onReactionPost(post.id) }
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = drawable.favorite_24 ),
+                            contentDescription = "Favorite",
+                            modifier = Modifier.clickable { actions.onReactionPost(post.id) }
+                        )
+                    }
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = "${post.likes}")
+                    Text(text = likes.toString())
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically,

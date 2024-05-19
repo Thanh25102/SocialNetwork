@@ -1,5 +1,6 @@
 package tech.mobile.social.presentation.app.home
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -72,19 +73,20 @@ class HomeViewModel @Inject constructor(
                     response?.data?.user?.friends?.edges?.map {
                         it.node.friend.posts.posts.edges.map {
                             it.node.content?.let { it1 ->
-                                PostState(
-                                    id = it.node.id,
-                                    likes = it.node.reactions.edges.size,
-                                    commentsCount = it.node.comments.edges.size,
-                                    avatarResource = R.drawable.manhthanh_3x4,
-                                    content = it1,
-                                    sheetState = false,
-                                    imageResource = R.drawable.img,
-                                    authorName = it.node.user.username,
-                                    postTime = it.node.createdAt,
-                                    image = it.node.file?.path,
-                                    comments = it.node.comments
-                                )
+                                    PostState(
+                                        id = it.node.id,
+                                        likes = it.node.reactions.edges.size,
+                                        commentsCount = it.node.comments.edges.size,
+                                        avatarResource = R.drawable.manhthanh_3x4,
+                                        content = it1,
+                                        sheetState = false,
+                                        imageResource = R.drawable.img,
+                                        authorName = it.node.user.username,
+                                        postTime = it.node.createdAt,
+                                        image = it.node.file?.path,
+                                        comments = it.node.comments,
+                                        isLiked = it.node.isLike
+                                    )
                             }
                         }
                     }?.flatten() as List<PostState>? ?: emptyList()

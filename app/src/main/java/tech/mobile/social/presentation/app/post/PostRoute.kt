@@ -22,7 +22,6 @@ fun PostRoute(
     PostScreen(uiState, actions)
 }
 
-
 @Composable
 fun rememberPostActions(coordinator: PostCoordinator): PostActions {
     return remember(coordinator) {
@@ -30,7 +29,8 @@ fun rememberPostActions(coordinator: PostCoordinator): PostActions {
             onClick = coordinator::doStuff,
             onCloseComments = coordinator.viewModel::doCloseComments,
             onOpenComments = coordinator.viewModel::doOpenComments,
-            onSharePost = coordinator.viewModel::sharePost
+            onSharePost = coordinator.viewModel::sharePost,
+            onReactionPost = coordinator.viewModel::reactionPost,
         )
     }
 }

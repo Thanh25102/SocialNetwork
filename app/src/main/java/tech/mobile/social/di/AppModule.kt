@@ -101,10 +101,8 @@ object AppModule {
                     .protocol(GraphQLWsProtocol.Factory())
                     .okHttpClient(httpEngine)
                     .serverUrl("ws://171.239.136.117:8334/graphql")
-
                     .build()
             )
-
             .customScalarAdapters(customScalarAdapters)
             .build()
     }
