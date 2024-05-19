@@ -13,7 +13,7 @@ data class FriendRequestUiState(
 
 data class FriendRequestState(
 //    val friendRequests: FriendRequests = FriendRequests::class.java.getConstructor().newInstance(),
-    val friendRequests: List<FriendRequestQuery.Node>? = null,
+    val friendRequests: List<FriendRequestQuery.Node>? = emptyList(),
     var isLoading: Boolean = false,
     val error: String? = null,
     val after: Optional<String?> = Optional.Absent,

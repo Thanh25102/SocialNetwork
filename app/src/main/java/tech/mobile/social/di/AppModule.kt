@@ -82,6 +82,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideApolloClient(pref: SharedPreferences): ApolloClient {
+        val accessToken =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MmQ1NjYwZWU1ZWUyZTY1NjBmMzg1NSIsInVzZXJuYW1lIjoia2lkcDJoIiwiZW1haWwiOiJraWRwMmhAZ21haWwuY29tIiwiaWF0IjoxNzE0NjQ2OTAxLCJleHAiOjE3MjM2NDY5MDF9.yQxz419tB3FJBC9enlr4dbivaY3XgWjTAZyWGipWkdc";
         val customScalarAdapters = CustomScalarAdapters.Builder()
             .add(DateTime.type, dateTimeAdapter)
             .build()
@@ -189,7 +191,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesPostUseCase(postRepo: PostRepo): PostUseCase {
+    fun providesPostUseCase(postRepo : PostRepo) : PostUseCase{
         return PostUseCaseImpl(postRepo)
     }
 

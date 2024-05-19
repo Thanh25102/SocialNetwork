@@ -11,14 +11,18 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import tech.mobile.social.CommentsQuery
+import tech.mobile.social.CreatePostMutation
+import tech.mobile.social.PostQuery
 import tech.mobile.social.domain.usecase.interfaces.CommentUseCase
+import tech.mobile.social.domain.usecase.interfaces.PostUseCase
 import tech.mobile.social.type.CommentWhereInput
 import javax.inject.Inject
 
 @HiltViewModel
 class PostViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val commentUseCase: CommentUseCase
+    private val commentUseCase: CommentUseCase,
+    private val postUseCase: PostUseCase
 ) : ViewModel() {
     private val _stateFlow = MutableStateFlow(
         State(
@@ -53,6 +57,20 @@ class PostViewModel @Inject constructor(
             when (val result = commentUseCase.getComments(take, after, filter)) {
                 is ApolloResponse<CommentsQuery.Data> -> {
                     _stateFlow.value.comments = result.data?.comments?.edges?.map { it.node }
+                }
+
+                null -> {
+
+                }
+            }
+        }
+    }
+
+    fun sharePost(postId: String) {
+        viewModelScope.launch {
+            when (val result = postUseCase.Createpost(Optional.present(postId), Optional.Absent, Optional.Absent)) {
+                is ApolloResponse<CreatePostMutation.Data> -> {
+
                 }
 
                 null -> {

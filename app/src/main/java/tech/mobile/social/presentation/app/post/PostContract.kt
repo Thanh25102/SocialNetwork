@@ -46,4 +46,5 @@ data class PostActions(
     val onClick: () -> Unit = {},
     val onOpenComments: () -> Unit = {},
     val onCloseComments: () -> Unit = {},
+    val onSharePost: (String) -> Unit = {}
 )

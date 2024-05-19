@@ -13,6 +13,6 @@ import java.time.LocalDateTime
 
 interface PostRepo {
     suspend fun GetPosts(): Result<Posts, DataError.ServerErrors>
-    suspend fun CreatePost(id: Optional<String?>, content: String, createdAt: LocalDateTime): ApolloResponse<CreatePostMutation.Data>
+    suspend fun CreatePost(id: Optional<String?>, content: Optional<String?>, file: Optional<Any?>): ApolloResponse<CreatePostMutation.Data>
     suspend fun NewsFeed(take: Optional<Int?>, after: Optional<String?>): ApolloResponse<NewsfeedQuery.Data>?
 }

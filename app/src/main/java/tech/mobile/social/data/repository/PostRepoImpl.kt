@@ -47,12 +47,15 @@ class PostRepoImpl(
 
     override suspend fun CreatePost(
         id: Optional<String?>,
-        content: String,
-        createdAt: LocalDateTime,
+        content: Optional<String?>,
+        file: Optional<Any?>,
+//        createdAt: LocalDateTime,
     ): ApolloResponse<CreatePostMutation.Data> {
         val result = apolloClient.mutation(
             CreatePostMutation(
-                Optional.present(content)
+                content,
+                file,
+                id,
             )
         ).execute()
 
