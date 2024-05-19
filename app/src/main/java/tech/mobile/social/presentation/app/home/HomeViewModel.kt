@@ -83,7 +83,8 @@ class HomeViewModel @Inject constructor(
                                     authorName = it.node.user.username,
                                     postTime = it.node.createdAt,
                                     image = it.node.file?.path,
-                                    comments = it.node.comments
+                                    comments = it.node.comments,
+                                    imagePostShared = null
                                 )
                             }
                         }

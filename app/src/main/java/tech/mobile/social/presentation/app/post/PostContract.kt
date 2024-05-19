@@ -1,6 +1,7 @@
 package tech.mobile.social.presentation.app.post
 
 import tech.mobile.social.CommentsQuery
+import tech.mobile.social.PostSharedSubscription
 import java.time.LocalDateTime
 
 
@@ -35,7 +36,9 @@ data class PostState(
     var content: String = "",
     var imageResource: Int? = null,
     var sheetState: Boolean = false,
-    var image: String? = null
+    var image: String? = null,
+    var sharedPost: PostSharedSubscription.Post1? = null,
+    var imagePostShared: String?,
 )
 
 /**

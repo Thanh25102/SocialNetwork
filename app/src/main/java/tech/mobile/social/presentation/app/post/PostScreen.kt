@@ -1,13 +1,21 @@
 package tech.mobile.social.presentation.app.post
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.coil.rememberCoilPainter
 import tech.mobile.social.R.drawable
 import tech.mobile.social.presentation.app.post.components.CommentsComponent
+import tech.mobile.social.presentation.app.post.components.ShareButtonDialog
 import tech.mobile.social.presentation.utils.formatTimeAgo
 import java.time.LocalDateTime
 
@@ -31,7 +40,9 @@ fun PostScreen(
         likes, isSheetOpen, isLiked, friends, commentsCount, comments, post
     ) = state
 
-    val painter = rememberCoilPainter("http://171.239.144.144:8334/" + post?.image)
+    val painter = rememberCoilPainter("http://171.239.136.117:8334/" + post?.image)
+
+    val (isDialogShown, setIsDialogShown) = rememberSaveable { mutableStateOf(false) }
 
     if (post !== null) {
         Column(
@@ -59,18 +70,72 @@ fun PostScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(text = post.content)
+            if(post.content == "") {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                    shape = RoundedCornerShape(0),
+                    border = BorderStroke(1.dp, Color.Black),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 8.dp, 16.dp)
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Image(
+                                painter = painterResource(
+                                    id = drawable.manhthanh_3x4
+                                ),
+                                contentDescription = "Avatar",
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .clip(CircleShape),
+                                contentScale = ContentScale.Crop
+                            )
 
-            Spacer(modifier = Modifier.height(8.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
 
+                            Column {
+                                post.sharedPost?.user?.username?.let {
+                                    Text(
+                                        text = it,
+                                    )
+                                }
+                                Text(text = formatTimeAgo(LocalDateTime.now()))
+                            }
+                        }
 
-            post.image?.let {
-                Image(
-                    painter = painter,
-                    contentDescription = "Post Image",
-                    modifier = Modifier.fillMaxWidth(),
-                    contentScale = ContentScale.Crop
-                )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        post?.sharedPost?.content?.let { Text(text = it) }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        post.sharedPost?.file?.let {
+                            Image(
+                                painter = painterResource(id = drawable.img),
+                                contentDescription = "Post Image",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .border(0.dp, Color.Transparent, CircleShape),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                    }
+                }
+            } else {
+                Text(text = post.content)
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                post.image?.let {
+                    Image(
+                        painter = painterResource(id = drawable.img),
+                        contentDescription = "Post Image",
+                        modifier = Modifier.fillMaxWidth(),
+                        contentScale = ContentScale.Crop
+                    )
+                }
             }
 
             HorizontalDivider(
@@ -116,7 +181,9 @@ fun PostScreen(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier
                         .weight(1f)
-                        .clickable { actions.onSharePost(post.id) }
+                        .clickable {
+                            setIsDialogShown(true)
+                        }
                 ) {
                     Icon(
                         painter = painterResource(id = drawable.share_24),
@@ -132,6 +199,21 @@ fun PostScreen(
         }
     } else {
         Text(text = "Đã xảy ra lỗi khi cố gắng hiển thị bài viết. Vui lòng thử lại sau.")
+    }
+
+    if(isDialogShown) {
+        ShareButtonDialog(
+            onConfirm = {
+                // call api share
+                if (post !== null) {
+                    actions.onSharePost(post.id)
+                }
+                setIsDialogShown(false)
+            },
+            onDismiss = {
+                setIsDialogShown(false)
+            }
+        )
     }
 }
 

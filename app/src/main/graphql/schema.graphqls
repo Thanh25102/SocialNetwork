@@ -967,7 +967,7 @@ type Mutation {
 
   pushNotification: Boolean
 
-  reaction_post(postId: String!): Reaction!
+  reaction_post(postId: String!): Reaction
 
   register(input: UserCreateInput!): User
 
@@ -2189,6 +2189,8 @@ type Post {
   file: Asset
 
   id: ID!
+
+  isLike: Boolean
 
   notifications: [Notification!]
 
@@ -3967,6 +3969,8 @@ input StringNullableFilter {
 
 type Subscription {
   comment_added: Comment!
+
+  postShared: Post!
 
   reaction_added: Reaction!
 
