@@ -145,7 +145,7 @@ fun InputApp(
             singleLine = true,
             leadingIcon = {
                 Icon(
-                    imageVector = imageVector ?: Icons.Filled.Person,
+                    imageVector = imageVector ?: Icons.Filled.CommentBank,
                     contentDescription = label,
                     modifier = iconModifier
                 )
@@ -171,6 +171,31 @@ fun InputApp(
             )
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CommentApp(
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    imageVector: ImageVector
+) {
+    OutlinedTextField(
+        value = "",
+        onValueChange = onValueChange,
+        modifier = modifier,
+        leadingIcon = {
+            Icon(imageVector, contentDescription = null)
+        },
+        placeholder = {
+            Text("Enter comment")
+        },
+        singleLine = true,
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        )
+    )
 }
 
 @Composable
