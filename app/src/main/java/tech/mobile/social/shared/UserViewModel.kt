@@ -1,6 +1,7 @@
 package tech.mobile.social.shared
 
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
@@ -14,14 +15,14 @@ import kotlinx.coroutines.launch
 import tech.mobile.social.domain.Result
 import tech.mobile.social.domain.model.auth.User
 import tech.mobile.social.domain.repository.AuthorizeRepo
-import tech.mobile.social.domain.usecase.interfaces.AuthUseCase
+
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val prefs: SharedPreferences,
-    private val authUseCase: AuthUseCase,
+    private val authorizeRepo: AuthorizeRepo
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<UserState> = MutableStateFlow(UserState())
@@ -44,7 +45,7 @@ class UserViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            when (val access = authUseCase.login(username, password)) {
+            when (val access = authorizeRepo.login(username, password)) {
                 is Result.Success -> {
                     _stateFlow.value =
                         UserState(
@@ -68,14 +69,14 @@ class UserViewModel @Inject constructor(
     fun doLoginGoogle(fullname: String, email: String) {
         viewModelScope.launch {
             when (
-                val result = authUseCase.register(
+                val result = authorizeRepo.register(
                     fullname = fullname,
                     email = email,
                     password = email
                 )
             ) {
                 is Result.Error -> {
-                    when (val access = authUseCase.login(email, email)) {
+                    when (val access = authorizeRepo.login(email, email)) {
                         is Result.Success -> {
                             _stateFlow.value =
                                 UserState(
@@ -96,7 +97,7 @@ class UserViewModel @Inject constructor(
                 }
 
                 is Result.Success -> {
-                    when (val access = authUseCase.login(email, email)) {
+                    when (val access = authorizeRepo.login(email, email)) {
                         is Result.Success -> {
                             _stateFlow.value =
                                 UserState(
@@ -124,6 +125,18 @@ class UserViewModel @Inject constructor(
         if (token != null) {
             _stateFlow.value = _stateFlow.value.copy(isLogin = true)
         }
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    fun doLogout() {
+        prefs.edit().remove("token")
+        _stateFlow.value =
+            UserState(
+                user = null,
+                isLogin = false,
+                isLoading = false,
+                errMsg = null
+            )
     }
 
 }

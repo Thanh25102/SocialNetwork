@@ -36,25 +36,18 @@ fun PostsScreen(
     state: PostsState,
     actions: PostsActions,
 
-) {
+    ) {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Tạo bài viết")
+                    Text(text = "Tạo bài viết", color = MaterialTheme.colorScheme.primary)
                 },
-                navigationIcon = {
-                    IconButton(onClick = { /*navController.navigate(Screens.AppRoot.route)*/ }) { // please check this
-                        Icon(
-                            imageVector = Icons.Default.ArrowBackIosNew,
-                            contentDescription = "Go back"
-                        )
-                    }
-                },
+
                 actions = {
-                    IconButton(onClick = { actions.onClick }) { // please check this too
+                    IconButton(onClick = { actions.onClick() }) { // please check this too
                         Icon(
                             imageVector = Icons.Default.Create,
                             contentDescription = "Create post"
@@ -69,7 +62,10 @@ fun PostsScreen(
                 .fillMaxSize()
                 .padding(it)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.padding(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.manhthanh_3x4),
                     contentDescription = "Avatar",
@@ -78,69 +74,26 @@ fun PostsScreen(
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop
                 )
+
                 Spacer(modifier = Modifier.width(8.dp))
-                var expanded by remember { mutableStateOf(false) }
-                val options = listOf("Public", "Private")
-                var selectedIndex by remember { mutableStateOf(0) }
 
                 Column(modifier = Modifier.padding(8.dp)) {
-                    Text(text = "Nguyen Tri Thanh", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                    Button(
-                        onClick = { },
-                        colors = ButtonDefaults.buttonColors(BtnColor),
-                        shape = RoundedCornerShape(10.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                        ) {
-                            Text("Công khai")
-                            Icon(
-                                imageVector = Icons.Filled.ArrowDropDown,
-                                contentDescription = "Xổ xuống",
-                                modifier = Modifier.padding(start = 4.dp)
-                            )
-                        }
-
-                    }
+                    Text(text = "Bùi Mạnh Thành", fontWeight = FontWeight.Bold, fontSize = 18.sp)
                 }
 
             }
+
             TextField(
-                value = "",
-                onValueChange = {},
+                value = state.content,
+                onValueChange = {
+                    actions.onContentChange(it)
+                },
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
                 placeholder = { Text("Bạn đang nghĩ gì?") },
             )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 12.dp, end = 12.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Row(modifier = Modifier.align(Alignment.CenterVertically)) {
-                    IconButton(onClick = { /* handle click */ }) {
-                        Icon(
-                            Icons.Rounded.Image,
-                            contentDescription = "Image"
-                        )
-                    }
-                    Text(text = "Ảnh hoặc video", modifier = Modifier.align(Alignment.CenterVertically))
-                }
 
-                Row(modifier = Modifier.align(Alignment.CenterVertically)) {
-                    IconButton(onClick = { /*navController.navigate(Screens.AppRoot.route)*/ }) { //check this navigate please
-                        Icon(
-                            Icons.Rounded.GroupAdd,
-                            contentDescription = "Add friends"
-                        )
-                    }
-                    Text(text = "Gắn thẻ bạn bè", modifier = Modifier.align(Alignment.CenterVertically))
-                }
-            }
         }
     }
 

@@ -1,0 +1,16 @@
+mutation ReactionPost($postId: String!) {
+    reaction: reaction_post(postId: $postId) {
+        id
+        user {
+            id
+        }
+        post {
+            id
+            user {
+                id
+                username
+                email
+            }
+        }
+    }
+}

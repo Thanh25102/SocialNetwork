@@ -1,5 +1,7 @@
 package tech.mobile.social.presentation.app.home
 
+import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    private val prefs: SharedPreferences,
     private val postUseCase: PostUseCase
 ) : ViewModel() {
 
@@ -67,30 +70,59 @@ class HomeViewModel @Inject constructor(
     suspend fun _getPosts(take: Optional<Int?>, after: Optional<String?>): Result<List<PostState>> =
         withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
             try {
-                val response = postUseCase.NewsFeed(take, after)
-                Result.success(
-                    response?.data?.user?.friends?.edges?.map {
+                val response = postUseCase.NewsFeed(take, after);
+                var data: List<PostState>;
+
+                if(response?.data?.user?.friends?.edges?.get(0)?.node?.friend?.id == prefs.getString("id", "")){
+                   data = response?.data?.user?.friends?.edges?.map {
+                       it.node.user.posts.posts.edges.map {
+                           it.node.content?.let { it1 ->
+                               PostState(
+                                   id = it.node.id,
+                                   likes = it.node.reactions.edges.size,
+                                   commentsCount = it.node.comments.edges.size,
+                                   avatarResource = R.drawable.manhthanh_3x4,
+                                   content = it1,
+                                   sheetState = false,
+                                   imageResource = R.drawable.img,
+                                   authorName = it.node.user.username,
+                                   postTime = it.node.createdAt,
+                                   image = it.node.file?.path,
+                                   comments = it.node.comments
+                                    imagePostShared = null
+                               )
+                           }
+                       }
+                   }?.flatten() as List<PostState>? ?: emptyList()
+                }else {
+                    data = response?.data?.user?.friends?.edges?.map {
                         it.node.friend.posts.posts.edges.map {
                             it.node.content?.let { it1 ->
-                                PostState(
-                                    id = it.node.id,
-                                    likes = it.node.reactions.edges.size,
-                                    commentsCount = it.node.comments.edges.size,
-                                    avatarResource = R.drawable.manhthanh_3x4,
-                                    content = it1,
-                                    sheetState = false,
-                                    imageResource = R.drawable.img,
-                                    authorName = it.node.user.username,
-                                    postTime = it.node.createdAt,
-                                    image = it.node.file?.path,
-                                    comments = it.node.comments,
-                                    imagePostShared = null
-                                )
+                                    PostState(
+                                        id = it.node.id,
+                                        likes = it.node.reactions.edges.size,
+                                        commentsCount = it.node.comments.edges.size,
+                                        avatarResource = R.drawable.manhthanh_3x4,
+                                        content = it1,
+                                        sheetState = false,
+                                        imageResource = R.drawable.img,
+                                        authorName = it.node.user.username,
+                                        postTime = it.node.createdAt,
+                                        image = it.node.file?.path,
+                                        comments = it.node.comments,
+                                        isLiked = it.node.isLike
+                                        imagePostShared = null
+                                    )
                             }
                         }
                     }?.flatten() as List<PostState>? ?: emptyList()
+                }
+
+                Result.success(
+                    data
                 )
             } catch (e: Exception) {
+                Log.d("HomeViewModel",e.toString())
                 Result.failure(e)
             }
         }

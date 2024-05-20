@@ -37,7 +37,8 @@ class PostRepoImpl(
                     it1,
                     it.node.createdAt ?: Date(),
                     User(it.node.user.id, it.node.user.username),
-                    it.node.file?.path
+                    it.node.file?.path,
+                    it.node.isLike
                 )
             }
         } ?: emptyList()

@@ -17,9 +17,12 @@ class PostsCoordinator(
 ) {
     val screenStateFlow = viewModel.stateFlow
 
-    fun doStuff() {
+    fun doCreatePost() {
         viewModel.createPost()
+    }
 
+    fun doContentChange(content: String) {
+        viewModel.doContentChange(content)
     }
 
 

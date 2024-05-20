@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -155,12 +156,22 @@ fun PostScreen(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.weight(1f)
                 ) {
-                    Icon(
-                        painter = painterResource(id = drawable.favorite_24),
-                        contentDescription = "Favorite"
-                    )
+
+                    if (post.isLiked == true){
+                        Icon(
+                            painter = painterResource(id = drawable.favorite_liked_24 ),
+                            contentDescription = "Favorite",
+                            modifier = Modifier.clickable { actions.onReactionPost(post.id) }
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = drawable.favorite_24 ),
+                            contentDescription = "Favorite",
+                            modifier = Modifier.clickable { actions.onReactionPost(post.id) }
+                        )
+                    }
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = "${post.likes}")
+                    Text(text = likes.toString())
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically,

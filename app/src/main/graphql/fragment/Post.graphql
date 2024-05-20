@@ -2,6 +2,7 @@ fragment Posts on User {
     posts(take: $take, after: $after) {
         edges {
             node {
+                isLike
                 id
                 content
                 user {

@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 
 @Composable
 fun ProfilesRoute(
+    onLogout: () -> Unit,
     navController: NavController,
     coordinator: ProfilesCoordinator = rememberProfilesCoordinator(navController = navController)
 ) {
@@ -18,7 +19,7 @@ fun ProfilesRoute(
     val actions = rememberProfilesActions(coordinator)
 
     // UI Rendering
-    ProfilesScreen(uiState, actions)
+    ProfilesScreen(uiState, actions, onLogout)
 }
 
 
@@ -27,7 +28,8 @@ fun rememberProfilesActions(coordinator: ProfilesCoordinator): ProfilesActions {
     return remember(coordinator) {
         ProfilesActions(
             onClick = coordinator::doOpenFriend,
-            onopenFriend = coordinator.viewModel::onopenFriend
+            onOpenFriend = coordinator.profileModel::onOpenFriend,
+            onLogout = coordinator::doLogout
         )
     }
 }
