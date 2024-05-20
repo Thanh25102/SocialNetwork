@@ -92,7 +92,7 @@ object AppModule {
             .build()
 
         return ApolloClient.Builder()
-            .serverUrl("http://171.239.136.117:8334/graphql")
+            .serverUrl("http://localhost:8334/graphql")
             .httpEngine(
                 DefaultHttpEngine(httpEngine)
             )
@@ -100,7 +100,8 @@ object AppModule {
                 WebSocketNetworkTransport.Builder()
                     .protocol(GraphQLWsProtocol.Factory())
                     .okHttpClient(httpEngine)
-                    .serverUrl("ws://171.239.136.117:8334/graphql")
+                    .serverUrl("ws://localhost:8334/graphql")
+
                     .build()
             )
 
