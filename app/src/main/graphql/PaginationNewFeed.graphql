@@ -4,6 +4,13 @@ query Newsfeed($take: Int, $after: String) {
             edges {
                 node {
                     friend {
+                        id
+                        username
+                        email
+                        ...Posts
+                    }
+                    user {
+                        id
                         username
                         email
                         ...Posts

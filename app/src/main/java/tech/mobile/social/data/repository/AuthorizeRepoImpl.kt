@@ -1,5 +1,6 @@
 package tech.mobile.social.data.repository
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.util.Log
 import com.apollographql.apollo3.ApolloClient
@@ -23,6 +24,7 @@ class AuthorizeRepoImpl(
     private val apolloClient: ApolloClient, private val pref: SharedPreferences
 ) : AuthorizeRepo {
 
+    @SuppressLint("CommitPrefEdits")
     override suspend fun login(
         email: String,
         password: String
@@ -40,6 +42,7 @@ class AuthorizeRepoImpl(
 
             result.data?.authorize?.accessToken.also { token ->
                 pref.edit().putString("token", token).apply()
+                pref.edit().putString("id", result.data?.authorize?.user?.id).apply()
             }
 
             if (!result.hasErrors()) {
