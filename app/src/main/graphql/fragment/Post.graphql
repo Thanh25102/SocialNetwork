@@ -13,6 +13,23 @@ fragment Posts on User {
                 file {
                     path
                 }
+              post {
+                id
+                content
+                file {
+                    path
+                }
+                user {
+                  fullname
+                  id
+                  username
+                  avatar {
+                    type
+                    path
+
+                  }
+                }
+              }
                 reactions {
                     edges {
                         node {

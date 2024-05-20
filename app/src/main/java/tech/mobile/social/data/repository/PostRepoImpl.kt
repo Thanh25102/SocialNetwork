@@ -1,12 +1,17 @@
 package tech.mobile.social.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
+import com.apollographql.apollo3.exception.ApolloException
+import kotlinx.coroutines.flow.Flow
+import tech.mobile.social.CommentAddedSubscription
 import tech.mobile.social.CreatePostMutation
 import tech.mobile.social.NewsfeedQuery
 import tech.mobile.social.PostQuery
+import tech.mobile.social.PostSharedSubscription
 import tech.mobile.social.domain.DataError
 import tech.mobile.social.domain.Result
 import tech.mobile.social.domain.model.post.PageInfo
@@ -74,6 +79,17 @@ class PostRepoImpl(
             )
         ).execute()
         return result;
+    }
+
+    override suspend fun handlePostShared(): Flow<ApolloResponse<PostSharedSubscription.Data>>? {
+        try {
+            val result = apolloClient
+                .subscription(PostSharedSubscription()).toFlow();
+            return result;
+        } catch (e: ApolloException) {
+            Log.d("real time error", e.stackTraceToString())
+            return null;
+        }
     }
 
 }

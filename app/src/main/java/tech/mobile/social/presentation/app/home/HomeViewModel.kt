@@ -89,6 +89,7 @@ class HomeViewModel @Inject constructor(
                                    postTime = it.node.createdAt,
                                    image = it.node.file?.path,
                                    comments = it.node.comments
+                                    imagePostShared = null
                                )
                            }
                        }
@@ -110,6 +111,7 @@ class HomeViewModel @Inject constructor(
                                         image = it.node.file?.path,
                                         comments = it.node.comments,
                                         isLiked = it.node.isLike
+                                        imagePostShared = null
                                     )
                             }
                         }

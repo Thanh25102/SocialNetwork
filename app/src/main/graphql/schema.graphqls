@@ -3970,6 +3970,8 @@ input StringNullableFilter {
 type Subscription {
   comment_added: Comment!
 
+  postShared: Post!
+
   reaction_added: Reaction!
 
   request_added: Request!

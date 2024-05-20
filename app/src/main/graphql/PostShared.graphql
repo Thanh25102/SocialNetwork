@@ -1,0 +1,22 @@
+subscription postShared {
+  post: postShared {
+    id
+    user {
+      id
+      username
+      fullname
+    }
+    post {
+      user {
+        id
+        username
+        fullname
+      }
+      content
+      file {
+        path
+        type
+      }
+    }
+  }
+}
