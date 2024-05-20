@@ -134,4 +134,7 @@ class AuthorizeRepoImpl(
         }
     }
 
+    override fun logout() {
+        pref.edit().remove("token").apply()
+    }
 }

@@ -14,5 +14,6 @@ data class ProfilesState(val posts: List<PostState?>? = emptyList())
  **/
 data class ProfilesActions(
     val onClick: () -> Unit = {},
-    val onopenFriend: () -> Unit = {}
+    val onOpenFriend: () -> Unit = {},
+    val onLogout: () -> Unit = {}
 )

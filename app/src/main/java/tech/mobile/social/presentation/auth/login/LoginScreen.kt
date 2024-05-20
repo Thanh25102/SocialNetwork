@@ -39,8 +39,7 @@ fun LoginScreen(
     onLoginGoogle: () -> Unit,
     email: String = ""
 ) {
-
-    actions.checkLogin()
+    
 
     LaunchedEffect(key1 = Unit) {
         if (email != "") {
@@ -48,11 +47,6 @@ fun LoginScreen(
         }
     }
 
-    LaunchedEffect(key1 = state.userState.isLogin) {
-        if (state.userState.isLogin) {
-            actions.navApp()
-        }
-    }
 
 
     LoadingDialog(isLoading = state.userState.isLoading)
