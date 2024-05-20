@@ -2,6 +2,7 @@ query post($take: Int, $after: String) {
     posts(take: $take, after: $after) {
         edges {
             node {
+                isLike
                 id
                 content
                 createdAt

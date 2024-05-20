@@ -8,7 +8,7 @@ import java.time.LocalDateTime
  * UI State that represents PostScreen
  **/
 data class State(
-    val likes: Int,
+    var likes: Int,
     val sheetState: Boolean = false,
     val isLiked: Boolean,
     val friends: List<String>,
@@ -35,7 +35,8 @@ data class PostState(
     var content: String = "",
     var imageResource: Int? = null,
     var sheetState: Boolean = false,
-    var image: String? = null
+    var image: String? = null,
+    var isLiked: Boolean? = false
 )
 
 /**
@@ -46,5 +47,6 @@ data class PostActions(
     val onClick: () -> Unit = {},
     val onOpenComments: () -> Unit = {},
     val onCloseComments: () -> Unit = {},
-    val onSharePost: (String) -> Unit = {}
+    val onSharePost: (String) -> Unit = {},
+    val onReactionPost: (postId: String) -> Unit = {}
 )

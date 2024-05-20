@@ -1,5 +1,6 @@
 package tech.mobile.social.presentation.app.post
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,9 +13,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import tech.mobile.social.CommentsQuery
 import tech.mobile.social.CreatePostMutation
-import tech.mobile.social.PostQuery
+import tech.mobile.social.ReactionPostMutation
 import tech.mobile.social.domain.usecase.interfaces.CommentUseCase
 import tech.mobile.social.domain.usecase.interfaces.PostUseCase
+import tech.mobile.social.domain.usecase.interfaces.ReactionUseCase
 import tech.mobile.social.type.CommentWhereInput
 import javax.inject.Inject
 
@@ -22,30 +24,27 @@ import javax.inject.Inject
 class PostViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val commentUseCase: CommentUseCase,
-    private val postUseCase: PostUseCase
+    private val postUseCase: PostUseCase,
+    private val reactionUseCase: ReactionUseCase
 ) : ViewModel() {
     private val _stateFlow = MutableStateFlow(
         State(
-            52, false, false, listOf("Phương Nghi", "Phương Uyên"), 50,
-            listOf(),
-            null
+            likes = 52,
+            sheetState = false,
+            isLiked = false,
+            friends = listOf("Phương Nghi", "Phương Uyên"),
+            commentsCount = 50,
+            comments = emptyList(),
+            post = null
         )
     )
     val stateFlow: StateFlow<State> = _stateFlow.asStateFlow()
 
     init {
-        val comments = getComments(Optional.present(10), Optional.Present(null), Optional.Absent);
-        viewModelScope.launch {
-//            friendRequestUseCase.requestAdded()?.collect{ it.data?.request?.let { _it ->
-//                Log.d("it",
-//                    _it.requestFragment.id
-//                )
-//
-//                val currentList = _stateFlow.value.friendRequests?.toMutableList()
-//                currentList?.add(FriendRequestQuery.Node(_it.requestFragment.__typename,_it.requestFragment))
-//                _stateFlow.value = _stateFlow.value.copy(friendRequests = currentList)
-//            } }
-        }
+        getComments(Optional.present(10), Optional.Present(null), Optional.Absent)
+        _stateFlow.value = _stateFlow.value.copy(
+            likes = _stateFlow.value.post?.likes ?: 0
+        )
     }
 
     fun getComments(
@@ -56,11 +55,12 @@ class PostViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = commentUseCase.getComments(take, after, filter)) {
                 is ApolloResponse<CommentsQuery.Data> -> {
-                    _stateFlow.value.comments = result.data?.comments?.edges?.map { it.node }
+                    _stateFlow.value = _stateFlow.value.copy(
+                        comments = result.data?.comments?.edges?.map { it.node }
+                    )
                 }
-
-                null -> {
-
+                else -> {
+                    // handle error
                 }
             }
         }
@@ -70,23 +70,41 @@ class PostViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = postUseCase.Createpost(Optional.present(postId), Optional.Absent, Optional.Absent)) {
                 is ApolloResponse<CreatePostMutation.Data> -> {
-
+                    // handle success
                 }
-
-                null -> {
-
+                else -> {
+                    // handle error
                 }
             }
         }
     }
 
+    fun reactionPost(postId: String) {
+        viewModelScope.launch {
+            val result = reactionUseCase.reactionPost(postId)
+            if (result?.data?.reaction != null) {
+                Log.e("REACTION", "SUCCESS")
+                _stateFlow.value = _stateFlow.value.copy(
+                    likes = _stateFlow.value.likes + 1,
+                    post = _stateFlow.value.post?.copy(likes = _stateFlow.value.post?.likes?.plus(1)),
+                    isLiked = true
+                )
+            } else {
+                Log.e("REACTION", "FAILED")
+                _stateFlow.value = _stateFlow.value.copy(
+                    likes = _stateFlow.value.likes - 1,
+                    post = _stateFlow.value.post?.copy(likes = _stateFlow.value.post?.likes?.minus(1)),
+                    isLiked = false
+                )
+            }
+        }
+    }
+
     fun doCloseComments() {
-        val currentState = _stateFlow.value
-        _stateFlow.value = currentState.copy(sheetState = false)
+        _stateFlow.value = _stateFlow.value.copy(sheetState = false)
     }
 
     fun doOpenComments() {
-        val currentState = _stateFlow.value
-        _stateFlow.value = currentState.copy(sheetState = true)
+        _stateFlow.value = _stateFlow.value.copy(sheetState = true)
     }
 }
